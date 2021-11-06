@@ -1,19 +1,33 @@
 /**index.wxss**/
-.userinfo {
+.container{
+  width: 100%;
+  height: 100%;
+  padding-bottom: 10px;
+}
+
+.userWrap{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #aaa;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.userItem{
+  flex-basis: 45%;
+  margin: 10px 0 0 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.userItem .imgWrap{
+  height: 200px;
 }
 
-.usermotto {
-  margin-top: 200px;
+.userItem .name{
+  text-align: center;
+  font-size: 18px;
+}
+
+.userItem .info{
+  color: #999999;
+  text-align: center;
 }

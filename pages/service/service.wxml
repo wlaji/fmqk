@@ -1,0 +1,5 @@
+<!--pages/service/service.wxml-->
+<!--index.wxml-->
+<view class="container">
+  客服
+</view>

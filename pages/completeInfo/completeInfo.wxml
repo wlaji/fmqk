@@ -1,0 +1,4 @@
+<!--pages/completeInfo/completeInfo.wxml-->
+<view class="container">
+    完善信息页
+</view>

@@ -1,23 +1,18 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <block wx:if="{{canIUseOpenData}}">
-      <view class="userinfo-avatar" bindtap="bindViewTap">
-        <open-data type="userAvatarUrl"></open-data>
-      </view>
-      <open-data type="userNickName"></open-data>
-    </block>
-    <block wx:elif="{{!hasUserInfo}}">
-      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-      <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-      <view wx:else> 请使用1.4.4及以上版本基础库 </view>
-    </block>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+    <view class="userWrap">
+        <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{index}}">
+            <view class="imgWrap">
+                <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill" src="{{item.src}}">
+                </image>
+            </view>
+            <view class="name">{{item.name}}</view>
+            <view class="info">{{item.age}} {{item.location}}</view>
+        </view>
+    </view>
+    <view style="text-align: center;margin: 10px;">
+      <view wx:if="{{loading}}">加载中...</view>
+      <view wx:if="{{noMore}}">没有更多了</view>
+      <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
+    </view>
 </view>
