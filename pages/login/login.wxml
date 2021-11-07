@@ -1,4 +1,21 @@
 <!--pages/login/login.wxml-->
 <view class="container">
-    登录
+    <mp-form id="form" rules="{{rules}}" models="{{form}}">
+        <mp-cells>
+            <mp-cell class="form_item" prop="telNumber">
+                <input value="{{form.telNumber}}"  bindinput="formInputChange" data-field="telNumber" placeholder="请输入手机号码" />
+            </mp-cell>
+            <mp-cell class="form_item" prop="code">
+                <input value="{{form.code}}"  bindinput="formInputChange" data-field="code" placeholder="请输入验证码" />
+                <view slot="footer">
+                   <text style="color:#965b96" bindtap="getCode">获取验证码</text>
+                </view>
+            </mp-cell>
+        </mp-cells>
+        <!--提交按钮-->
+        <view class="submit_btn_wrap" style="margin-top:20px;text-align:center;">
+            <my-button innerText="登录" bindtap="weSubmitForm"></my-button>
+        </view>
+    </mp-form>
+    <mp-toptips msg="{{errorMsg}}" type="error" show="{{errorMsg}}" delay="1500"></mp-toptips>
 </view>

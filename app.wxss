@@ -1,4 +1,5 @@
 /**app.wxss**/
+@import './icon.wxss';
 .container {
   box-sizing: border-box;
 } 

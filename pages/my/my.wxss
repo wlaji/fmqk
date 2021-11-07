@@ -16,17 +16,6 @@
     align-items: center;
 }
 
-.btnWrap .btn1 {
-    display: inline-block;
-    width: 600rpx;
-    padding: 8px 10px;
-    color: #fff;
-    background: linear-gradient(to right, #965b96, hsl(300, 62%, 40%));
-    text-align: center;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
 .btnWrap .btn2 {
     margin-top: 10px;
     display: inline-block;

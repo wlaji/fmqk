@@ -1,0 +1,4 @@
+<!--components/myButton/myButton.wxml-->
+<view class="btn">
+  {{innerText}}
+</view>

@@ -5,62 +5,66 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        form: {
+            telNumber: '',
+            code: ''
+        },
+        errorMsg: '', // 验证表单显示错误信息
+        rules: [{
+            name: 'telNumber',
+            rules: [{
+                required: true,
+                message: '请输入手机号码'
+            }, {
+                mobile: true,
+                message: '电话格式不对'
+            }]
+        }, {
+            name: 'code',
+            rules: [{
+                required: true,
+                message: '请输入验证码'
+            }]
+        }],
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-
+    formInputChange(e) {
+        const {
+            field
+        } = e.currentTarget.dataset
+        this.setData({
+            [`form.${field}`]: e.detail.value
+        })
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
+    getCode() {
+        console.log(321321)
     },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
+    // weui提交表单
+    weSubmitForm() {
+        const {
+            telNumber,
+            code
+        } = this.data.form
+        console.log(telNumber)
+        this.selectComponent('#form').validate((valid, errors) => {
+            if (!valid) {
+                const firstError = Object.keys(errors)
+                if (firstError.length) {
+                    this.setData({
+                        errorMsg: errors[firstError[0]].message
+                    })
+                }
+            } else {
+                wx.showToast({
+                    title: '提交成功',
+                })
+            }
+        })
     },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
+    // 重置表单
+    restForm() {
+        this.setData({
+            'form.telNumber': '',
+            'form.code': '',
+        })
     },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    }
 })

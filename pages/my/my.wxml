@@ -3,13 +3,13 @@
   <view class="imgWrap">
     <image style="width: 80px; height: 80px;" mode="aspectFill" src="/static/images/edit.png">
     </image>
-    <text style="margin-top:10px;">完善你的资料, 遇见你的真爱</text>
+    <text style="color:#999999;margin-top:20px;font-size:14px;">完善你的资料, 遇见你的真爱</text>
   </view>
   <view class="btnWrap">
-        <navigator url="/pages/completeInfo/completeInfo">
-            <view class="btn1">开始邂逅</view>
+        <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
+            <my-button innerText="开始邂逅"></my-button>
         </navigator>
-        <navigator url="/pages/login/login">
+        <navigator url="/pages/login/login" hover-class="none">
             <view class="btn2">已有账号, 立即登录></view>
         </navigator>
     </view>

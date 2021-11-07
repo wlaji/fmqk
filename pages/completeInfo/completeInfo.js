@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        sex: 2
     },
 
     /**
@@ -13,6 +13,15 @@ Page({
      */
     onLoad: function (options) {
 
+    },
+
+    changeSex(e) {
+        const {
+            sex
+        } = e.currentTarget.dataset;
+        this.setData({
+            sex
+        })
     },
 
     /**

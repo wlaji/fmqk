@@ -2,10 +2,10 @@
 <view class="container">
     <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill" src="{{bgSrc}}"></image>
     <view class="btnWrap">
-        <navigator url="/pages/completeInfo/completeInfo">
-            <view class="btn1">开启缘分</view>
+        <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
+            <my-button innerText="开启缘分"></my-button>
         </navigator>
-        <navigator url="/pages/index/index" open-type="switchTab">
+        <navigator url="/pages/index/index" open-type="switchTab" hover-class="none">
             <view class="btn2">先逛逛吧>>></view>
         </navigator>
     </view>

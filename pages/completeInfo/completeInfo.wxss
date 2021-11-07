@@ -1,1 +1,115 @@
-/* pages/completeInfo/completeInfo.wxss */
+.container{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom: 0;
+  background-color: #eee;
+}
+.imgWrap{
+  position: relative;
+  width: 100%;
+  height: 180px;
+}
+.imgWrap::after{
+  content: "";
+  position: absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom: 0;
+}
+
+.textInfo{
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  color: #fff;
+  font-size:24px;
+}
+
+.textInfo view{
+  white-space: nowrap;
+}
+
+.content{
+  flex:1;
+  background-color: #fff;
+  padding:20px 10px 10px;
+  margin: 10px;
+  border-radius: 4px;
+}
+
+.t1{
+  color:#964596;
+}
+
+.sex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sex .item{
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  height: 150px;
+  margin: 40px 20px;
+  padding: 10px 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+}
+.sex .item .top{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex:1;
+  height: 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+.sex .item .top i{
+  font-size: 80px;
+  color: #ccc;
+}
+
+.sex .item .text{
+  flex-shrink: 0;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #ccc;
+}
+.sex .item.active{
+  border-color: #964596;
+}
+.sex .item.active i{
+  color: #964596;
+}
+.sex .item.active .text{
+  color: #999;
+}
+
+.btnWrap {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.btnWrap .btn2 {
+  margin-top: 20px;
+  display: inline-block;
+  width: 600rpx;
+  text-align: center;
+  color: #964596;
+  font-size: 14px;
+}

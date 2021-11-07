@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        bgSrc:'https://images.unsplash.com/photo-1525239845569-81bb7f894102?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDJ8fGxvdmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=10'
+        bgSrc:'/static/images/1.jpg'
     },
 
     /**

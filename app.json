@@ -1,48 +1,50 @@
 {
-    "pages": [
-        "pages/login/login",
-        "pages/my/my",
-        "pages/guide/guide",
-        "pages/index/index",
-        "pages/service/service",
-        "pages/completeInfo/completeInfo"
-        
-    ],
-    "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#996699",
-        "navigationBarTitleText": "福满乾坤",
-        "navigationBarTextStyle": "white"
-    },
-    "useExtendedLib": {
-        "weui": true
-    },
-    "tabBar": {
-        "backgroundColor": "#fafafa",
-        "borderStyle": "white",
-        "selectedColor": "#b4282d",
-        "color": "#666",
-        "list": [
-            {
-                "pagePath": "pages/index/index",
-                "iconPath": "static/images/ic_menu_choice_nor.png",
-                "selectedIconPath": "static/images/ic_menu_choice_pressed.png",
-                "text": "首页"
-            },
-            {
-                "pagePath": "pages/service/service",
-                "iconPath": "static/images/ic_menu_topic_nor.png",
-                "selectedIconPath": "static/images/ic_menu_topic_pressed.png",
-                "text": "客服"
-            },
-            {
-                "pagePath": "pages/my/my",
-                "iconPath": "static/images/ic_menu_me_nor.png",
-                "selectedIconPath": "static/images/ic_menu_me_pressed.png",
-                "text": "我的"
-            }
-        ]
-    },
-    "style": "v2",
-    "sitemapLocation": "sitemap.json"
+  "entryPagePath":"pages/completeInfo/completeInfo",
+  "pages": [
+    "pages/guide/guide",
+    "pages/login/login",
+    "pages/my/my",
+    "pages/index/index",
+    "pages/service/service",
+    "pages/completeInfo/completeInfo"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#996699",
+    "navigationBarTitleText": "福满乾坤",
+    "navigationBarTextStyle": "white"
+  },
+  "useExtendedLib": {
+    "weui": true
+  },
+  "usingComponents": {
+    "my-button": "/components/myButton/myButton"
+  },
+  "tabBar": {
+    "backgroundColor": "#fafafa",
+    "borderStyle": "white",
+    "selectedColor": "#b4282d",
+    "color": "#666",
+    "list": [{
+        "pagePath": "pages/index/index",
+        "iconPath": "static/images/ic_menu_choice_nor.png",
+        "selectedIconPath": "static/images/ic_menu_choice_pressed.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/service/service",
+        "iconPath": "static/images/ic_menu_topic_nor.png",
+        "selectedIconPath": "static/images/ic_menu_topic_pressed.png",
+        "text": "客服"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/images/ic_menu_me_nor.png",
+        "selectedIconPath": "static/images/ic_menu_me_pressed.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
 }
