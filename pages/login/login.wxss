@@ -3,3 +3,14 @@
 .container{
   padding:10px 0;
 }
+.content{
+    margin-top: 50px;
+}
+.imgWrap {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  

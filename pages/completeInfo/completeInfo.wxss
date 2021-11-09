@@ -6,6 +6,7 @@
   right:0;
   top:0;
   bottom: 0;
+  padding-bottom: 20px;
   background-color: #eee;
 }
 .imgWrap{
@@ -37,63 +38,12 @@
 }
 
 .content{
+  overflow: auto;
+  height: 0;
   flex:1;
   background-color: #fff;
-  padding:20px 10px 10px;
   margin: 10px;
   border-radius: 4px;
-}
-
-.t1{
-  color:#964596;
-}
-
-.sex{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.sex .item{
-  display: flex;
-  flex-direction: column;
-  width: 120px;
-  height: 150px;
-  margin: 40px 20px;
-  padding: 10px 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
-}
-.sex .item .top{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex:1;
-  height: 0;
-  border-bottom: 1px dashed #ccc;
-}
-
-.sex .item .top i{
-  font-size: 80px;
-  color: #ccc;
-}
-
-.sex .item .text{
-  flex-shrink: 0;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  color: #ccc;
-}
-.sex .item.active{
-  border-color: #964596;
-}
-.sex .item.active i{
-  color: #964596;
-}
-.sex .item.active .text{
-  color: #999;
 }
 
 .btnWrap {

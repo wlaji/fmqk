@@ -55,14 +55,17 @@ Page({
     ],
     loading: false,
     noMore: false,
-    loadingFailed: false
+    loadingFailed: false,
+    isLogin: false,
   },
 
   onLoad() {
-
+    this.setData({
+      isLogin: app.globalData.token ? true : false
+    })
   },
 
-  viewDetail(event){
+  viewDetail(event) {
     console.log(event.currentTarget.dataset)
   },
 

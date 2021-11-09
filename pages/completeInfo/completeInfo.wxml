@@ -8,38 +8,71 @@
         </view>
     </view>
     <view class="content">
-        <view>
-            <text class="t1">微信用户</text>, 你好
-        </view>
-        <view>
-            请问你是以为帅哥, 还是一位美女?
-        </view>
-        <view class="sex">
-            <view class="nan item {{sex==1 ? 'active':'' }}" bindtap="changeSex" data-sex="1">
-                <view class="top">
-                    <i class="iconfont icon-nan"></i>
-                </view>
-                <view class="text">
-                    男
-                </view>
-
-            </view>
-            <view class="nv item {{sex==2 ? 'active':'' }}" bindtap="changeSex" data-sex="2">
-                <view class="top">
-                    <i class="iconfont icon-nv"></i>
-                </view>
-                <view class="text">
-                    女
-                </view>
-            </view>
-        </view>
-        <view class="btnWrap">
-            <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
-                <my-button innerText="下一步"></my-button>
-            </navigator>
-            <navigator url="/pages/login/login" hover-class="none">
-                <view class="btn2">已有账号, 立即登录></view>
-            </navigator>
-        </view>
+        <mp-form id="form" rules="{{rules}}" models="{{form}}">
+            <mp-cells title="性别选择">
+                <mp-checkbox-group prop="sex" multi="{{false}}" bindchange="changeForm" data-name="sex">
+                    <mp-checkbox wx:for="{{radioItems}}" wx:key="value" label="{{item.name}}" value="{{item.value}}"
+                        checked="{{item.checked}}"></mp-checkbox>
+                </mp-checkbox-group>
+            </mp-cells>
+            <mp-cells title="其他选择">
+                <mp-cell class="form_item" prop="region" title="地区">
+                    <picker mode="region" bindchange="changeForm" data-name="region" value="{{form.region}}"
+                        header-text="地区选择">
+                        <view class="picker">
+                            {{form.region[0]}}，{{form.region[1]}}，{{form.region[2]}}
+                        </view>
+                    </picker>
+                </mp-cell>
+                <mp-cell class="form_item" prop="birthday" title="生日">
+                    <picker mode="date" bindchange="changeForm" data-name="birthday" value="{{form.birthday}}"
+                        header-text="日期选择">
+                        <view class="picker">
+                            {{form.birthday}}
+                        </view>
+                    </picker>
+                </mp-cell>
+                <mp-cell class="form_item" prop="height" title="身高">
+                    <picker bindchange="changeForm" data-name="height" value="{{form.height}}" range="{{heightArray}}"
+                        header-text="身高选择">
+                        <view class="picker">
+                            {{heightArray[form.height]}}
+                        </view>
+                    </picker>
+                </mp-cell>
+                <mp-cell class="form_item" prop="education" title="学历">
+                    <picker bindchange="changeForm" data-name="education" value="{{form.education}}"
+                        range="{{educationArr}}" header-text="学历选择">
+                        <view class="picker">
+                            {{educationArr[form.education]}}
+                        </view>
+                    </picker>
+                </mp-cell>
+                <mp-cell class="form_item" prop="maritalStatus" title="婚姻状况">
+                    <picker bindchange="changeForm" data-name="maritalStatus" value="{{form.maritalStatus}}"
+                        range="{{maritalArr}}" header-text="婚姻状况">
+                        <view class="picker">
+                            {{maritalArr[form.maritalStatus]}}
+                        </view>
+                    </picker>
+                </mp-cell>
+                <mp-cell class="form_item" prop="monthlyProfit" title="月收入(元)">
+                    <picker bindchange="changeForm" data-name="monthlyProfit" value="{{form.monthlyProfit}}"
+                        range="{{monthlyProfitArr}}" header-text="月收入">
+                        <view class="picker">
+                            {{monthlyProfitArr[form.monthlyProfit]}}
+                        </view>
+                    </picker>
+                </mp-cell>
+            </mp-cells>
+        </mp-form>
+    </view>
+    <view class="btnWrap">
+        <navigator url="/pages/register/register" hover-class="none">
+            <my-button innerText="下一步"></my-button>
+        </navigator>
+        <navigator url="/pages/login/login" hover-class="none">
+            <view class="btn2">已有账号, 立即登录></view>
+        </navigator>
     </view>
 </view>
