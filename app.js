@@ -4,9 +4,10 @@ App({
     let token = wx.getStorageSync('token')
     this.globalData.token = token;
     if(token){
-      wx.switchTab({
-        url: '/pages/index/index',
-      })
+      wx.removeStorageSync('token')
+      // wx.switchTab({
+      //   url: '/pages/index/index',
+      // })
     }
   },
   globalData: {

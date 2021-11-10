@@ -1,16 +1,79 @@
 <!--pages/my/my.wxml-->
 <view class="container">
-  <view class="imgWrap">
-    <image style="width: 80px; height: 80px;" mode="aspectFill" src="/static/images/edit.png">
-    </image>
-    <text style="color:#999999;margin-top:20px;font-size:14px;">完善你的资料, 遇见你的真爱</text>
-  </view>
-  <view class="btnWrap">
-        <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
-            <my-button innerText="开始邂逅"></my-button>
-        </navigator>
-        <navigator url="/pages/login/login" hover-class="none">
-            <view class="btn2">已有账号, 立即登录></view>
-        </navigator>
+  <view wx:if="{{!isLogin}}">
+    <view class="imgWrap">
+      <image style="width: 80px; height: 80px;" mode="aspectFill" src="/static/images/edit.png">
+      </image>
+      <text style="color:#999999;margin-top:20px;font-size:14px;">完善你的资料, 遇见你的真爱</text>
     </view>
+    <view class="btnWrap">
+      <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
+        <my-button innerText="开始邂逅"></my-button>
+      </navigator>
+      <navigator url="/pages/login/login" hover-class="none">
+        <view class="btn2">已有账号, 立即登录></view>
+      </navigator>
+    </view>
+  </view>
+  <view class="contentWrap" wx:if="{{isLogin}}">
+    <view class="topInfo">
+      <view class="photoWrap" bindtap="changPhoto">
+        <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
+          src="{{userInfo.picPath?userInfo.picPath:picPath}}">
+        </image>
+        <view class="text1">{{userInfo.picPath?'修改':'未上传'}}</view>
+      </view>
+      <view class="rightInfo">
+        <view>昵称: {{userInfo.name}}</view>
+        <view style="margin-top:10px;font-size:14px;">ID: {{userInfo.id}}</view>
+      </view>
+    </view>
+    <view class="content">
+      <view class="item">
+        <mp-cell ext-class="cellItem" title="基本资料" link>
+          <view slot="footer">
+            <text>49岁</text>
+            <text style="margin-left:5px;">中专</text>
+          </view>
+        </mp-cell>
+        <mp-cell ext-class="cellItem" title="择偶条件" link>
+          <view slot="footer">
+            <text>49岁</text>
+            <text style="margin-left:5px;">中专</text>
+          </view>
+        </mp-cell>
+        <mp-cell ext-class="cellItem" title="我的相册" link>
+          <view slot="footer">
+            <text>已上传 0 张</text>
+          </view>
+        </mp-cell>
+      </view>
+      <view class="item">
+        <view class="hyTitle">
+          <view class="t1">
+            <i class="iconfont icon-huiyuan1" style="font-size:25px;margin-right:20px;color:#fcc52ed2;"></i> 福满会员
+          </view>
+          <view class="t2">
+            未开通
+          </view>
+        </view>
+        <view class="hyCon">
+          <view class="t3">
+            解锁消息发送, 无限量免费查看, 享有优先推荐特权
+          </view>
+          <view class="btn">
+            <button type="primary"> <i class="iconfont icon-huiyuan1" style="margin-right:4px;"></i> 开通会员</button>
+          </view>
+        </view>
+      </view>
+      <view class="item">
+        <mp-cell ext-class="cellItem" title="联系客服" link></mp-cell>
+      </view>
+      <view class="item">
+        <mp-cell ext-class="cellItem" style="text-align:center">
+          退出登录
+        </mp-cell>
+      </view>
+    </view>
+  </view>
 </view>

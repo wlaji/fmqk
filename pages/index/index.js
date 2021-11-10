@@ -21,8 +21,7 @@ Page({
         name: '小红',
         age: '30',
         location: '岳阳'
-      },
-      {
+      },{
         src: 'https://images.unsplash.com/photo-1558339136-19ee57afe7a6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8JUU1JUE1JUIzJUU1JUFEJUE5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
         name: '小红',
         age: '30',
@@ -33,14 +32,7 @@ Page({
         name: '小红',
         age: '30',
         location: '岳阳'
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1558339136-19ee57afe7a6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8JUU1JUE1JUIzJUU1JUFEJUE5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        name: '小红',
-        age: '30',
-        location: '岳阳'
-      },
-      {
+      },{
         src: 'https://images.unsplash.com/photo-1558339136-19ee57afe7a6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8JUU1JUE1JUIzJUU1JUFEJUE5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
         name: '小红',
         age: '30',
