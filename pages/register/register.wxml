@@ -1,4 +1,3 @@
-<!--pages/login/login.wxml-->
 <view class="container">
     <view class="imgWrap">
         <image style="width: 165px; height: 128px;" mode="aspectFill" src="/static/images/register.png">
@@ -6,6 +5,9 @@
         <text style="color:#999999;margin-top:20px;font-size:14px;">使用手机号作为登录账号</text>
     </view>
     <view class="content">
+        <!-- <button class="btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信绑定手机号注册</button> -->
+        <!-- <my-button innerText="微信绑定手机号注册" bindtap="getPhoneNumber"></my-button>    -->
+        <!-- <view class="btn2">填写手机号注册></view> -->
         <mp-form id="form" rules="{{rules}}" models="{{form}}">
             <mp-cells>
                 <mp-cell class="form_item" prop="telNumber">
@@ -13,7 +15,7 @@
                         <image src="/static/images/phone.png" mode="aspectFit" style="width:24px;height:24px;"></image>
                     </view>
                     <input value="{{form.telNumber}}" bindinput="formInputChange" data-field="telNumber"
-                        placeholder="请输入手机号码" />
+                        placeholder="请输入手机号码其他用户不可见" />
                 </mp-cell>
                 <mp-cell class="form_item" prop="code">
                     <view slot="icon" style="display:flex;align-items:center;margin-right:10px;">
@@ -26,13 +28,24 @@
                             bindtap="getCode">{{codeText}}</button>
                     </view>
                 </mp-cell>
+                <mp-cell class="form_item" prop="password">
+                    <view slot="icon" style="display:flex;align-items:center;margin-right:10px;">
+                        <image src="/static/images/pwd.png" mode="aspectFit" style="width:24px;height:24px;"></image>
+                    </view>
+                    <input type="password" value="{{form.password}}" bindinput="formInputChange" data-field="password"
+                        placeholder="请输入登录密码" />
+                </mp-cell>
             </mp-cells>
+        </mp-form>
+        <view class="btnWrap">
             <!--提交按钮-->
             <view class="submit_btn_wrap" style="margin-top:20px;text-align:center;">
-                <my-button innerText="登录" bindtap="weSubmitForm"></my-button>
+                <my-button innerText="确定" bindtap="weSubmitForm"></my-button>
+                <navigator url="/pages/login/login" hover-class="none">
+                    <view class="btn2">已有账号, 立即登录></view>
+                </navigator>
             </view>
-        </mp-form>
+        </view>
+        <mp-toptips msg="{{errorMsg}}" type="error" show="{{errorMsg}}" delay="1500"></mp-toptips>
     </view>
-
-    <mp-toptips msg="{{errorMsg}}" type="error" show="{{errorMsg}}" delay="1500"></mp-toptips>
 </view>

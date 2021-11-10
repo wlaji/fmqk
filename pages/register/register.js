@@ -1,7 +1,5 @@
-// pages/login/login.js
-const app = getApp()
+// pages/register/register.js
 Page({
-
     /**
      * 页面的初始数据
      */
@@ -11,6 +9,7 @@ Page({
         time: 10,
         form: {
             telNumber: '',
+            password: '',
             code: ''
         },
         errorMsg: '', // 验证表单显示错误信息
@@ -29,15 +28,20 @@ Page({
                 required: true,
                 message: '请输入验证码'
             }]
+        }, {
+            name: 'password',
+            rules: [{
+                required: true,
+                message: '请输入密码'
+            }]
         }],
     },
-    formInputChange(e) {
-        const {
-            field
-        } = e.currentTarget.dataset
-        this.setData({
-            [`form.${field}`]: e.detail.value
-        })
+
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+
     },
     timeDown() {
         let time = this.data.time;
@@ -45,7 +49,7 @@ Page({
         let timerId = setTimeout(function run() {
             if (time <= 0) {
                 that.setData({
-                    getCodeStatus: true,
+                    getCodeStatus:true,
                     codeText: '获取验证码',
                 })
                 clearTimeout(timerId);
@@ -62,7 +66,7 @@ Page({
         this.selectComponent('#form').validateField('telNumber', (isValid, errors) => {
             if (isValid) {
                 this.setData({
-                    getCodeStatus: false
+                    getCodeStatus:false
                 })
                 this.timeDown()
             } else {
@@ -72,11 +76,18 @@ Page({
             }
         })
     },
-    // weui提交表单
+    formInputChange(e) {
+        const {
+            field
+        } = e.currentTarget.dataset
+        this.setData({
+            [`form.${field}`]: e.detail.value
+        })
+    },
     weSubmitForm() {
         const {
             telNumber,
-            code
+            password
         } = this.data.form
         this.selectComponent('#form').validate((valid, errors) => {
             if (!valid) {
@@ -87,20 +98,33 @@ Page({
                     })
                 }
             } else {
-                let token = 'fjdklhjaflkdjlajfldjafjdl'
-                wx.setStorageSync('token', token)
-                wx.switchTab({
-                    url: '/pages/index/index'
+                wx.showToast({
+                    title: '提交成功',
                 })
-                app.globalData.token = token;
             }
         })
     },
-    // 重置表单
-    restForm() {
-        this.setData({
-            'form.telNumber': '',
-            'form.code': '',
+    getPhoneNumber(e) {
+        wx.showLoading({
+            title: '加载中',
         })
-    },
+        setTimeout(() => {
+            wx.hideLoading()
+        }, 1000)
+        wx.login({
+            success(res) {
+                if (res.code) {
+                    //发起网络请求
+                    wx.request({
+                        url: 'https://4031w093e1.goho.co/login',
+                        data: {
+                            code: res.code
+                        }
+                    })
+                } else {
+                    console.log('登录失败！' + res.errMsg)
+                }
+            }
+        })
+    }
 })

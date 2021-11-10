@@ -22,9 +22,9 @@
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
     "lazyloadPlaceholderEnable": false,
-    "useMultiFrameRuntime": false,
-    "useApiHook": false,
-    "useApiHostProcess": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -40,7 +40,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.20.0",
-  "appid": "wx0ce245d2c7fa8a60",
+  "appid": "wx29aa0d8233179176",
   "projectname": "xq",
   "debugOptions": {
     "hidedInDevtools": []
