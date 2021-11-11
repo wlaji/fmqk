@@ -52,9 +52,18 @@ Page({
   },
 
   onLoad() {
-    this.setData({
-      isLogin: app.globalData.token ? true : false
-    })
+  },
+
+  onShow(){
+    if(wx.getStorageSync('token')){
+      this.setData({
+        isLogin:true
+      })
+    }else{
+      this.setData({
+        isLogin:false
+      })
+    }
   },
 
   viewDetail(event) {

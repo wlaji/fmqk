@@ -92,7 +92,6 @@ Page({
                 wx.switchTab({
                     url: '/pages/index/index'
                 })
-                app.globalData.token = token;
             }
         })
     },

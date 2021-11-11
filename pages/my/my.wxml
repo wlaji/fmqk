@@ -30,19 +30,19 @@
     </view>
     <view class="content">
       <view class="item">
-        <mp-cell ext-class="cellItem" title="基本资料" link>
+        <mp-cell ext-class="cellItem" title="基本资料" link url="/pages/basicInfo/basicInfo">
           <view slot="footer">
             <text>49岁</text>
             <text style="margin-left:5px;">中专</text>
           </view>
         </mp-cell>
-        <mp-cell ext-class="cellItem" title="择偶条件" link>
+        <mp-cell ext-class="cellItem" title="择偶条件" link url="/pages/condition/condition">
           <view slot="footer">
             <text>49岁</text>
             <text style="margin-left:5px;">中专</text>
           </view>
         </mp-cell>
-        <mp-cell ext-class="cellItem" title="我的相册" link>
+        <mp-cell ext-class="cellItem" title="我的相册" link url="/pages/photoAlbum/photoAlbum">
           <view slot="footer">
             <text>已上传 0 张</text>
           </view>
@@ -67,10 +67,11 @@
         </view>
       </view>
       <view class="item">
+        <button open-type="contact" class="kfBtn"></button>
         <mp-cell ext-class="cellItem" title="联系客服" link></mp-cell>
       </view>
       <view class="item">
-        <mp-cell ext-class="cellItem" style="text-align:center">
+        <mp-cell ext-class="cellItem" style="text-align:center" bindtap="logOut">
           退出登录
         </mp-cell>
       </view>

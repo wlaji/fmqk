@@ -23,6 +23,17 @@ Page({
             isLogin: app.globalData.token ? true : false
         })
     },
+    onShow() {
+        if (wx.getStorageSync('token')) {
+            this.setData({
+                isLogin: true
+            })
+        } else {
+            this.setData({
+                isLogin: false
+            })
+        }
+    },
     changPhoto() {
         wx.chooseImage({
             count: 1,
@@ -32,6 +43,12 @@ Page({
                 // tempFilePath可以作为img标签的src属性显示图片
                 const tempFilePaths = res.tempFilePaths
             }
+        })
+    },
+    logOut() {
+        wx.removeStorageSync('token')
+        wx.switchTab({
+            url: '/pages/index/index',
         })
     }
 })

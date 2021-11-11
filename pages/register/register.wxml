@@ -8,6 +8,8 @@
         <!-- <button class="btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信绑定手机号注册</button> -->
         <!-- <my-button innerText="微信绑定手机号注册" bindtap="getPhoneNumber"></my-button>    -->
         <!-- <view class="btn2">填写手机号注册></view> -->
+        
+
         <mp-form id="form" rules="{{rules}}" models="{{form}}">
             <mp-cells>
                 <mp-cell class="form_item" prop="telNumber">

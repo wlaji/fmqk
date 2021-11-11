@@ -1,24 +1,12 @@
 const amapFile = require('../../libs/amap-wx.130')
 const config = require('../../libs/key')
-const heightArr = ['149cm以下']
-for (let i = 150; i < 210; i++) {
-    heightArr.push(i + 'cm')
-}
+import {heightArr,sexArray,educationArr,maritalArr,monthlyProfitArr} from '../../utils/data'
 Page({
     /**
      * 页面的初始数据
      */
     data: {
-        radioItems: [{
-                name: '男',
-                value: '1',
-                checked: true
-            },
-            {
-                name: '女',
-                value: '2'
-            }
-        ],
+        radioItems: sexArray,
         form: {
             sex: 2,
             region: ['广东省', '广州市', '海珠区'],
@@ -29,10 +17,9 @@ Page({
             monthlyProfit: 4,
         },
         heightArray: heightArr,
-        educationArr: ["高中及以下", "中专", "大专", "大学本科", "硕士", "博士"],
-        maritalArr: ["未婚", "已婚", "丧偶"],
-        monthlyProfitArr: ["3000元以下", "3001-5000元", "5001-8000元", "8001-12000元", "12001-20000元", "20001-50000元", "50000元以上"],
-
+        educationArr: educationArr,
+        maritalArr: maritalArr,
+        monthlyProfitArr: monthlyProfitArr,
     },
 
     /**
