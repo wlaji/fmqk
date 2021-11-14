@@ -1,49 +1,46 @@
 <!--index.wxml-->
 <view class="container">
-    <view wx:if="{{!isLogin}}" style="height:100%">
-        <view class="userWrap">
-            <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{index}}">
-                <view class="imgWrap">
-                    <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
-                        src="{{item.src}}">
-                    </image>
-                </view>
-                <view class="name">{{item.name}}</view>
-                <view class="info">{{item.age}} {{item.location}}</view>
+    <view class="userWrap" wx:if="{{!isLogin}}">
+        <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{index}}" bindtap="goRegister">
+            <view class="imgWrap">
+                <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
+                    src="{{item.photos[0]}}">
+                </image>
             </view>
+            <view class="name">{{item.nickName}}</view>
+            <view class="info">{{item.age}} {{item.location}}</view>
         </view>
     </view>
-    <view wx:if="{{isLogin}}" style="height:100%">
-        <view class="loginUserWrap">
-            <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{index}}">
-                <view class="imgWrap">
-                    <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
-                        src="{{item.src}}">
-                    </image>
-                </view>
-                <view class="rightInfo">
-                    <view class="topInfo">
-                        <view class="name">{{item.name}}</view>
-                        <view class="hy">
-                            <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
-                        </view>
-                        <view class="sm">
-                            <i class="iconfont icon-shimingrenzheng1" style="font-size:14px"></i>
-                        </view>
+    <view class="loginUserWrap" wx:if="{{isLogin}}">
+        <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{index}}">
+            <view class="imgWrap">
+                <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
+                    src="{{item.src}}">
+                </image>
+            </view>
+            <view class="rightInfo">
+                <view class="topInfo">
+                    <view class="name">{{item.name}}</view>
+                    <view class="hy">
+                        <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
                     </view>
-                    <view class="info">
-                        <view class="tagItem">{{item.name}}</view>
-                        <view class="tagItem">{{item.location}}</view>
-                        <view class="tagItem">{{item.name}}</view>
+                    <view class="sm">
+                        <i class="iconfont icon-shimingrenzheng1" style="font-size:14px"></i>
                     </view>
-                    <view class="des">液晶的哈哈放大镜看哈尽快恢复的快加挨</view>
                 </view>
+                <view class="info">
+                    <view class="tagItem">{{item.name}}</view>
+                    <view class="tagItem">{{item.location}}</view>
+                    <view class="tagItem">{{item.name}}</view>
+                </view>
+                <view class="des">液晶的哈哈放大镜看哈尽快恢复的快加挨</view>
             </view>
         </view>
-    </view>
-    <view style="text-align: center;margin: 10px;">
+        <view style="text-align: center;margin: 10px;">
         <view wx:if="{{loading}}">加载中...</view>
         <view wx:if="{{noMore}}">没有更多了</view>
         <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
     </view>
+    </view>
+
 </view>

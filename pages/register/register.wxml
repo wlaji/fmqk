@@ -12,11 +12,11 @@
 
         <mp-form id="form" rules="{{rules}}" models="{{form}}">
             <mp-cells>
-                <mp-cell class="form_item" prop="telNumber">
+                <mp-cell class="form_item" prop="loginTel">
                     <view slot="icon" style="display:flex;align-items:center;margin-right:10px;">
                         <image src="/static/images/phone.png" mode="aspectFit" style="width:24px;height:24px;"></image>
                     </view>
-                    <input value="{{form.telNumber}}" bindinput="formInputChange" data-field="telNumber"
+                    <input value="{{form.loginTel}}" bindinput="formInputChange" data-field="loginTel"
                         placeholder="请输入手机号码其他用户不可见" />
                 </mp-cell>
                 <mp-cell class="form_item" prop="code">

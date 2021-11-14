@@ -10,7 +10,7 @@
     <view class="content">
         <mp-form id="form" rules="{{rules}}" models="{{form}}">
             <mp-cells title="性别选择">
-                <mp-checkbox-group prop="sex" multi="{{false}}" bindchange="changeForm" data-name="sex">
+                <mp-checkbox-group prop="gender" multi="{{false}}" bindchange="changeForm" data-name="gender">
                     <mp-checkbox wx:for="{{radioItems}}" wx:key="value" label="{{item.name}}" value="{{item.value}}"
                         checked="{{item.checked}}"></mp-checkbox>
                 </mp-checkbox-group>
@@ -48,19 +48,19 @@
                         </view>
                     </picker>
                 </mp-cell>
-                <mp-cell class="form_item" prop="maritalStatus" title="婚姻状况">
-                    <picker bindchange="changeForm" data-name="maritalStatus" value="{{form.maritalStatus}}"
-                        range="{{maritalArr}}" header-text="婚姻状况">
+                <mp-cell class="form_item" prop="marriage" title="婚姻状况">
+                    <picker bindchange="changeForm" data-name="marriage" value="{{form.marriage}}"
+                        range="{{marriageArr}}" header-text="婚姻状况">
                         <view class="picker">
-                            {{maritalArr[form.maritalStatus]}}
+                            {{marriageArr[form.marriage]}}
                         </view>
                     </picker>
                 </mp-cell>
-                <mp-cell class="form_item" prop="monthlyProfit" title="月收入(元)">
-                    <picker bindchange="changeForm" data-name="monthlyProfit" value="{{form.monthlyProfit}}"
-                        range="{{monthlyProfitArr}}" header-text="月收入">
+                <mp-cell class="form_item" prop="income" title="月收入(元)">
+                    <picker bindchange="changeForm" data-name="income" value="{{form.income}}"
+                        range="{{incomeArr}}" header-text="月收入">
                         <view class="picker">
-                            {{monthlyProfitArr[form.monthlyProfit]}}
+                            {{incomeArr[form.income]}}
                         </view>
                     </picker>
                 </mp-cell>
@@ -68,9 +68,7 @@
         </mp-form>
     </view>
     <view class="btnWrap">
-        <navigator url="/pages/register/register" hover-class="none">
-            <my-button innerText="下一步"></my-button>
-        </navigator>
+        <my-button innerText="下一步" bindtap="goRegister"></my-button>
         <navigator url="/pages/login/login" hover-class="none">
             <view class="btn2">已有账号, 立即登录></view>
         </navigator>

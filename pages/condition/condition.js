@@ -1,11 +1,81 @@
-// pages/condition/condition.js
+// pages/basicInfo/basicInfo.js
+import {
+  weightArr,
+  genderArray2,
+  heightArr,
+  incomeArr,
+  educationArr,
+  marriageArr,
+  hasChildrenArr,
+  wantChildrenArr,
+  hasRoomArr,
+  hasCarArr,
+  girlBodilyFormArr,
+  manlBodilyFormArr,
+  isSmokenArr,
+  isDrinkArr,
+  constellationArr,
+  nationArr,
+  marridTimeArr
+} from '../../utils/data'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    showDialog: false,
+    buttons: [{
+      text: '取消'
+    }, {
+      text: '确认'
+    }],
+    newNickName: '',
+    form: {
+      nickname: '',
+      gender: 1,
+      birthday: '2016-09-01',
+      height: 0,
+      income: 0,
+      region: ['广东省', '广州市', '海珠区'],
+      education: 0,
+      marriage: 0,
+      hasChildren: '',
+      wantChildren: '',
+      occupation: '',
+      hasRoom: '',
+      hasCar: '',
+      nativePlace: '',
+      weight: '',
+      bodilyForm: '',
+      isSmoken: '',
+      isDrink: '',
+      constellation: '',
+      nation: '',
+      marridTime: ''
+    },
+    jsonData: {
+      nickname: '昵称',
+      occupation: '职业'
+    },
+    currentProp: '',
+    weightArr,
+    genderArray2,
+    heightArr,
+    incomeArr,
+    educationArr,
+    marriageArr,
+    hasChildrenArr,
+    wantChildrenArr,
+    hasRoomArr,
+    hasCarArr,
+    girlBodilyFormArr,
+    manlBodilyFormArr,
+    isSmokenArr,
+    isDrinkArr,
+    constellationArr,
+    nationArr,
+    marridTimeArr
   },
 
   /**
@@ -14,53 +84,41 @@ Page({
   onLoad: function (options) {
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  nickNameChange(e) {
+    this.setData({
+      newNickName: e.detail.value
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  dialogFn(e) {
+    let ind = e.detail.index;
+    //点击取消
+    if (ind === 0) {
+      this.setData({
+        showDialog: false
+      })
+    } else {
+      this.setData({
+        showDialog: false,
+        [`form.${this.data.currentProp}`]: this.data.newNickName
+      })
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  changeForm(e) {
+    const prop = e.target.dataset.name;
+    let dialogProp = ['nickname','occupation']
+    if (dialogProp.includes(prop)) {
+      this.setData({
+        newNickName: '',
+        currentProp: prop,
+        showDialog: true
+      })
+    } else {
+      this.setData({
+        [`form.${prop}`]: e.detail.value
+      })
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+  save() {
 
   }
 })

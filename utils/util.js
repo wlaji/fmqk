@@ -1,5 +1,5 @@
-const ApiRootUrl = 'https://4031w093e1.goho.co/';
-function formatTime(date) {
+const ApiRootUrl = 'http://120.24.82.148:8089';
+export const formatTime = (date) => {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
   var day = date.getDate()
@@ -12,7 +12,7 @@ function formatTime(date) {
   return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
-function formatNumber(n) {
+export const formatNumber = (n) => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
@@ -28,34 +28,19 @@ function request(url, data = {}, method = "GET") {
       method: method,
       header: {
         'Content-Type': 'application/json',
-        'X-Nideshop-Token': wx.getStorageSync('token')
+        'token': wx.getStorageSync('token')
       },
       success: function (res) {
-        console.log("success");
+        console.log("success", res);
         if (res.statusCode == 200) {
-          if (res.data.errno == 401) {
+          if (res.data.code == 401) {
             //需要登录后才可以操作
-            let code = null;
-            return login().then((res) => {
-              code = res.code;
-              return getUserInfo();
-            }).then((userInfo) => {
-              //登录远程服务器
-              request(api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => {
-                if (res.errno === 0) {
-                  //存储用户信息
-                  wx.setStorageSync('userInfo', res.data.userInfo);
-                  wx.setStorageSync('token', res.data.token);
 
-                  resolve(res);
-                } else {
-                  reject(res);
-                }
-              }).catch((err) => {
-                reject(err);
-              });
-            }).catch((err) => {
-              reject(err);
+          } else if (res.data.code == 500) {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none',
+              duration: 2000
             })
           } else {
             resolve(res.data);
@@ -73,18 +58,18 @@ function request(url, data = {}, method = "GET") {
   });
 }
 
-function get(url, data = {}) {
+export const get = (url, data = {}) => {
   return request(url, data, 'GET')
 }
 
-function post(url, data = {}) {
+export const post = (url, data = {}) => {
   return request(url, data, 'POST')
 }
 
 /**
  * 检查微信会话是否过期
  */
-function checkSession() {
+export const checkSession = () => {
   return new Promise(function (resolve, reject) {
     wx.checkSession({
       success: function () {
@@ -100,7 +85,7 @@ function checkSession() {
 /**
  * 调用微信登录
  */
-function login() {
+export const login = () => {
   return new Promise(function (resolve, reject) {
     wx.login({
       success: function (res) {
@@ -117,7 +102,7 @@ function login() {
   });
 }
 
-function getUserInfo() {
+export const getUserInfo = () => {
   return new Promise(function (resolve, reject) {
     wx.getUserInfo({
       withCredentials: true,
@@ -135,8 +120,7 @@ function getUserInfo() {
   });
 }
 
-function redirect(url) {
-
+export const redirect = (url) => {
   //判断页面是否需要登录
   if (false) {
     wx.redirectTo({
@@ -150,25 +134,9 @@ function redirect(url) {
   }
 }
 
-function showErrorToast(msg) {
+export const showErrorToast = (msg) => {
   wx.showToast({
     title: msg,
     image: '/static/images/icon_error.png'
   })
 }
-
-const utils = {
-  formatTime,
-  request,
-  get,
-  post,
-  redirect,
-  showErrorToast,
-  checkSession,
-  login,
-  getUserInfo,
-}
-
-export default  utils
-
-

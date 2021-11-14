@@ -9,16 +9,16 @@
     </mp-cells>
   </mp-dialog>
   <view class="content">
-    <mp-cell ext-class="cellItem" title="昵称" link>
-      <view slot="footer" bindtap="changeForm" data-name="nickname">
+    <mp-cell ext-class="cellItem" title="昵称" link bindtap="changeForm" data-name="nickname">
+      <view slot="footer">
         {{form.nickname}}
       </view>
     </mp-cell>
     <mp-cell ext-class="cellItem" title="性别" link>
       <view slot="footer">
-        <picker bindchange="changeForm" data-name="sex" value="{{form.sex}}" range="{{sexArray2}}" header-text="性别选择">
+        <picker bindchange="changeForm" data-name="gender" value="{{form.gender}}" range="{{genderArray2}}" header-text="性别选择">
           <view class="picker">
-            {{sexArray2[form.sex]}}
+            {{genderArray2[form.gender]}}
           </view>
         </picker>
       </view>
@@ -44,10 +44,10 @@
     </mp-cell>
     <mp-cell ext-class="cellItem" title="月收入" link>
       <view slot="footer">
-        <picker bindchange="changeForm" data-name="income" value="{{form.income}}" range="{{monthlyProfitArr}}"
+        <picker bindchange="changeForm" data-name="income" value="{{form.income}}" range="{{incomeArr}}"
           header-text="性别选择">
           <view class="picker">
-            {{monthlyProfitArr[form.income]}}
+            {{incomeArr[form.income]}}
           </view>
         </picker>
       </view>
@@ -73,10 +73,10 @@
     </mp-cell>
     <mp-cell ext-class="cellItem" title="婚姻状况" link>
       <view slot="footer">
-        <picker bindchange="changeForm" data-name="maritalStatus" value="{{form.maritalStatus}}" range="{{maritalArr}}"
+        <picker bindchange="changeForm" data-name="marriage" value="{{form.marriage}}" range="{{marriageArr}}"
           header-text="婚姻状况选择">
           <view class="picker">
-            {{maritalArr[form.maritalStatus]}}
+            {{marriageArr[form.marriage]}}
           </view>
         </picker>
       </view>
@@ -86,7 +86,7 @@
         <picker bindchange="changeForm" data-name="hasChildren" value="{{form.hasChildren}}" range="{{hasChildrenArr}}"
           header-text="有无小孩">
           <view class="picker">
-            {{hasChildrenArr[form.hasChildren]}}
+            {{hasChildrenArr[form.hasChildren] || '请选择'}}
           </view>
         </picker>
       </view>
@@ -130,7 +130,7 @@
       <view slot="footer">
         <picker mode="region" bindchange="changeForm" data-name="nativePlace" value="{{form.nativePlace}}" header-text="籍贯">
           <view class="picker">
-            <view wx:if="{{form.nativePlace.length}}">
+            <view wx:if="{{form.nativePlace}}">
               {{form.nativePlace[0]}}，{{form.nativePlace[1]}}，{{form.nativePlace[2]}}
             </view>
             <view wx:if="{{!form.nativePlace.length}}">
@@ -152,7 +152,7 @@
     </mp-cell>
     <mp-cell ext-class="cellItem" title="体型" link>
       <view slot="footer">
-        <view wx:if="{{form.sex==1}}">
+        <view wx:if="{{form.gender==1}}">
           <picker bindchange="changeForm" data-name="bodilyForm" value="{{form.bodilyForm}}"
             range="{{manlBodilyFormArr}}" header-text="体型">
             <view class="picker">
@@ -160,7 +160,7 @@
             </view>
           </picker>
         </view>
-        <view wx:if="{{form.sex==2}}">
+        <view wx:if="{{form.gender==2}}">
           <picker bindchange="changeForm" data-name="bodilyForm" value="{{form.bodilyForm}}"
             range="{{girlBodilyFormArr}}" header-text="体型">
             <view class="picker">

@@ -1,20 +1,22 @@
 // pages/register/register.js
+import {register,sendRegisterCode,editMemberCondition,byPassword} from '../../api/index'
 Page({
     /**
      * 页面的初始数据
      */
     data: {
+        registerInfo:"",
         codeText: '获取验证码',
         getCodeStatus: true,
         time: 10,
         form: {
-            telNumber: '',
-            password: '',
-            code: ''
+            loginTel: '',
+            code: '',
+            password:''
         },
         errorMsg: '', // 验证表单显示错误信息
         rules: [{
-            name: 'telNumber',
+            name: 'loginTel',
             rules: [{
                 required: true,
                 message: '请输入手机号码'
@@ -28,20 +30,24 @@ Page({
                 required: true,
                 message: '请输入验证码'
             }]
-        }, {
+        },{
             name: 'password',
             rules: [{
                 required: true,
-                message: '请输入密码'
+                message: '请输入登录密码'
             }]
-        }],
+        }]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        let registerInfo = JSON.parse(wx.getStorageSync('registerInfo'))
+        registerInfo.region = JSON.stringify(registerInfo.region)
+        this.setData({
+            registerInfo
+        })
     },
     timeDown() {
         let time = this.data.time;
@@ -63,12 +69,15 @@ Page({
         }, 1000);
     },
     getCode() {
-        this.selectComponent('#form').validateField('telNumber', (isValid, errors) => {
+        this.selectComponent('#form').validateField('loginTel', (isValid, errors) => {
             if (isValid) {
                 this.setData({
                     getCodeStatus:false
                 })
                 this.timeDown()
+                sendRegisterCode({
+                    loginTel:this.data.form.loginTel
+                })
             } else {
                 this.setData({
                     errorMsg: errors.message
@@ -85,10 +94,6 @@ Page({
         })
     },
     weSubmitForm() {
-        const {
-            telNumber,
-            password
-        } = this.data.form
         this.selectComponent('#form').validate((valid, errors) => {
             if (!valid) {
                 const firstError = Object.keys(errors)
@@ -98,8 +103,19 @@ Page({
                     })
                 }
             } else {
-                wx.showToast({
-                    title: '提交成功',
+                register(this.data.form).then(res=>{
+                    wx.showToast({
+                        title: '注册成功',
+                    })
+                    return byPassword(this.data.form)
+                }).then(res=>{
+                    wx.setStorageSync('token', res.data.token)
+                    wx.setStorageSync('userInfo', JSON.stringify(res.data.userInfo))
+                    return editMemberCondition(this.data.registerInfo)
+                }).then(res=>{
+                    wx.switchTab({
+                      url: '/pages/index/index',
+                    })
                 })
             }
         })

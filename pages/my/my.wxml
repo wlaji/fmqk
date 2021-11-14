@@ -62,7 +62,7 @@
             解锁消息发送, 无限量免费查看, 享有优先推荐特权
           </view>
           <view class="btn">
-            <button type="primary"> <i class="iconfont icon-huiyuan1" style="margin-right:4px;"></i> 开通会员</button>
+            <button type="primary" bindtap="beMember"> <i class="iconfont icon-huiyuan1" style="margin-right:4px;"></i> 开通会员</button>
           </view>
         </view>
       </view>
@@ -72,7 +72,9 @@
       </view>
       <view class="item">
         <mp-cell ext-class="cellItem" style="text-align:center" bindtap="logOut">
-          退出登录
+          <view slot="footer" style="text-align:center">
+            退出登录
+          </view>
         </mp-cell>
       </view>
     </view>

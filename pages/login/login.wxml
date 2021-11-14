@@ -6,16 +6,23 @@
         <text style="color:#999999;margin-top:20px;font-size:14px;">使用手机号作为登录账号</text>
     </view>
     <view class="content">
-        <mp-form id="form" rules="{{rules}}" models="{{form}}">
+        <mp-form id="form" rules="{{loginType === 1?rules1:rules2}}" models="{{form}}">
             <mp-cells>
-                <mp-cell class="form_item" prop="telNumber">
+                <mp-cell class="form_item" prop="loginTel">
                     <view slot="icon" style="display:flex;align-items:center;margin-right:10px;">
                         <image src="/static/images/phone.png" mode="aspectFit" style="width:24px;height:24px;"></image>
                     </view>
-                    <input value="{{form.telNumber}}" bindinput="formInputChange" data-field="telNumber"
+                    <input value="{{form.loginTel}}" bindinput="formInputChange" data-field="loginTel"
                         placeholder="请输入手机号码" />
                 </mp-cell>
-                <mp-cell class="form_item" prop="code">
+                <mp-cell class="form_item" prop="password" wx:if="{{loginType===1}}">
+                    <view slot="icon" style="display:flex;align-items:center;margin-right:10px;">
+                        <image src="/static/images/pwd.png" mode="aspectFit" style="width:24px;height:24px;"></image>
+                    </view>
+                    <input type="password" value="{{form.password}}" bindinput="formInputChange" data-field="password"
+                        placeholder="请输入登录密码" />
+                </mp-cell>
+                <mp-cell class="form_item" prop="code" wx:if="{{loginType===2}}">
                     <view slot="icon" style="display:flex;align-items:center;margin-right:10px;">
                         <image src="/static/images/code.png" mode="aspectFit" style="width:24px;height:24px;"></image>
                     </view>
@@ -27,6 +34,10 @@
                     </view>
                 </mp-cell>
             </mp-cells>
+            <view style="text-align:right;padding:10px;color:#999;font-size:14px;" bindtap="changeLoginType">
+                <text wx:if="{{loginType===1}}">切换为验证码登录>></text>
+                <text wx:if="{{loginType===2}}">切换为密码登录>></text>
+            </view>
             <!--提交按钮-->
             <view class="submit_btn_wrap" style="margin-top:20px;text-align:center;">
                 <my-button innerText="登录" bindtap="weSubmitForm"></my-button>

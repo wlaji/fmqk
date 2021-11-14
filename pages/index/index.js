@@ -1,67 +1,46 @@
 // index.js
 // 获取应用实例
 const app = getApp()
-
+import {
+  getPushUserNoLogin,
+  getPushUserByUserId
+} from '../../api/index'
 Page({
   data: {
-    userList: [{
-        src: 'https://images.unsplash.com/photo-1558339136-19ee57afe7a6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8JUU1JUE1JUIzJUU1JUFEJUE5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        name: '小红',
-        age: '30',
-        location: '岳阳'
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1558339136-19ee57afe7a6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8JUU1JUE1JUIzJUU1JUFEJUE5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        name: '小红',
-        age: '30',
-        location: '岳阳'
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1558339136-19ee57afe7a6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8JUU1JUE1JUIzJUU1JUFEJUE5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        name: '小红',
-        age: '30',
-        location: '岳阳'
-      },{
-        src: 'https://images.unsplash.com/photo-1558339136-19ee57afe7a6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8JUU1JUE1JUIzJUU1JUFEJUE5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        name: '小红',
-        age: '30',
-        location: '岳阳'
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1558339136-19ee57afe7a6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8JUU1JUE1JUIzJUU1JUFEJUE5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        name: '小红',
-        age: '30',
-        location: '岳阳'
-      },{
-        src: 'https://images.unsplash.com/photo-1558339136-19ee57afe7a6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8JUU1JUE1JUIzJUU1JUFEJUE5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        name: '小红',
-        age: '30',
-        location: '岳阳'
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1558339136-19ee57afe7a6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8JUU1JUE1JUIzJUU1JUFEJUE5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        name: '小红',
-        age: '30',
-        location: '岳阳'
-      }
-    ],
+    userList: [],
     loading: false,
     noMore: false,
     loadingFailed: false,
     isLogin: false,
+    page: 1,
+    pageSize: 20
   },
 
   onLoad() {
+
   },
 
-  onShow(){
-    if(wx.getStorageSync('token')){
+  onShow() {
+    if (wx.getStorageSync('token')) {
       this.setData({
-        isLogin:true
+        isLogin: true
       })
-    }else{
+      getPushUserByUserId({
+        page:this.data.page,
+        pageSize:this.data.pageSize
+      }).then(res => {
+        this.setData({
+          userList: res.data
+        })
+      })
+    } else {
       this.setData({
-        isLogin:false
+        isLogin: false
+      })
+      getPushUserNoLogin().then(res => {
+        this.setData({
+          userList: res.data
+        })
       })
     }
   },
@@ -85,10 +64,27 @@ Page({
     wx.showLoading({
       title: '刷新中...',
     })
+    this.onShow()
     setTimeout(() => {
       wx.hideLoading();
       //停止下拉刷新
       wx.stopPullDownRefresh();
     }, 2000)
-  }
+  },
+  goRegister() {
+    wx.showModal({
+      title: '提示',
+      content: '您还没登录~~',
+      confirmText: '去登陆',
+      success(res) {
+        if (res.confirm) {
+          wx.navigateTo({
+            url: '/pages/completeInfo/completeInfo',
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
 })

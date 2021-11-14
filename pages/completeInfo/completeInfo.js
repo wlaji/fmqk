@@ -1,25 +1,25 @@
 const amapFile = require('../../libs/amap-wx.130')
 const config = require('../../libs/key')
-import {heightArr,sexArray,educationArr,maritalArr,monthlyProfitArr} from '../../utils/data'
+import {heightArr,genderArray,educationArr,marriageArr,incomeArr} from '../../utils/data'
 Page({
     /**
      * 页面的初始数据
      */
     data: {
-        radioItems: sexArray,
+        radioItems: genderArray,
         form: {
-            sex: 2,
+            gender: 1,
             region: ['广东省', '广州市', '海珠区'],
-            birthday: '2016-09-01',
-            height: 26,
+            birthday: '1997-09-01',
+            height: 25,
             education: 3,
-            maritalStatus: 0,
-            monthlyProfit: 4,
+            marriage: 0,
+            income: 3,
         },
         heightArray: heightArr,
         educationArr: educationArr,
-        maritalArr: maritalArr,
-        monthlyProfitArr: monthlyProfitArr,
+        marriageArr: marriageArr,
+        incomeArr: incomeArr,
     },
 
     /**
@@ -63,6 +63,39 @@ Page({
         const prop = e.target.dataset.name;
         this.setData({
             [`form.${prop}`]: e.detail.value
+        })
+    },
+
+    getRegisterInfo(){
+        let form = this.data.form;
+        let gender = genderArray[form.gender].value,
+        region = form.region,
+        birthday = form.birthday.replace(/-/g, "/"),
+        height =  parseInt(heightArr[form.height]),
+        education = educationArr[form.education],
+        marriage = marriageArr[form.marriage],
+        income = incomeArr[form.income],
+        incomeMin = parseInt(income.split('-')[0]),
+        incomeMax = parseInt(income.split('-')[1]);
+        return {
+            gender,
+            region,
+            birthday,
+            height,
+            education,
+            marriage,
+            income,
+            incomeMin,
+            incomeMax,
+            conditionType:1,
+        }
+    },
+
+    goRegister(){
+        let info = this.getRegisterInfo();
+        wx.setStorageSync('registerInfo', JSON.stringify(info))
+        wx.navigateTo({
+          url: '/pages/register/register',
         })
     }
 })

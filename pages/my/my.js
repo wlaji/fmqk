@@ -1,5 +1,6 @@
 // pages/my/my.js
 const app = getApp()
+import {getUserInfoById} from '../../api/index'
 Page({
 
     /**
@@ -28,6 +29,11 @@ Page({
             this.setData({
                 isLogin: true
             })
+            getUserInfoById({
+                id:JSON.parse(wx.getStorageSync('userInfo')).id
+            }).then(res=>{
+                console.log(res)
+            })
         } else {
             this.setData({
                 isLogin: false
@@ -46,9 +52,25 @@ Page({
         })
     },
     logOut() {
-        wx.removeStorageSync('token')
-        wx.switchTab({
-            url: '/pages/index/index',
+        wx.showModal({
+            title: '提示',
+            content: '确定要退出登录吗',
+            success(res) {
+                if (res.confirm) {
+                    wx.removeStorageSync('token')
+                    wx.removeStorageSync('userInfo')
+                    wx.switchTab({
+                        url: '/pages/index/index',
+                    })
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+            }
+        })
+    },
+    beMember(){
+        wx.navigateTo({
+          url: '/pages/member/member',
         })
     }
 })

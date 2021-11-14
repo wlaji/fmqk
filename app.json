@@ -1,5 +1,5 @@
 {
-  "entryPagePath": "pages/basicInfo/basicInfo",
+  "entryPagePath": "pages/my/my",
   "pages": [
     "pages/guide/guide",
     "pages/login/login",
@@ -10,7 +10,9 @@
     "pages/register/register",
     "pages/basicInfo/basicInfo",
     "pages/condition/condition",
-    "pages/photoAlbum/photoAlbum"
+    "pages/photoAlbum/photoAlbum",
+    "pages/member/member",
+    "pages/userDetail/userDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -39,13 +41,13 @@
         "pagePath": "pages/index/index",
         "iconPath": "static/images/ic_menu_choice_nor.png",
         "selectedIconPath": "static/images/ic_menu_choice_pressed.png",
-        "text": "首页"
+        "text": "推荐"
       },
       {
         "pagePath": "pages/service/service",
         "iconPath": "static/images/ic_menu_msg_nor.png",
         "selectedIconPath": "static/images/ic_menu_msg_pressed.png",
-        "text": "服务"
+        "text": "寻缘"
       },
       {
         "pagePath": "pages/my/my",
