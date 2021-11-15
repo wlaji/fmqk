@@ -101,6 +101,7 @@
   white-space: nowrap;
   width: 420rpx;
   margin-top: 10px;
+  color:#6d6d6d;
 }
 
 .rightInfo .info{

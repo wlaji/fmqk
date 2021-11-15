@@ -1,2 +1,95 @@
-<!--pages/userDetail/userDetail.wxml-->
-<text>pages/userDetail/userDetail.wxml</text>
+<view class="container">
+    <view class="contact">
+        <button type="default" size="mini" open-type="contact">
+            <image src="/static/images/contact.png" mode="aspectFit"></image>
+        </button>
+    </view>
+    <view class="swiper">
+        <swiper indicator-dots="true">
+            <block wx:for="{{userInfo.photo}}" wx:key="index">
+                <swiper-item>
+                    <image class="swipe-item" src="{{item}}" mode="aspectFill"></image>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view class="info info0">
+        <view class="title">注意事项:</view>
+        <view>
+            <view>
+                <view class="question">1.如何获取联系方式?</view>
+                <view class="answer">点击复制编号，复制该用户的编号,然后点击下方联系客服将粘贴板的内容发送给客服</view>
+            </view>
+        </view>
+    </view>
+    <view class="info info1">
+        <view class="top">
+            <view class="nickName">
+                Cindy
+            </view>
+            <view class="hy" wx:if="{{userInfo.userLevel>1}}">
+                <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
+            </view>
+            <button size="mini" class="btn" type="primary" bindtap="cloneId">
+                复制编号
+            </button>
+        </view>
+        <view class="bottom">
+            <text class="location">肇庆</text>
+            <text class="dot"></text>
+            <text class="age">24岁</text>
+            <text class="dot"></text>
+            <text class="education">大专</text>
+            <text class="dot"></text>
+            <text class="zy">教务管理人员</text>
+            <text class="dot"></text>
+            <text class="height">159cm</text>
+        </view>
+    </view>
+    <view class="info info2">
+        <view class="title">详细资料</view>
+        <view class="con">
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+        </view>
+        <view class="title">择偶条件</view>
+        <view class="con">
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+            <view class="tag">未婚</view>
+        </view>
+    </view>
+</view>
