@@ -1,6 +1,12 @@
 const amapFile = require('../../libs/amap-wx.130')
 const config = require('../../libs/key')
-import {heightArr,genderArray,educationArr,marriageArr,incomeArr} from '../../utils/data'
+import {
+    heightArr,
+    genderArray,
+    educationArr,
+    marriageArr,
+    incomeArr
+} from '../../utils/data'
 Page({
     /**
      * 页面的初始数据
@@ -20,6 +26,11 @@ Page({
         educationArr: educationArr,
         marriageArr: marriageArr,
         incomeArr: incomeArr,
+        incomeMultiArray: [
+            ['不限', '3000元', '5000元', '8000元', '12000元', '20000元', '50000元'],
+            ['不限', '3000元', '5000元', '8000元', '12000元', '20000元', '50000元']
+        ],
+        incomeMultiIndex: [0, 0]
     },
 
     /**
@@ -66,17 +77,25 @@ Page({
         })
     },
 
-    getRegisterInfo(){
+    getRegisterInfo() {
         let form = this.data.form;
         let gender = genderArray[form.gender].value,
-        region = form.region,
-        birthday = form.birthday.replace(/-/g, "/"),
-        height =  parseInt(heightArr[form.height]),
-        education = form.education,
-        marriage = form.marriage,
-        income = incomeArr[form.income],
-        incomeMin = parseInt(income.split('-')[0]),
-        incomeMax = parseInt(income.split('-')[1]);
+            region = form.region,
+            birthday = form.birthday.replace(/-/g, "/"),
+            height = parseInt(heightArr[form.height]),
+            education = form.education,
+            marriage = form.marriage,
+            income = incomeArr[form.income];
+        if (income === '3000元以下') {
+            incomeMin = -1;
+            incomeMax = 3000
+        } else if (income === '50000元以上') {
+            incomeMin = 50000;
+            incomeMax = -1
+        } else {
+            incomeMin = parseInt(income.split('-')[0]),
+                incomeMax = parseInt(income.split('-')[1]);
+        }
         return {
             gender,
             region,
@@ -87,15 +106,15 @@ Page({
             income,
             incomeMin,
             incomeMax,
-            conditionType:1,
+            conditionType: 1,
         }
     },
 
-    goRegister(){
+    goRegister() {
         let info = this.getRegisterInfo();
         wx.setStorageSync('registerInfo', JSON.stringify(info))
         wx.navigateTo({
-          url: '/pages/register/register',
+            url: '/pages/register/register',
         })
     }
 })

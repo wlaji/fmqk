@@ -1,7 +1,7 @@
 {
   "usingComponents": {
-    "mp-cells": "weui-miniprogram/cells/cells",
-    "mp-cell": "weui-miniprogram/cell/cell"
+    "mp-icon": "weui-miniprogram/icon/icon"
   },
-  "navigationBarTitleText": "寻缘"
+  "navigationBarTitleText": "寻缘",
+  "enablePullDownRefresh": true
 }

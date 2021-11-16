@@ -22,6 +22,33 @@ const getIndex = (arr, val,propName)=>{
   }
 }
 
+const getHeightIndex = (arr, val) => {
+  let findInd = arr.findIndex(item => {
+    return parseInt(item) === val
+  })
+  if (findInd >= 0) {
+    return findInd
+  }
+  return ''
+}
+const getIncomeIndex = (arr,min,max) => {
+  let val
+  if(min=='-1'){
+    val = '3000元以下'
+  }else if(max=='-1'){
+    val = '50000元以上'
+  }else{
+    val = min +'-'+ max +'元'
+  }
+  let findInd = arr.findIndex(item => {
+    return item === val
+  })
+  if (findInd >= 0) {
+    return findInd
+  }
+  return ''
+}
+
 const genderArray = [{
     name: '男',
     value: '0',
@@ -58,6 +85,8 @@ const nationArr = ["汉族", "壮族", "满族", "回族", "苗族", "维吾尔�
 const whenMarriageArr = ["认同闪婚","一年内","两年内","三年内","时机成熟就结婚"]
 export {
   getIndex,
+  getHeightIndex,
+  getIncomeIndex,
   genderArray,
   bodyWeightArr,
   heightArr,

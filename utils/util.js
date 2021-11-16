@@ -1,4 +1,5 @@
-const ApiRootUrl = 'http://192.168.1.5:8089';
+// const ApiRootUrl = 'http://192.168.1.5:8089';
+const ApiRootUrl = 'http://120.24.82.148:8089';
 export const formatTime = (date) => {
   var year = date.getFullYear()
   var month = date.getMonth() + 1

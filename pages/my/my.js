@@ -42,7 +42,7 @@ Page({
             })
         }
     },
-    changPhoto() {
+    uploadPhoto() {
         wx.chooseImage({
             count: 1,
             sizeType: ['original', 'compressed'],

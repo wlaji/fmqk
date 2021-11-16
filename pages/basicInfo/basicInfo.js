@@ -3,6 +3,8 @@ import {
   getUserInfoById
 } from '../../api/index'
 import {
+  getHeightIndex,
+  getIncomeIndex,
   bodyWeightArr,
   genderArray,
   heightArr,
@@ -22,18 +24,7 @@ import {
   whenMarriageArr
 } from '../../utils/data'
 import professionObj from '../../utils/profession'
-const getHeightIndex = (arr, val) => {
-  let findInd = arr.findIndex(item => {
-    return parseInt(item) === val
-  })
-  if (findInd >= 0) {
-    return findInd
-  }
-  return ''
-}
-const getIncomeIndex = (arr, ) => {
 
-}
 Page({
   /**
    * 页面的初始数据
@@ -52,6 +43,8 @@ Page({
       birthday: '',
       height: '',
       income: '',
+      incomeMin:'',
+      incomeMax:'',
       region: '',
       education: '',
       marriage: '',
@@ -96,7 +89,7 @@ Page({
     professionObj,
     multiIndex: [0, 0],
     multiArray: [],
-    incomeMultiArray: [['不限','3000元','5000','8000','12000','20000','50000'],['不限','3000元','5000','8000','12000','20000','50000']],
+    incomeMultiArray: [['不限','3000元','5000元','8000元','12000元','20000元','50000元'],['不限','3000元','5000元','8000元','12000元','20000元','50000元']],
     incomeMultiIndex: [0, 0]
   },
 
@@ -146,7 +139,7 @@ Page({
           'form.birthday': birthday.replace(/\//g, "-"),
           'form.height': getHeightIndex(heightArr, height),
           'form.income': getIncomeIndex(incomeArr, incomeMin, incomeMax),
-          'form.region': region ? JSON.parse(region) : ['广东省', '广州市', '海珠区'],
+          'form.region': region ? JSON.parse(region) : '',
           'form.education': education,
           'form.marriage': marriage,
           'form.hadChild': hadChild,
@@ -223,7 +216,7 @@ Page({
   bindMultiPickerChange(e) {
     this.setData({
       multiIndex: e.detail.value,
-      'form.profession': this.data.multiArray[1][e.detail.value[1]].name
+      'form.profession': [this.data.multiArray[0][e.detail.value[0]].name,this.data.multiArray[1][e.detail.value[1]].name]
     })
   },
   bindMultiPickerColumnChange(e) {
@@ -235,5 +228,41 @@ Page({
         break;
     }
     this.updatePro(multiIndex)
+  },
+  bindIncomeMultiPickerChange(e){
+    this.setData({
+      incomeMultiIndex: e.detail.value,
+      'form.incomeMin': this.data.incomeMultiArray[0][e.detail.value[0]],
+      'form.incomeMax': this.data.incomeMultiArray[1][e.detail.value[1]]
+    })
+  },
+  bindIncomeMultiPickerColumnChange(e){
+    let data = {
+      multiIndex:this.data.incomeMultiIndex,
+      multiArray:this.data.incomeMultiArray
+    }
+    data.multiIndex[e.detail.column] = e.detail.value;
+    switch (e.detail.column) {
+      case 0:
+        let val = data.multiArray[0][e.detail.value];
+        if(val === '不限'){
+          data.multiArray[1] = data.multiArray[0]
+        }else{
+          let filterArr = data.multiArray[0].filter(item=>{
+            if(item === '不限'){
+              return true
+            }
+            return parseInt(item)>parseInt(val)
+          })
+          console.log(val,data.multiArray[0],filterArr)
+          data.multiArray[1] = filterArr
+        }
+        data.multiIndex[1] = 0;
+        break;
+    }
+    this.setData({
+      incomeMultiIndex:data.multiIndex,
+      incomeMultiArray:data.multiArray
+    })
   }
 })

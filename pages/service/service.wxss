@@ -1,35 +1,94 @@
-.imgWrap{
-  margin-top: 50px;
+/**index.wxss**/
+.container {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 10px;
+  background-color: #eee;
+}
+.cusBtn{
+  position: fixed;
+  top:10px;
+}
+
+.loginUserWrap {
+  position: relative;
+  flex:1;
+  height: 0;
+  padding-top:50px;
+}
+
+.loginUserWrap .userItem {
+  display: flex;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.loginUserWrap .userItem .imgWrap {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+}
+
+.rightInfo {
+  padding-left: 20px;
+}
+
+.rightInfo .topInfo {
+  display: flex;
   align-items: center;
 }
 
-
-.btnWrap {
-  margin-top: 50px;
+.hy,
+.sm {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  width: 18px;
+  height: 18px;
+  background-color: #eee;
+  border-radius: 4px;
 }
 
-.btnWrap .btn2 {
+.hy {
+  background-color: #fcc52ed2;
+}
+
+.hy i,
+.sm i{
+  color: #ffffff;
+}
+
+.sm {
+  background-color: #30e499d2;
+}
+
+
+.rightInfo .des {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 420rpx;
   margin-top: 10px;
-  display: inline-block;
-  width: 600rpx;
-  text-align: center;
-  color: #964596;
-  font-size: 14px;
+  color:#6d6d6d;
 }
 
-.kfBtn{
-  position: absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  top:0;
-  opacity: 0;
-  z-index:10;
+.rightInfo .info{
+  display: flex;
+  margin-top: 5px;
+}
+
+.tagItem{
+  border: 1px solid #965b96;
+  color: #965b96;
+  padding: 2px 4px;
+  font-size:12px;
+  border-radius: 4px;
+  margin-right: 4px;
 }

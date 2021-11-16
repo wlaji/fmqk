@@ -17,7 +17,7 @@
   </view>
   <view class="contentWrap" wx:if="{{isLogin}}">
     <view class="topInfo">
-      <view class="photoWrap" bindtap="changPhoto">
+      <view class="photoWrap" bindtap="uploadPhoto">
         <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
           src="{{userInfo.photos.length?userInfo.photos[0]:picPath}}">
         </image>
@@ -43,7 +43,7 @@
         </mp-cell>
         <mp-cell ext-class="cellItem" title="我的相册" link url="/pages/photoAlbum/photoAlbum">
           <view slot="footer">
-            <text>已上传 0 张</text>
+            <text>已上传 {{userInfo.photos.length}} 张</text>
           </view>
         </mp-cell>
       </view>
