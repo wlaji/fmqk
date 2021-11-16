@@ -15,12 +15,12 @@
         <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
             <view class="imgWrap">
                 <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
-                    src="{{item.src}}">
+                    src="{{item.photos[0]}}">
                 </image>
             </view>
             <view class="rightInfo">
                 <view class="topInfo">
-                    <view class="name">{{item.name}}</view>
+                    <view class="name">{{item.nickName}}</view>
                     <view class="hy" wx:if="{{userInfo.userLevel>1}}">
                         <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
                     </view>
@@ -29,18 +29,18 @@
                     </view> -->
                 </view>
                 <view class="info">
-                    <view class="tagItem">{{item.name}}</view>
+                    <view class="tagItem">{{item.age}}岁</view>
                     <view class="tagItem">{{item.location}}</view>
-                    <view class="tagItem">{{item.name}}</view>
+                    <view class="tagItem">{{item.profession}}</view>
                 </view>
-                <view class="des">液晶的哈哈放大镜看哈尽快恢复的快加挨</view>
+                <!-- <view class="des">液晶的哈哈放大镜看哈尽快恢复的快加挨</view> -->
             </view>
         </view>
         <view style="text-align: center;margin: 10px;">
-        <view wx:if="{{loading}}">加载中...</view>
-        <view wx:if="{{noMore}}">没有更多了</view>
-        <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
-    </view>
+            <view wx:if="{{loading}}">加载中...</view>
+            <view wx:if="{{noMore}}">没有更多了</view>
+            <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
+        </view>
     </view>
 
 </view>

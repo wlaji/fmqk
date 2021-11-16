@@ -19,12 +19,12 @@
     <view class="topInfo">
       <view class="photoWrap" bindtap="changPhoto">
         <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
-          src="{{userInfo.picPath?userInfo.picPath:picPath}}">
+          src="{{userInfo.photos.length?userInfo.photos[0]:picPath}}">
         </image>
-        <view class="text1">{{userInfo.picPath?'修改':'未上传'}}</view>
+        <view class="text1">{{userInfo.photos.length?'修改':'未上传'}}</view>
       </view>
       <view class="rightInfo">
-        <view>昵称: {{userInfo.name}}</view>
+        <view>昵称: {{userInfo.nickName || '暂无'}}</view>
         <view style="margin-top:10px;font-size:14px;">ID: {{userInfo.id}}</view>
       </view>
     </view>
@@ -32,14 +32,13 @@
       <view class="item">
         <mp-cell ext-class="cellItem" title="基本资料" link url="/pages/basicInfo/basicInfo">
           <view slot="footer">
-            <text>49岁</text>
-            <text style="margin-left:5px;">中专</text>
+            <text>{{userInfo.age +'岁' || ''}}</text>
+            <text style="margin-left:5px;">{{userInfo.conditionList[0].education}}</text>
           </view>
         </mp-cell>
         <mp-cell ext-class="cellItem" title="择偶条件" link url="/pages/condition/condition">
           <view slot="footer">
-            <text>49岁</text>
-            <text style="margin-left:5px;">中专</text>
+            
           </view>
         </mp-cell>
         <mp-cell ext-class="cellItem" title="我的相册" link url="/pages/photoAlbum/photoAlbum">
@@ -62,7 +61,8 @@
             解锁消息发送, 无限量免费查看, 享有优先推荐特权
           </view>
           <view class="btn">
-            <button type="primary" bindtap="beMember"> <i class="iconfont icon-huiyuan1" style="margin-right:4px;"></i> 开通会员</button>
+            <button type="primary" bindtap="beMember"> <i class="iconfont icon-huiyuan1" style="margin-right:4px;"></i>
+              开通会员</button>
           </view>
         </view>
       </view>

@@ -32,7 +32,9 @@ Page({
             getUserInfoById({
                 id:JSON.parse(wx.getStorageSync('userInfo')).id
             }).then(res=>{
-                console.log(res)
+                this.setData({
+                    userInfo:res.data
+                })
             })
         } else {
             this.setData({
@@ -59,7 +61,7 @@ Page({
                 if (res.confirm) {
                     wx.removeStorageSync('token')
                     wx.removeStorageSync('userInfo')
-                    wx.switchTab({
+                    wx.navigateTo({
                         url: '/pages/login/login',
                     })
                 } else if (res.cancel) {

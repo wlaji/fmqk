@@ -8,7 +8,7 @@ Page({
     data: {
         radioItems: genderArray,
         form: {
-            gender: 1,
+            gender: 0,
             region: ['广东省', '广州市', '海珠区'],
             birthday: '1997-09-01',
             height: 25,
@@ -72,8 +72,8 @@ Page({
         region = form.region,
         birthday = form.birthday.replace(/-/g, "/"),
         height =  parseInt(heightArr[form.height]),
-        education = educationArr[form.education],
-        marriage = marriageArr[form.marriage],
+        education = form.education,
+        marriage = form.marriage,
         income = incomeArr[form.income],
         incomeMin = parseInt(income.split('-')[0]),
         incomeMax = parseInt(income.split('-')[1]);
