@@ -1,5 +1,5 @@
 <view class="container">
-  <view wx:if="{{!isLogin}}">
+  <view wx:if="{{!isLogin}}" class="noLoginWrap">
     <view class="imgWrap">
       <image style="width: 80px; height: 80px;" mode="aspectFill" src="/static/images/edit.png">
       </image>
@@ -35,7 +35,7 @@
           <view class="tagItem">{{item.location}}</view>
           <view class="tagItem">{{item.profession}}</view>
         </view>
-        <!-- <view class="des">液晶的哈哈放大镜看哈尽快恢复的快加挨</view> -->
+        <view class="des">{{item.des}}</view>
       </view>
     </view>
     <view style="text-align: center;margin: 10px;">
@@ -44,9 +44,35 @@
       <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
     </view>
   </view>
-  <view wx:if="{{isLogin}}" class="cusBtn" style="text-align:center">
-    <button type="primary" size="mini">
+  <view wx:if="{{isLogin}}" class="cusBtn">
+    <button type="primary" size="mini" bindtap="showExtend">
       <mp-icon icon="search" color="#fff" size="{{25}}"></mp-icon> 按设定条件查找
     </button>
+    <view class="extendWrap" wx:if="{{show}}" bindtap="showExtend"></view>
+    <view class="extend" wx:if="{{show}}">
+        <view style="margin-bottom:10px;">筛选条件:</view>
+        <view class="condition">
+          <view class="item">身高</view>
+          <view class="item">体重</view>
+          <view class="item">年龄</view>
+          <view class="item">性别</view>
+          <view class="item">地区</view>
+          <view class="item">体型</view>
+          <view class="item">学历</view>
+          <view class="item">收入</view>
+        </view>
+        <!-- <view class="condition">
+          <view class="item">身高</view>
+          <view class="item">身高</view>
+          <view class="item">身高</view>
+          <view class="item">身高</view>
+          <view class="item">身高</view>
+          <view class="item">身高</view>
+          <view class="item">身高</view>
+          <view class="item">身高</view>
+          <view class="item">身高</view>
+          <view class="item">身高</view>
+        </view> -->
+    </view>
   </view>
 </view>

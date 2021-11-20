@@ -1,6 +1,7 @@
 // pages/basicInfo/basicInfo.js
 import {
-  getUserInfoById
+  getUserInfoById,
+  editMemberCondition
 } from '../../api/index'
 import {
   getHeightIndex,
@@ -38,13 +39,14 @@ Page({
     }],
     newNickName: '',
     form: {
+      id:'',
       nickName: '',
       gender: '',
       birthday: '',
       height: '',
       income: '',
-      incomeMin:'',
-      incomeMax:'',
+      incomeMin: '',
+      incomeMax: '',
       region: '',
       education: '',
       marriage: '',
@@ -89,7 +91,10 @@ Page({
     professionObj,
     multiIndex: [0, 0],
     multiArray: [],
-    incomeMultiArray: [['不限','3000元','5000元','8000元','12000元','20000元','50000元'],['不限','3000元','5000元','8000元','12000元','20000元','50000元']],
+    incomeMultiArray: [
+      ['不限', '3000元', '5000元', '8000元', '12000元', '20000元', '50000元'],
+      ['不限', '3000元', '5000元', '8000元', '12000元', '20000元', '50000元']
+    ],
     incomeMultiIndex: [0, 0]
   },
 
@@ -97,7 +102,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.updatePro(this.data.multiIndex)
+   
   },
   onShow() {
     if (wx.getStorageSync('token')) {
@@ -107,9 +112,11 @@ Page({
       getUserInfoById({
         id: JSON.parse(wx.getStorageSync('userInfo')).id
       }).then(res => {
-        let userInfo = res.data,
-          condition = res.data.conditionList[0],
-          nickName = userInfo.nickName;
+        let userInfo = res.data;
+        let condition = res.data.conditionList.find(item=>{
+          return item.conditionType ==1
+        })
+        let nickName = userInfo.nickName;
         let {
           gender,
           birthday,
@@ -134,6 +141,7 @@ Page({
           whenMarriage
         } = condition
         this.setData({
+          'form.id':condition.id,
           'form.nickName': nickName,
           'form.gender': gender,
           'form.birthday': birthday.replace(/\//g, "-"),
@@ -144,7 +152,7 @@ Page({
           'form.marriage': marriage,
           'form.hadChild': hadChild,
           'form.wantChild': wantChild,
-          'form.profession': profession,
+          'form.profession': JSON.parse(profession),
           'form.houseStatus': houseStatus,
           'form.carStatus': carStatus,
           'form.nativeRegion': nativeRegion ? JSON.parse(nativeRegion) : '',
@@ -156,6 +164,7 @@ Page({
           'form.nation': nation,
           'form.whenMarriage': whenMarriage,
         })
+        this.initProfession(JSON.parse(profession));
       })
     } else {
       this.setData({
@@ -163,7 +172,21 @@ Page({
       })
     }
   },
-
+  initProfession(val){
+    console.log(val)
+    if(!val){
+      this.updatePro([0,0])
+      return 
+    }
+    let val1 = val[0],val2 = val[1];
+    let findInd1 = professionObj.level0.findIndex(item=>{
+      return item.name == val1
+    })
+    let findInd2 = professionObj.level1[professionObj.level0[findInd1].id].findIndex(item=>{
+      return item.name == val2
+    })
+    this.updatePro([findInd1,findInd2])
+  },
   updatePro(multiIndex) {
     let multiArray = [];
     let level0 = professionObj.level0
@@ -211,12 +234,56 @@ Page({
     }
   },
   save() {
-
+    console.log(1)
+    let form = this.data.form;
+    let income = incomeArr[form.income],
+    incomeMin,
+    incomeMax;
+    if (income === '3000元以下') {
+      incomeMin = -1;
+      incomeMax = 3000
+    } else if (income === '50000元以上') {
+      incomeMin = 50000;
+      incomeMax = -1
+    } else {
+      incomeMin = parseInt(income.split('-')[0]);
+      incomeMax = parseInt(income.split('-')[1]);
+    }
+    editMemberCondition({
+      id: form.id,
+      gender: form.gender,
+      birthday: form.birthday.replace(/-/g, "/"),
+      height: parseInt(heightArr[form.height]),
+      incomeMin: incomeMin,
+      incomeMax: incomeMax,
+      region: form.region?JSON.stringify(form.region):'',
+      education: form.education,
+      marriage: form.marriage,
+      hadChild: form.hadChild,
+      wantChild: form.wantChild,
+      profession: form.profession?JSON.stringify(form.profession):'',
+      houseStatus: form.houseStatus,
+      carStatus: form.carStatus,
+      nativeRegion: form.nativeRegion?JSON.stringify(form.nativeRegion):'',
+      bodyWeight: form.bodyWeight,
+      bodyShape: form.bodyShape,
+      smoke: form.smoke,
+      drink: form.drink,
+      starSign: form.starSign,
+      nation: form.nation,
+      whenMarriage: form.whenMarriage
+    }).then(res => {
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 2000
+      })
+    })
   },
   bindMultiPickerChange(e) {
     this.setData({
       multiIndex: e.detail.value,
-      'form.profession': [this.data.multiArray[0][e.detail.value[0]].name,this.data.multiArray[1][e.detail.value[1]].name]
+      'form.profession': [this.data.multiArray[0][e.detail.value[0]].name, this.data.multiArray[1][e.detail.value[1]].name]
     })
   },
   bindMultiPickerColumnChange(e) {
@@ -229,40 +296,40 @@ Page({
     }
     this.updatePro(multiIndex)
   },
-  bindIncomeMultiPickerChange(e){
+  bindIncomeMultiPickerChange(e) {
     this.setData({
       incomeMultiIndex: e.detail.value,
       'form.incomeMin': this.data.incomeMultiArray[0][e.detail.value[0]],
       'form.incomeMax': this.data.incomeMultiArray[1][e.detail.value[1]]
     })
   },
-  bindIncomeMultiPickerColumnChange(e){
+  bindIncomeMultiPickerColumnChange(e) {
     let data = {
-      multiIndex:this.data.incomeMultiIndex,
-      multiArray:this.data.incomeMultiArray
+      multiIndex: this.data.incomeMultiIndex,
+      multiArray: this.data.incomeMultiArray
     }
     data.multiIndex[e.detail.column] = e.detail.value;
     switch (e.detail.column) {
       case 0:
         let val = data.multiArray[0][e.detail.value];
-        if(val === '不限'){
+        if (val === '不限') {
           data.multiArray[1] = data.multiArray[0]
-        }else{
-          let filterArr = data.multiArray[0].filter(item=>{
-            if(item === '不限'){
+        } else {
+          let filterArr = data.multiArray[0].filter(item => {
+            if (item === '不限') {
               return true
             }
-            return parseInt(item)>parseInt(val)
+            return parseInt(item) > parseInt(val)
           })
-          console.log(val,data.multiArray[0],filterArr)
+          console.log(val, data.multiArray[0], filterArr)
           data.multiArray[1] = filterArr
         }
         data.multiIndex[1] = 0;
         break;
     }
     this.setData({
-      incomeMultiIndex:data.multiIndex,
-      incomeMultiArray:data.multiArray
+      incomeMultiIndex: data.multiIndex,
+      incomeMultiArray: data.multiArray
     })
   }
 })

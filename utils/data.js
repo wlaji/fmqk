@@ -23,6 +23,9 @@ const getIndex = (arr, val,propName)=>{
 }
 
 const getHeightIndex = (arr, val) => {
+  if(!val){
+    return ''
+  }
   let findInd = arr.findIndex(item => {
     return parseInt(item) === val
   })

@@ -174,7 +174,7 @@
     </mp-cell>
     <mp-cell ext-class="cellItem" title="体型" link>
       <view slot="footer">
-        <view wx:if="{{form.gender==1}}">
+        <view wx:if="{{form.gender==0}}">
           <picker bindchange="changeForm" data-name="bodyShape" value="{{form.bodyShape}}" range="{{manbodyShapeArr}}"
             header-text="体型">
             <view class="picker">
@@ -182,7 +182,7 @@
             </view>
           </picker>
         </view>
-        <view wx:if="{{form.gender==2}}">
+        <view wx:if="{{form.gender==1}}">
           <picker bindchange="changeForm" data-name="bodyShape" value="{{form.bodyShape}}" range="{{girlbodyShapeArr}}"
             header-text="体型">
             <view class="picker">
@@ -243,7 +243,7 @@
       </view>
     </mp-cell>
   </view>
-  <view style="text-align:center;position:fixed;bottom:20px;left:50%;transform:translate(-50%)">
-    <my-button innerText="保存" bindtap="save"></my-button>
+  <view style="text-align:center;position:fixed;bottom:20px;left:50%;transform:translate(-50%)" bindtap="save">
+    <my-button innerText="保存"></my-button>
   </view>
 </view>

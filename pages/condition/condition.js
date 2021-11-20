@@ -1,6 +1,14 @@
 // pages/basicInfo/basicInfo.js
+let incomeArr = ['不限', '3000元', '5000元', '8000元', '12000元', '20000元', '50000元'];
+let ageArr = ['不限']
+for (let i = 18; i < 100; i++) {
+  ageArr.push(i)
+}
+let heightArr = ['不限']
+for (let i = 129; i < 212; i++) {
+  heightArr.push(i)
+};
 import {
-  incomeArr,
   educationArr,
   marriageArr,
   hadChildArr,
@@ -36,7 +44,6 @@ Page({
       smoke: '',
       drink: ''
     },
-    incomeArr,
     educationArr,
     marriageArr,
     hadChildArr,
@@ -47,14 +54,38 @@ Page({
     drinkArr,
     girlbodyShapeArr,
     manbodyShapeArr,
-    incomeMultiArray: [['不限','3000元','5000元','8000元','12000元','20000元','50000元'],['不限','3000元','5000元','8000元','12000元','20000元','50000元']],
-    incomeMultiIndex: [0, 0]
+    incomeMultiArray: [],
+    incomeMultiIndex: [0, 0],
+    ageMultiArray: [],
+    ageMultiIndex: [0, 0],
+    heightMultiArray: [],
+    heightMultiInde: [0, 0]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+  },
+  getMultiArray(multiIndex,arr) {
+    let multiArray = [];
+    multiArray[0] = arr
+    let val = arr[0][multiIndex[0]];
+    if (val === '不限') {
+      multiArray[1] = arr
+    } else {
+      let filterArr = arr.filter(item => {
+        if (item === '不限') {
+          return true
+        }
+        return parseInt(item) > parseInt(val)
+      })
+      multiArray[1] = filterArr
+    }
+    return multiArray
+  },
+  onShow(){
 
   },
   changeForm(e) {
@@ -71,6 +102,7 @@ Page({
     })
   },
   bindIncomeMultiPickerColumnChange(e) {
+    console.log(e.detail.value)
     let data = {
       multiIndex: this.data.incomeMultiIndex,
       multiArray: this.data.incomeMultiArray

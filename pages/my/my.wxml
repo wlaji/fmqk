@@ -24,7 +24,7 @@
         <view class="text1">{{userInfo.photos.length?'修改':'未上传'}}</view>
       </view>
       <view class="rightInfo">
-        <view>昵称: {{userInfo.nickName || '暂无'}}</view>
+        <view>昵称: {{userInfo.nickName || '微信用户'}}</view>
         <view style="margin-top:10px;font-size:14px;">ID: {{userInfo.id}}</view>
       </view>
     </view>
@@ -33,7 +33,6 @@
         <mp-cell ext-class="cellItem" title="基本资料" link url="/pages/basicInfo/basicInfo">
           <view slot="footer">
             <text>{{userInfo.age +'岁' || ''}}</text>
-            <text style="margin-left:5px;">{{userInfo.conditionList[0].education}}</text>
           </view>
         </mp-cell>
         <mp-cell ext-class="cellItem" title="择偶条件" link url="/pages/condition/condition">

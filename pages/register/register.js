@@ -113,7 +113,6 @@ Page({
                     wx.setStorageSync('userInfo', JSON.stringify(res.data.userInfo))
                     return editMemberCondition(this.data.registerInfo)
                 }).then(res=>{
-                    console.log(res);
                     wx.switchTab({
                       url: '/pages/index/index',
                     })

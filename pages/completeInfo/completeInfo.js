@@ -6,7 +6,7 @@ import {
     educationArr,
     marriageArr,
     incomeArr
-} from '../../utils/data'
+} from '../../utils/data';
 Page({
     /**
      * 页面的初始数据
@@ -93,8 +93,8 @@ Page({
             incomeMin = 50000;
             incomeMax = -1
         } else {
-            incomeMin = parseInt(income.split('-')[0]),
-                incomeMax = parseInt(income.split('-')[1]);
+            incomeMin = parseInt(income.split('-')[0]);
+            incomeMax = parseInt(income.split('-')[1]);
         }
         return {
             gender,
