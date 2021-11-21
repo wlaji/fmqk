@@ -3,13 +3,13 @@
   <view class="content">
     <mp-cell ext-class="cellItem" title="年龄" link>
       <view slot="footer">
-        <picker mode="multiSelector" bindchange="bindIncomeMultiPickerChange" data-name="income"
-          bindcolumnchange="bindIncomeMultiPickerColumnChange" value="{{incomeMultiIndex}}" range="{{incomeMultiArray}}"
-          header-text="月收入">
-          <view wx:if="{{form.incomeMin && form.incomeMax}}">
-            {{form.incomeMin+'-'+form.incomeMax}}
+        <picker mode="multiSelector" bindchange="bindAgeMultiPickerChange" data-name="age"
+          bindcolumnchange="bindAgeMultiPickerColumnChange" value="{{ageMultiIndex}}" range="{{ageMultiArray}}"
+          header-text="年龄范围">
+          <view wx:if="{{form.minAge && form.maxAge}}">
+            {{form.minAge+'-'+form.maxAge}}
           </view>
-          <view wx:if="{{!form.incomeMin || !form.incomeMax}}">
+          <view wx:if="{{!form.minAge || !form.maxAge}}">
             请选择
           </view>
         </picker>
@@ -17,13 +17,13 @@
     </mp-cell>
     <mp-cell ext-class="cellItem" title="身高" link>
       <view slot="footer">
-        <picker mode="multiSelector" bindchange="bindIncomeMultiPickerChange" data-name="income"
-          bindcolumnchange="bindIncomeMultiPickerColumnChange" value="{{incomeMultiIndex}}" range="{{incomeMultiArray}}"
-          header-text="月收入">
-          <view wx:if="{{form.incomeMin && form.incomeMax}}">
-            {{form.incomeMin+'-'+form.incomeMax}}
+        <picker mode="multiSelector" bindchange="bindHeightMultiPickerChange" data-name="height"
+          bindcolumnchange="bindHeightMultiPickerColumnChange" value="{{heightMultiIndex}}" range="{{heightMultiArray}}"
+          header-text="身高范围">
+          <view wx:if="{{form.minHeight && form.maxHeight}}">
+            {{form.minHeight+'-'+form.maxHeight}}
           </view>
-          <view wx:if="{{!form.incomeMin || !form.incomeMax}}">
+          <view wx:if="{{!form.minHeight || !form.maxHeight}}">
             请选择
           </view>
         </picker>
@@ -73,7 +73,7 @@
             </view>
           </picker>
         </view>
-        <view wx:if="{{form.gender==2}}">
+        <view wx:if="{{form.gender==0}}">
           <picker bindchange="changeForm" data-name="bodyShape" value="{{form.bodyShape}}" range="{{girlbodyShapeArr}}"
             header-text="体型">
             <view class="picker">

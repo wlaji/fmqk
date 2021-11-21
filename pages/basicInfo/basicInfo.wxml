@@ -9,9 +9,9 @@
     </mp-cells>
   </mp-dialog>
   <view class="content">
-    <mp-cell ext-class="cellItem" title="昵称" link bindtap="changeForm" data-name="nickname">
-      <view slot="footer">
-        {{form.nickname}}
+    <mp-cell ext-class="cellItem" title="昵称" link>
+      <view slot="footer" bindtap="changeNickName" data-name="nickName">
+        {{form.nickName || '微信用户'}}
       </view>
     </mp-cell>
     <mp-cell ext-class="cellItem" title="性别" link>

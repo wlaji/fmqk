@@ -34,4 +34,15 @@ export const getUserInfoById = function (data) {
 	return get('/app/user/getUserInfoById',data)
 }
 
+//修改密码
+export const changePassword = function (data) {
+	return get('app/user/changePassword',data)
+}
+
+//修改昵称
+export const changeMemberNickName = function (data) {
+	return get('/app/user/changeMemberNickName',data)
+}
+
+
 

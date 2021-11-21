@@ -1,7 +1,8 @@
 // pages/basicInfo/basicInfo.js
 import {
   getUserInfoById,
-  editMemberCondition
+  editMemberCondition,
+  changeMemberNickName
 } from '../../api/index'
 import {
   getHeightIndex,
@@ -39,7 +40,7 @@ Page({
     }],
     newNickName: '',
     form: {
-      id:'',
+      id: '',
       nickName: '',
       gender: '',
       birthday: '',
@@ -65,8 +66,7 @@ Page({
       whenMarriage: ''
     },
     jsonData: {
-      nickname: '昵称',
-      profession: '职业'
+      nickName: '昵称',
     },
     currentProp: '',
     bodyWeightArr,
@@ -86,7 +86,6 @@ Page({
     starSignArr,
     nationArr,
     whenMarriageArr,
-    isLogin: false,
     userInfo: '',
     professionObj,
     multiIndex: [0, 0],
@@ -102,90 +101,82 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+
   },
   onShow() {
-    if (wx.getStorageSync('token')) {
+    getUserInfoById({
+      id: JSON.parse(wx.getStorageSync('userInfo')).id
+    }).then(res => {
+      let userInfo = res.data;
+      let condition = res.data.conditionList.find(item => {
+        return item.conditionType == 1
+      })
+      let nickName = userInfo.nickName;
+      let {
+        gender,
+        birthday,
+        height,
+        incomeMin,
+        incomeMax,
+        region,
+        education,
+        marriage,
+        hadChild,
+        wantChild,
+        profession,
+        houseStatus,
+        carStatus,
+        nativeRegion,
+        bodyWeight,
+        bodyShape,
+        smoke,
+        drink,
+        starSign,
+        nation,
+        whenMarriage
+      } = condition
+      console.log(incomeMin, incomeMax)
       this.setData({
-        isLogin: true
+        'form.id': condition.id,
+        'form.nickName': nickName,
+        'form.gender': gender,
+        'form.birthday': birthday.replace(/\//g, "-"),
+        'form.height': getHeightIndex(heightArr, height),
+        'form.income': getIncomeIndex(incomeArr, incomeMin, incomeMax),
+        'form.region': region ? JSON.parse(region) : '',
+        'form.education': education,
+        'form.marriage': marriage,
+        'form.hadChild': hadChild,
+        'form.wantChild': wantChild,
+        'form.profession': profession ? JSON.parse(profession) : '',
+        'form.houseStatus': houseStatus,
+        'form.carStatus': carStatus,
+        'form.nativeRegion': nativeRegion ? JSON.parse(nativeRegion) : '',
+        'form.bodyWeight': bodyWeight,
+        'form.bodyShape': bodyShape,
+        'form.smoke': smoke,
+        'form.drink': drink,
+        'form.starSign': starSign,
+        'form.nation': nation,
+        'form.whenMarriage': whenMarriage,
       })
-      getUserInfoById({
-        id: JSON.parse(wx.getStorageSync('userInfo')).id
-      }).then(res => {
-        let userInfo = res.data;
-        let condition = res.data.conditionList.find(item=>{
-          return item.conditionType ==1
-        })
-        let nickName = userInfo.nickName;
-        let {
-          gender,
-          birthday,
-          height,
-          incomeMin,
-          incomeMax,
-          region,
-          education,
-          marriage,
-          hadChild,
-          wantChild,
-          profession,
-          houseStatus,
-          carStatus,
-          nativeRegion,
-          bodyWeight,
-          bodyShape,
-          smoke,
-          drink,
-          starSign,
-          nation,
-          whenMarriage
-        } = condition
-        this.setData({
-          'form.id':condition.id,
-          'form.nickName': nickName,
-          'form.gender': gender,
-          'form.birthday': birthday.replace(/\//g, "-"),
-          'form.height': getHeightIndex(heightArr, height),
-          'form.income': getIncomeIndex(incomeArr, incomeMin, incomeMax),
-          'form.region': region ? JSON.parse(region) : '',
-          'form.education': education,
-          'form.marriage': marriage,
-          'form.hadChild': hadChild,
-          'form.wantChild': wantChild,
-          'form.profession': JSON.parse(profession),
-          'form.houseStatus': houseStatus,
-          'form.carStatus': carStatus,
-          'form.nativeRegion': nativeRegion ? JSON.parse(nativeRegion) : '',
-          'form.bodyWeight': bodyWeight,
-          'form.bodyShape': bodyShape,
-          'form.smoke': smoke,
-          'form.drink': drink,
-          'form.starSign': starSign,
-          'form.nation': nation,
-          'form.whenMarriage': whenMarriage,
-        })
-        this.initProfession(JSON.parse(profession));
-      })
-    } else {
-      this.setData({
-        isLogin: false
-      })
-    }
+      this.initProfession(this.data.form.profession);
+    })
   },
-  initProfession(val){
-    console.log(val)
-    if(!val){
-      this.updatePro([0,0])
-      return 
+  initProfession(val) {
+    if (!val) {
+      this.updatePro([0, 0])
+      return
     }
-    let val1 = val[0],val2 = val[1];
-    let findInd1 = professionObj.level0.findIndex(item=>{
+    let val1 = val[0],
+      val2 = val[1];
+    let findInd1 = professionObj.level0.findIndex(item => {
       return item.name == val1
     })
-    let findInd2 = professionObj.level1[professionObj.level0[findInd1].id].findIndex(item=>{
+    let findInd2 = professionObj.level1[professionObj.level0[findInd1].id].findIndex(item => {
       return item.name == val2
     })
-    this.updatePro([findInd1,findInd2])
+    this.updatePro([findInd1, findInd2])
   },
   updatePro(multiIndex) {
     let multiArray = [];
@@ -216,35 +207,40 @@ Page({
         showDialog: false,
         [`form.${this.data.currentProp}`]: this.data.newNickName
       })
+      changeMemberNickName({
+        nickName:this.data.newNickName
+      }).then(res=>{
+        wx.navigateBack({
+          delta: 0,
+        })
+      })
     }
+  },
+  changeNickName(e) {
+    const prop = e.target.dataset.name;
+    this.setData({
+      newNickName: this.data.form.nickName,
+      currentProp: prop,
+      showDialog: true
+    })
   },
   changeForm(e) {
     const prop = e.target.dataset.name;
-    let dialogProp = ['nickname', 'profession']
-    if (dialogProp.includes(prop)) {
-      this.setData({
-        newNickName: '',
-        currentProp: prop,
-        showDialog: true
-      })
-    } else {
-      this.setData({
-        [`form.${prop}`]: e.detail.value
-      })
-    }
+    this.setData({
+      [`form.${prop}`]: e.detail.value
+    })
   },
   save() {
-    console.log(1)
     let form = this.data.form;
     let income = incomeArr[form.income],
-    incomeMin,
-    incomeMax;
+      incomeMin,
+      incomeMax;
     if (income === '3000元以下') {
-      incomeMin = -1;
+      incomeMin = '';
       incomeMax = 3000
     } else if (income === '50000元以上') {
       incomeMin = 50000;
-      incomeMax = -1
+      incomeMax = ''
     } else {
       incomeMin = parseInt(income.split('-')[0]);
       incomeMax = parseInt(income.split('-')[1]);
@@ -256,27 +252,26 @@ Page({
       height: parseInt(heightArr[form.height]),
       incomeMin: incomeMin,
       incomeMax: incomeMax,
-      region: form.region?JSON.stringify(form.region):'',
+      region: form.region ? JSON.stringify(form.region) : '',
       education: form.education,
       marriage: form.marriage,
       hadChild: form.hadChild,
       wantChild: form.wantChild,
-      profession: form.profession?JSON.stringify(form.profession):'',
+      profession: form.profession ? JSON.stringify(form.profession) : '',
       houseStatus: form.houseStatus,
       carStatus: form.carStatus,
-      nativeRegion: form.nativeRegion?JSON.stringify(form.nativeRegion):'',
+      nativeRegion: form.nativeRegion ? JSON.stringify(form.nativeRegion) : '',
       bodyWeight: form.bodyWeight,
       bodyShape: form.bodyShape,
       smoke: form.smoke,
       drink: form.drink,
       starSign: form.starSign,
       nation: form.nation,
-      whenMarriage: form.whenMarriage
+      whenMarriage: form.whenMarriage,
+      conditionType: 1,
     }).then(res => {
-      wx.showToast({
-        title: '保存成功',
-        icon: 'success',
-        duration: 2000
+      wx.navigateBack({
+        delta: 0,
       })
     })
   },

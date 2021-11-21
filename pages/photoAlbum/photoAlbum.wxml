@@ -2,7 +2,7 @@
 <view class="container">
   <view class="hyCon">
     <view class="t3">
-      最多可上传15张图片,k开通会员既可以无限制上传
+      最多可上传15张图片,开通会员既可以无限制上传
     </view>
     <view class="btn">
       <button type="primary" bindtap="beMember"> <i class="iconfont icon-huiyuan1" style="margin-right:4px;"></i>
@@ -14,8 +14,8 @@
       <mp-icon icon="add" color="#999" size="{{30}}"></mp-icon>
       <text>上传照片</text>
     </view>
-    <view class="item" wx:for="{{imgList}}" key="{{index}}" bindtap="preview" data-src="{{imgList[index]}}">
-      <image src="{{item}}" mode="aspectFill"></image>
+    <view class="item" wx:for="{{imgList}}" wx:key="index" bindtap="preview" data-src="{{imgList[index]}}">
+      <image src="{{item}}" mode="aspectFit"></image>
     </view>
   </view>
 </view>

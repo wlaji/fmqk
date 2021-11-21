@@ -85,13 +85,13 @@ Page({
             height = parseInt(heightArr[form.height]),
             education = form.education,
             marriage = form.marriage,
-            income = incomeArr[form.income];
+            income = incomeArr[form.income],
+            incomeMin = '',
+            incomeMax = ''
         if (income === '3000元以下') {
-            incomeMin = -1;
             incomeMax = 3000
         } else if (income === '50000元以上') {
             incomeMin = 50000;
-            incomeMax = -1
         } else {
             incomeMin = parseInt(income.split('-')[0]);
             incomeMax = parseInt(income.split('-')[1]);

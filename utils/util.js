@@ -1,5 +1,5 @@
-const ApiRootUrl = 'http://192.168.1.5:8089';
-// const ApiRootUrl = 'http://120.24.82.148:8089';
+// const ApiRootUrl = 'http://192.168.1.5:8089';
+const ApiRootUrl = 'http://120.24.82.148:8089';
 export const formatTime = (date) => {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -36,7 +36,11 @@ function request(url, data = {}, method = "GET") {
         if (res.statusCode == 200) {
           if (res.data.code == 401) {
             //需要登录后才可以操作
-
+            wx.removeStorageSync('token')
+            wx.removeStorageSync('userInfo')
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
           } else if (res.data.code == 500) {
             wx.showToast({
               title: res.data.message,
