@@ -13,11 +13,24 @@ Page({
     loadingFailed: false,
     isLogin: false,
     page: 1,
-    pageSize: 20
+    pageSize: 20,
+    total:'',
   },
 
   onLoad() {
 
+  },
+
+  initUserData(list){
+    list.forEach(item=>{
+      let condition = item.conditionList.find(citem=>{
+        return citem.conditionType === 1
+      })
+      item.location = condition.region&&condition.region.length?JSON.parse(condition.region)[1]:'';
+      console.log(condition)
+      item.profession = condition.profession&&condition.profession.length?JSON.parse(condition.profession)[1]:''
+    })
+    return list
   },
 
   onShow() {
@@ -29,8 +42,10 @@ Page({
         page:this.data.page,
         pageSize:this.data.pageSize
       }).then(res => {
+        let list = this.initUserData(res.data.list)
         this.setData({
-          userList: res.data.list
+          userList: list,
+          total:res.data.total
         })
       })
     } else {
@@ -72,6 +87,9 @@ Page({
   },
 
   onReachBottom() {
+    if(!this.data.isLogin){
+      return false;
+    }
     this.setData({
       loading: true
     })
@@ -80,6 +98,24 @@ Page({
         loading: false
       })
     }, 3000)
+    if(this.data.total<=this.data.userList.length){
+      this.setData({
+        noMore: true
+      })
+      return false;
+    }
+    this.setData({
+      page:this.data.page+1
+    })
+    getPushUserByUserId({
+      page:this.data.page,
+      pageSize:this.data.pageSize
+    }).then(res => {
+      let list = this.initUserData(res.data.list)
+      this.setData({
+        userList: this.data.userList.concat(list)
+      })
+    })
   },
 
   onPullDownRefresh() {
@@ -92,5 +128,9 @@ Page({
       //停止下拉刷新
       wx.stopPullDownRefresh();
     }, 2000)
+  },
+  filterLocation(val){
+    console.log(val)
+    return '321321'
   }
 })

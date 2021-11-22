@@ -84,6 +84,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    min-height:30px;
 }
 
 .info1 .top button {

@@ -6,7 +6,7 @@
     </view>
     <view class="swiper">
         <swiper indicator-dots="true">
-            <block wx:for="{{userInfo.photo}}" wx:key="index">
+            <block wx:for="{{userInfo.pictureList}}" wx:key="index">
                 <swiper-item>
                     <image class="swipe-item" src="{{item}}" mode="aspectFill"></image>
                 </swiper-item>
@@ -25,7 +25,7 @@
     <view class="info info1">
         <view class="top">
             <view class="nickName">
-                Cindy
+                {{userInfo.nickName}}
             </view>
             <view class="hy" wx:if="{{userInfo.userLevel>1}}">
                 <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
@@ -35,61 +35,64 @@
             </button>
         </view>
         <view class="bottom">
-            <text class="location">肇庆</text>
-            <text class="dot"></text>
-            <text class="age">24岁</text>
-            <text class="dot"></text>
-            <text class="education">大专</text>
-            <text class="dot"></text>
-            <text class="zy">教务管理人员</text>
-            <text class="dot"></text>
-            <text class="height">159cm</text>
+            <block wx:if="{{userInfo.baseInfo.location}}">
+                <text class="location">{{userInfo.baseInfo.location}}</text>
+                <text class="dot"></text>
+            </block>
+            <block wx:if="{{userInfo.age}}">
+                <text class="age">{{userInfo.age}}岁</text>
+                <text class="dot"></text>
+            </block>
+            <block wx:if="{{userInfo.baseInfo.education}}">
+                <text class="education">{{userInfo.baseInfo.education}}</text>
+                <text class="dot"></text>
+            </block>
+            <block wx:if="{{userInfo.baseInfo.profession}}">
+                <text class="zy">{{userInfo.baseInfo.profession}}</text>
+                <text class="dot"></text>
+            </block>
+            <text class="height" wx:if="{{userInfo.baseInfo.height}}">{{userInfo.baseInfo.height}}cm</text>
         </view>
     </view>
     <view class="info info2">
         <view class="title">详细资料</view>
         <view class="con">
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.marriage}}">{{userInfo.baseInfo.marriage}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.age}}">{{userInfo.age}}岁</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.starSign}}">{{userInfo.baseInfo.starSign}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.height}}">{{userInfo.baseInfo.height}}cm</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.bodyWeight}}">{{userInfo.baseInfo.bodyWeight}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.location}}">工作地:{{userInfo.baseInfo.location}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.income}}">月收入{{userInfo.baseInfo.income}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.profession}}">{{userInfo.baseInfo.profession}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.education}}">{{userInfo.baseInfo.education}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.nation}}">{{userInfo.baseInfo.nation}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.nativeRegion}}">籍贯{{userInfo.baseInfo.nativeRegion}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.bodyShape}}">体型:{{userInfo.baseInfo.bodyShape}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.smoke}}">{{userInfo.baseInfo.smoke}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.drink}}">{{userInfo.baseInfo.drink}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.hadChild}}">{{userInfo.baseInfo.hadChild}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.wantChild}}">是否想要孩子:{{userInfo.baseInfo.wantChild}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.whenMarriage}}">何时结婚:{{userInfo.baseInfo.whenMarriage}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.houseStatus}}">{{userInfo.baseInfo.houseStatus}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.carStatus}}">{{userInfo.baseInfo.carStatus}}</view>
         </view>
         <view class="title">择偶条件</view>
         <view class="con">
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
-            <view class="tag">未婚</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.minAge&&userInfo.metaInfo.maxAge}}">
+                {{userInfo.metaInfo.minAge+'-'+userInfo.metaInfo.maxAge}}岁</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.minHeight&&userInfo.metaInfo.maxHeight}}">
+                {{userInfo.metaInfo.minHeight+'-'+userInfo.metaInfo.maxHeight}}cm</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.incomeMin&&userInfo.metaInfo.incomeMax}}">
+                月薪:{{userInfo.metaInfo.incomeMin+'-'+ userInfo.metaInfo.incomeMax}}元</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.education}}">{{userInfo.metaInfo.education}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.marriage}}">{{userInfo.metaInfo.marriage}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.bodyShape}}">体型:{{userInfo.metaInfo.bodyShape}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.location}}">{{userInfo.metaInfo.location}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.hadChild}}">{{userInfo.metaInfo.hadChild}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.wantChild}}">是否想要孩子:{{userInfo.metaInfo.wantChild}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.smoke}}">{{userInfo.metaInfo.smoke}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.drink}}">{{userInfo.metaInfo.drink}}</view>
         </view>
     </view>
 </view>

@@ -1,0 +1,10 @@
+var filterLocation = function(data){
+   var find = data.find(function(item){
+        return item.conditionType === 1
+   })
+   return find.region
+}
+
+module.exports = {
+    filterLocation: filterLocation
+}
