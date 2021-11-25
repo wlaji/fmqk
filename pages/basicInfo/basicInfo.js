@@ -7,6 +7,7 @@ import {
 import {
   getHeightIndex,
   getIncomeIndex,
+  getWeightIndex,
   bodyWeightArr,
   genderArray,
   heightArr,
@@ -25,7 +26,6 @@ import {
   nationArr,
   whenMarriageArr
 } from '../../utils/data'
-import professionObj from '../../utils/profession'
 
 Page({
   /**
@@ -33,6 +33,8 @@ Page({
    */
   data: {
     showDialog: false,
+    showDialog2:false,
+    newProfession:'',
     buttons: [{
       text: '取消'
     }, {
@@ -65,10 +67,6 @@ Page({
       nation: '',
       whenMarriage: ''
     },
-    jsonData: {
-      nickName: '昵称',
-    },
-    currentProp: '',
     bodyWeightArr,
     genderArray,
     heightArr,
@@ -87,7 +85,6 @@ Page({
     nationArr,
     whenMarriageArr,
     userInfo: '',
-    professionObj,
     multiIndex: [0, 0],
     multiArray: [],
     incomeMultiArray: [
@@ -148,11 +145,11 @@ Page({
         'form.marriage': marriage,
         'form.hadChild': hadChild,
         'form.wantChild': wantChild,
-        'form.profession': profession ? JSON.parse(profession) : '',
+        'form.profession': profession,
         'form.houseStatus': houseStatus,
         'form.carStatus': carStatus,
         'form.nativeRegion': nativeRegion ? JSON.parse(nativeRegion) : '',
-        'form.bodyWeight': bodyWeight,
+        'form.bodyWeight': getWeightIndex(bodyWeightArr,bodyWeight),
         'form.bodyShape': bodyShape,
         'form.smoke': smoke,
         'form.drink': drink,
@@ -160,33 +157,6 @@ Page({
         'form.nation': nation,
         'form.whenMarriage': whenMarriage,
       })
-      this.initProfession(this.data.form.profession);
-    })
-  },
-  initProfession(val) {
-    if (!val) {
-      this.updatePro([0, 0])
-      return
-    }
-    let val1 = val[0],
-      val2 = val[1];
-    let findInd1 = professionObj.level0.findIndex(item => {
-      return item.name == val1
-    })
-    let findInd2 = professionObj.level1[professionObj.level0[findInd1].id].findIndex(item => {
-      return item.name == val2
-    })
-    this.updatePro([findInd1, findInd2])
-  },
-  updatePro(multiIndex) {
-    let multiArray = [];
-    let level0 = professionObj.level0
-    let level1 = professionObj.level1
-    multiArray[0] = level0
-    multiArray[1] = level1[level0[multiIndex[0]].id]
-    this.setData({
-      multiArray,
-      multiIndex
     })
   },
 
@@ -195,6 +165,13 @@ Page({
       newNickName: e.detail.value
     })
   },
+
+  professionChange(e){
+    this.setData({
+      newProfession: e.detail.value
+    })
+  },
+
   dialogFn(e) {
     let ind = e.detail.index;
     //点击取消
@@ -205,7 +182,7 @@ Page({
     } else {
       this.setData({
         showDialog: false,
-        [`form.${this.data.currentProp}`]: this.data.newNickName
+       'form.nickName': this.data.newNickName
       })
       changeMemberNickName({
         nickName:this.data.newNickName
@@ -216,14 +193,36 @@ Page({
       })
     }
   },
+
+  dialogFn2(e){
+    let ind = e.detail.index;
+    //点击取消
+    if (ind === 0) {
+      this.setData({
+        showDialog2: false
+      })
+    } else {
+      this.setData({
+        showDialog2: false,
+       'form.profession': this.data.newProfession
+      })
+    }
+  },
+
   changeNickName(e) {
-    const prop = e.target.dataset.name;
     this.setData({
-      newNickName: this.data.form.nickName,
-      currentProp: prop,
+      newNickName: this.data.form['nickName'],
       showDialog: true
     })
   },
+
+  changeProfession(){
+    this.setData({
+      newProfession: this.data.form['profession'],
+      showDialog2: true
+    })
+  },
+
   changeForm(e) {
     const prop = e.target.dataset.name;
     this.setData({
@@ -249,7 +248,7 @@ Page({
       id: form.id,
       gender: form.gender,
       birthday: form.birthday.replace(/-/g, "/"),
-      height: parseInt(heightArr[form.height]),
+      height: heightArr[form.height],
       incomeMin: incomeMin,
       incomeMax: incomeMax,
       region: form.region ? JSON.stringify(form.region) : '',
@@ -257,11 +256,11 @@ Page({
       marriage: form.marriage,
       hadChild: form.hadChild,
       wantChild: form.wantChild,
-      profession: form.profession ? JSON.stringify(form.profession) : '',
+      profession: form.profession,
       houseStatus: form.houseStatus,
       carStatus: form.carStatus,
       nativeRegion: form.nativeRegion ? JSON.stringify(form.nativeRegion) : '',
-      bodyWeight: form.bodyWeight,
+      bodyWeight: bodyWeightArr[form.bodyWeight],
       bodyShape: form.bodyShape,
       smoke: form.smoke,
       drink: form.drink,
@@ -275,56 +274,4 @@ Page({
       })
     })
   },
-  bindMultiPickerChange(e) {
-    this.setData({
-      multiIndex: e.detail.value,
-      'form.profession': [this.data.multiArray[0][e.detail.value[0]].name, this.data.multiArray[1][e.detail.value[1]].name]
-    })
-  },
-  bindMultiPickerColumnChange(e) {
-    let multiIndex = this.data.multiIndex
-    multiIndex[e.detail.column] = e.detail.value;
-    switch (e.detail.column) {
-      case 0:
-        multiIndex[1] = 0
-        break;
-    }
-    this.updatePro(multiIndex)
-  },
-  bindIncomeMultiPickerChange(e) {
-    this.setData({
-      incomeMultiIndex: e.detail.value,
-      'form.incomeMin': this.data.incomeMultiArray[0][e.detail.value[0]],
-      'form.incomeMax': this.data.incomeMultiArray[1][e.detail.value[1]]
-    })
-  },
-  bindIncomeMultiPickerColumnChange(e) {
-    let data = {
-      multiIndex: this.data.incomeMultiIndex,
-      multiArray: this.data.incomeMultiArray
-    }
-    data.multiIndex[e.detail.column] = e.detail.value;
-    switch (e.detail.column) {
-      case 0:
-        let val = data.multiArray[0][e.detail.value];
-        if (val === '不限') {
-          data.multiArray[1] = data.multiArray[0]
-        } else {
-          let filterArr = data.multiArray[0].filter(item => {
-            if (item === '不限') {
-              return true
-            }
-            return parseInt(item) > parseInt(val)
-          })
-          console.log(val, data.multiArray[0], filterArr)
-          data.multiArray[1] = filterArr
-        }
-        data.multiIndex[1] = 0;
-        break;
-    }
-    this.setData({
-      incomeMultiIndex: data.multiIndex,
-      incomeMultiArray: data.multiArray
-    })
-  }
 })

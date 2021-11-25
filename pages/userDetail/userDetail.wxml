@@ -7,7 +7,7 @@
     <view class="swiper">
         <swiper indicator-dots="true">
             <block wx:for="{{userInfo.pictureList}}" wx:key="index">
-                <swiper-item>
+                <swiper-item bindtap="preview" data-src="{{userInfo.pictureList[index]}}">
                     <image class="swipe-item" src="{{item}}" mode="aspectFill"></image>
                 </swiper-item>
             </block>
@@ -25,7 +25,7 @@
     <view class="info info1">
         <view class="top">
             <view class="nickName">
-                {{userInfo.nickName}}
+                {{userInfo.nickName || '微信用户'}}
             </view>
             <view class="hy" wx:if="{{userInfo.userLevel>1}}">
                 <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
@@ -61,7 +61,7 @@
             <view class="tag" wx:if="{{userInfo.baseInfo.age}}">{{userInfo.age}}岁</view>
             <view class="tag" wx:if="{{userInfo.baseInfo.starSign}}">{{userInfo.baseInfo.starSign}}</view>
             <view class="tag" wx:if="{{userInfo.baseInfo.height}}">{{userInfo.baseInfo.height}}cm</view>
-            <view class="tag" wx:if="{{userInfo.baseInfo.bodyWeight}}">{{userInfo.baseInfo.bodyWeight}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.bodyWeight}}">{{userInfo.baseInfo.bodyWeight}}kg</view>
             <view class="tag" wx:if="{{userInfo.baseInfo.location}}">工作地:{{userInfo.baseInfo.location}}</view>
             <view class="tag" wx:if="{{userInfo.baseInfo.income}}">月收入{{userInfo.baseInfo.income}}</view>
             <view class="tag" wx:if="{{userInfo.baseInfo.profession}}">{{userInfo.baseInfo.profession}}</view>
@@ -94,5 +94,9 @@
             <view class="tag" wx:if="{{userInfo.metaInfo.smoke}}">{{userInfo.metaInfo.smoke}}</view>
             <view class="tag" wx:if="{{userInfo.metaInfo.drink}}">{{userInfo.metaInfo.drink}}</view>
         </view>
+    </view>
+    <view class="info info3" wx:if="{{userInfo.selfIntroduction&&userInfo.matcherIntroduction}}">
+        <view>兴趣爱好: {{userInfo.selfIntroduction}}</view>
+        <view>红娘推荐: {{userInfo.matcherIntroduction}}</view>
     </view>
 </view>

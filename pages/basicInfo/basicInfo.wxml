@@ -1,10 +1,18 @@
 <!--pages/completeInfo/completeInfo.wxml-->
 <view class="container">
-  <mp-dialog title="{{'修改'+jsonData[currentProp]}}" show="{{showDialog}}" buttons="{{buttons}}"
+  <mp-dialog title="修改昵称" show="{{showDialog}}" buttons="{{buttons}}"
     bindbuttontap="dialogFn">
     <mp-cells ext-class="my-cells">
       <mp-cell>
         <input class="weui-input" auto-focus placeholder="请输入" value="{{newNickName}}" bindinput="nickNameChange" />
+      </mp-cell>
+    </mp-cells>
+  </mp-dialog>
+  <mp-dialog title="修改职业" show="{{showDialog2}}" buttons="{{buttons}}"
+    bindbuttontap="dialogFn2">
+    <mp-cells ext-class="my-cells">
+      <mp-cell>
+        <input class="weui-input" auto-focus placeholder="请输入" value="{{newProfession}}" bindinput="professionChange" />
       </mp-cell>
     </mp-cells>
   </mp-dialog>
@@ -45,17 +53,6 @@
     </mp-cell>
     <mp-cell ext-class="cellItem" title="月收入" link>
       <view slot="footer">
-        <!-- <picker mode="multiSelector" bindchange="bindIncomeMultiPickerChange" data-name="income"
-          bindcolumnchange="bindIncomeMultiPickerColumnChange" value="{{incomeMultiIndex}}" range="{{incomeMultiArray}}"
-          header-text="月收入">
-          <view wx:if="{{form.incomeMin && form.incomeMax}}">
-            {{form.incomeMin+'-'+form.incomeMax}}
-          </view>
-          <view wx:if="{{!form.incomeMin || !form.incomeMax}}">
-            请选择
-          </view>
-        </picker> -->
-
         <picker bindchange="changeForm" data-name="income" value="{{form.income}}" range="{{incomeArr}}"
           header-text="月收入">
           <view class="picker">
@@ -118,13 +115,9 @@
     </mp-cell>
     <mp-cell ext-class="cellItem" title="职业" link>
       <view slot="footer">
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange" data-name="profession"
-          bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range-key="name" range="{{multiArray}}"
-          header-text="选择职业">
-          <view class="picker">
-            {{form.profession||'请选择'}}
-          </view>
-        </picker>
+        <view slot="footer" bindtap="changeProfession" data-name="profession">
+          {{form.profession || '请输入'}}
+        </view>
       </view>
     </mp-cell>
     <mp-cell ext-class="cellItem" title="买房情况" link>

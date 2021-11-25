@@ -62,7 +62,7 @@ Page({
     item.baseInfo={
       education: educationArr[condition.education],
       location: condition.region ? JSON.parse(condition.region)[1] : '',
-      profession:condition.profession ? JSON.parse(condition.profession)[1] : '',
+      profession:condition.profession,
       height:condition.height,
       marriage: marriageArr[condition.marriage],
       starSign: starSignArr[condition.starSign],
@@ -77,7 +77,7 @@ Page({
       carStatus: carStatusArr[condition.carStatus],
       houseStatus: houseStatusArr[condition.houseStatus],
       whenMarriage: whenMarriageArr[condition.whenMarriage],
-      bodyWeight: bodyWeightArr[condition.bodyWeight]
+      bodyWeight:condition.bodyWeight
     }
     item.metaInfo = {
       minAge:condition2.minAge,
@@ -96,8 +96,8 @@ Page({
       drink:drinkArr[condition2.drink],
     }
     item.pictureList = [];
-    item.photos.forEach(item=>{
-      item.pictureList.push(item.photoPath)
+    item.photos.forEach(citem=>{
+      item.pictureList.push(citem.photoPath)
     })
     console.log(item)
     return item
@@ -111,5 +111,13 @@ Page({
         });
       }
     })
-  }
+  },
+  preview(event){
+    let currentUrl = event.currentTarget.dataset.src
+    console.log(currentUrl)
+    wx.previewImage({
+      current: currentUrl, // 当前显示图片的http链接
+      urls: this.data.userInfo.pictureList // 需要预览的图片http链接列表
+    })
+  },
 })

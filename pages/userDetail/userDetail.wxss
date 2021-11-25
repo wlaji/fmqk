@@ -117,7 +117,7 @@
     background-color: #6d6d6d;
 }
 
-.info2 {
+.info2,.info3 {
     color: #6d6d6d;
     font-size: 14px;
 }

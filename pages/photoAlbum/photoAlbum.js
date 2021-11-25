@@ -27,7 +27,7 @@ Page({
       console.log(res)
       let imgList = [];
       res.data.photos.forEach(item=>{
-        imgList.push('http://120.24.82.148:8089/photo/image'+item.photoPath)
+        imgList.push(item.photoPath)
       })
       this.setData({
         imgList
@@ -56,7 +56,7 @@ Page({
           wx.hideLoading()
         }, 2000)
         wx.uploadFile({
-          url: 'http://120.24.82.148:8089/photo/upload ', //仅为示例，非真实的接口地址
+          url: 'http://121.40.112.169:8089/photo/upload ', //仅为示例，非真实的接口地址
           filePath: tempFilePaths[0],
           name: 'file',
           formData: {
@@ -86,7 +86,7 @@ Page({
   },
   preview(event) {
     console.log(event.currentTarget.dataset.src)
-    let currentUrl = 'http://120.24.82.148:8089/photo/image'+event.currentTarget.dataset.src
+    let currentUrl = event.currentTarget.dataset.src
     wx.previewImage({
       current: currentUrl, // 当前显示图片的http链接
       urls: this.data.imgList // 需要预览的图片http链接列表

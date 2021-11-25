@@ -13,7 +13,7 @@ Page({
     loadingFailed: false,
     isLogin: false,
     page: 1,
-    pageSize: 20,
+    pageSize: 10,
     total:'',
   },
 
@@ -27,8 +27,7 @@ Page({
         return citem.conditionType === 1
       })
       item.location = condition.region&&condition.region.length?JSON.parse(condition.region)[1]:'';
-      console.log(condition)
-      item.profession = condition.profession&&condition.profession.length?JSON.parse(condition.profession)[1]:''
+      item.height = condition.height;
     })
     return list
   },
@@ -87,7 +86,14 @@ Page({
   },
 
   onReachBottom() {
+    console.log(321321)
     if(!this.data.isLogin){
+      return false;
+    }
+    if(this.data.total<=this.data.userList.length){
+      this.setData({
+        noMore: true
+      })
       return false;
     }
     this.setData({
@@ -97,13 +103,7 @@ Page({
       this.setData({
         loading: false
       })
-    }, 3000)
-    if(this.data.total<=this.data.userList.length){
-      this.setData({
-        noMore: true
-      })
-      return false;
-    }
+    }, 1000)
     this.setData({
       page:this.data.page+1
     })

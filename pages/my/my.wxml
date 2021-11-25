@@ -19,7 +19,7 @@
     <view class="topInfo">
       <view class="photoWrap" bindtap="uploadPhoto">
         <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
-          src="{{userInfo.photos.length?'http://120.24.82.148:8089/photo/image'+userInfo.photos[0].photoPath:picPath}}">
+          src="{{userInfo.photos.length?userInfo.photos[0].photoPath:picPath}}">
         </image>
         <view class="text1">{{userInfo.photos.length?'修改':'未上传'}}</view>
       </view>

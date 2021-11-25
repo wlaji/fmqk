@@ -20,7 +20,7 @@
             </view>
             <view class="rightInfo">
                 <view class="topInfo">
-                    <view class="name">{{item.nickName}}</view>
+                    <view class="name">{{item.nickName || '微信用户'}}</view>
                     <view class="hy" wx:if="{{userInfo.userLevel>1}}">
                         <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
                     </view>
@@ -30,10 +30,11 @@
                 </view>
                 <view class="info">
                     <view class="tagItem">{{item.age}}岁</view>
-                    <view class="tagItem">{{item.location}}</view>
-                    <view class="tagItem">{{item.profession}}</view>
+                    <view class="tagItem" wx:if="{{item.location}}">{{item.location}}</view>
+                    <view class="tagItem" wx:if="{{item.profession}}">{{item.profession}}</view>
+                    <view class="tagItem" wx:if="{{item.height}}">{{item.height}}cm</view>
                 </view>
-                <!-- <view class="des">液晶的哈哈放大镜看哈尽快恢复的快加挨</view> -->
+                <view class="des" wx:if="{{item.selfIntroduction}}">{{item.selfIntroduction}}</view>
             </view>
         </view>
         <view style="text-align: center;margin: 10px;">

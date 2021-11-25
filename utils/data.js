@@ -27,7 +27,20 @@ const getHeightIndex = (arr, val) => {
     return ''
   }
   let findInd = arr.findIndex(item => {
-    return parseInt(item) === val
+    return item == val
+  })
+  if (findInd >= 0) {
+    return findInd
+  }
+  return ''
+}
+
+const getWeightIndex = (arr, val) => {
+  if(!val){
+    return ''
+  }
+  let findInd = arr.findIndex(item => {
+    return item == val
   })
   if (findInd >= 0) {
     return findInd
@@ -62,11 +75,10 @@ const genderArray = [{
     value: '1'
   }
 ]
-let heightArr = ['149cm以下']
+let heightArr = []
 for (let i = 150; i < 210; i++) {
-  heightArr.push(i + 'cm')
+  heightArr.push(i)
 }
-heightArr.push('210cm以上')
 const incomeArr = ["3000元以下", "3001-5000元", "5001-8000元", "8001-12000元", "12001-20000元", "20001-50000元", "50000元以上"]
 const educationArr = ["高中及以下", "中专", "大专", "大学本科", "硕士", "博士"]
 const marriageArr = ["未婚", "已婚", "丧偶"]
@@ -74,11 +86,10 @@ const hadChildArr = ["没有小孩", "有孩子且住在一起", "有孩子且�
 const wantChildArr = ["视情况而定", "想要孩子", "不想要孩子", "以后告诉你"]
 const houseStatusArr = ["和家人同住", "已购房", "租房", "打算婚后购房", "住在单位宿舍"]
 const carStatusArr = ["已买车", "未买车"]
-let bodyWeightArr = ['30kg以下']
+let bodyWeightArr = []
 for (let i = 30; i < 130; i++) {
-  bodyWeightArr.push(i + 'kg')
+  bodyWeightArr.push(i)
 }
-bodyWeightArr.push('130kg以上')
 const girlbodyShapeArr = ["保密", "一般", "瘦长", "苗条", "高大美丽", "丰满", "富线条美"]
 const manbodyShapeArr = ["保密", "一般", "瘦长", "修身", "高大", "肌肉男", "匀称"]
 const smokeArr = ["不吸烟", "稍微抽一点烟", "烟抽的很多", "社交场合会抽烟"]
@@ -89,6 +100,7 @@ const whenMarriageArr = ["认同闪婚","一年内","两年内","三年内","时
 export {
   getIndex,
   getHeightIndex,
+  getWeightIndex,
   getIncomeIndex,
   genderArray,
   bodyWeightArr,
