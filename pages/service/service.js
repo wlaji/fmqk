@@ -35,9 +35,9 @@ Page({
                 isLogin: true
             })
             searchMember(this.data.conditions).then(res => {
-                // this.setData({
-                //     userList: res.data.list
-                // })
+                this.setData({
+                    userList: res.data.list
+                })
             })
         } else {
             this.setData({
