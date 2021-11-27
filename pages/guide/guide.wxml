@@ -1,6 +1,6 @@
 <!--pages/guide/guide.wxml-->
 <view class="container">
-    <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill" src="{{bgSrc}}"></image>
+    <van-image width="100%" height="100%" custom-class="bgImg" fit="cover" src="{{bgSrc}}" />
     <view class="btnWrap">
         <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
             <my-button innerText="开启缘分"></my-button>

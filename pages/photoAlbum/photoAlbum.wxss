@@ -22,16 +22,6 @@
   color: rgb(110, 110, 110);
 }
 
-.btn button{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  background-color: seagreen;
-  width: 100px !important;
-  padding:8px 10px;
-}
-
 .photoCon{
   margin-top:10px;
   overflow: auto;
@@ -41,7 +31,7 @@
 
 .photoCon .item{
   flex-basis: calc(33.3% - 10px);
-  height:200rpx;
+  height:220rpx;
   border:1px solid #ccc;
   border-radius: 10px;
   margin:5px;

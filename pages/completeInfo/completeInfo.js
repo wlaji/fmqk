@@ -77,12 +77,18 @@ Page({
         })
     },
 
+    onClickGender(e){
+        this.setData({
+            'form.gender':e.currentTarget.dataset.name
+        })
+    },
+
     getRegisterInfo() {
         let form = this.data.form;
-        let gender = genderArray[form.gender].value,
+        let gender = form.gender,
             region = form.region,
             birthday = form.birthday.replace(/-/g, "/"),
-            height = parseInt(heightArr[form.height]),
+            height = heightArr[form.height],
             education = form.education,
             marriage = form.marriage,
             income = incomeArr[form.income],

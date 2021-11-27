@@ -1,5 +1,5 @@
 {
-  "entryPagePath": "pages/my/my",
+  "entryPagePath": "pages/guide/guide",
   "pages": [
     "pages/guide/guide",
     "pages/login/login",
@@ -32,7 +32,15 @@
     "van-field": "@vant/weapp/field/index",
     "van-picker": "@vant/weapp/picker/index",
     "van-button": "@vant/weapp/button/index",
-    "van-popup": "@vant/weapp/popup/index"
+    "van-popup": "@vant/weapp/popup/index",
+    "van-notify": "@vant/weapp/notify/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-toast": "@vant/weapp/toast/index",
+    "van-image": "@vant/weapp/image/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-sticky": "@vant/weapp/sticky/index"
   },
   "permission": {
     "scope.userLocation": {
@@ -44,8 +52,7 @@
     "borderStyle": "white",
     "selectedColor": "#b4282d",
     "color": "#666",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/index/index",
         "iconPath": "static/images/ic_menu_choice_nor.png",
         "selectedIconPath": "static/images/ic_menu_choice_pressed.png",

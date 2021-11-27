@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   background-color: #eee;
 }
 .imgWrap{
@@ -43,16 +43,15 @@
 }
 
 .btnWrap {
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .btnWrap .btn2 {
-  margin-top: 20px;
+  margin-top: 10px;
   display: inline-block;
   width: 600rpx;
   text-align: center;

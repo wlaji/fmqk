@@ -8,7 +8,7 @@
         <swiper indicator-dots="true">
             <block wx:for="{{userInfo.pictureList}}" wx:key="index">
                 <swiper-item bindtap="preview" data-src="{{userInfo.pictureList[index]}}">
-                    <image class="swipe-item" src="{{item}}" mode="aspectFill"></image>
+                    <van-image custom-class="swipe-item" fit="cover" src="{{item}}" />
                 </swiper-item>
             </block>
         </swiper>
@@ -30,9 +30,7 @@
             <view class="hy" wx:if="{{userInfo.userLevel>1}}">
                 <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
             </view>
-            <button size="mini" class="btn" type="primary" bindtap="cloneId">
-                复制编号
-            </button>
+            <van-button type="primary" size="small" bindtap="cloneId">复制编号</van-button>
         </view>
         <view class="bottom">
             <block wx:if="{{userInfo.baseInfo.location}}">

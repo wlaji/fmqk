@@ -1,6 +1,9 @@
 // pages/my/my.js
 const app = getApp()
-import {getUserInfoById} from '../../api/index'
+import {
+    getUserInfoById
+} from '../../api/index'
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
 Page({
 
     /**
@@ -30,10 +33,10 @@ Page({
                 isLogin: true
             })
             getUserInfoById({
-                id:JSON.parse(wx.getStorageSync('userInfo')).id
-            }).then(res=>{
+                id: JSON.parse(wx.getStorageSync('userInfo')).id
+            }).then(res => {
                 this.setData({
-                    userInfo:res.data
+                    userInfo: res.data
                 })
             })
         } else {
@@ -44,29 +47,28 @@ Page({
     },
     uploadPhoto() {
         wx.navigateTo({
-          url: '/pages/photoAlbum/photoAlbum',
+            url: '/pages/photoAlbum/photoAlbum',
         })
     },
     logOut() {
-        wx.showModal({
-            title: '提示',
-            content: '确定要退出登录吗',
-            success(res) {
-                if (res.confirm) {
-                    wx.removeStorageSync('token')
-                    wx.removeStorageSync('userInfo')
-                    wx.navigateTo({
-                        url: '/pages/login/login',
-                    })
-                } else if (res.cancel) {
-                    console.log('用户点击取消')
-                }
-            }
-        })
+        Dialog.confirm({
+                title: '提示',
+                message: '确定要退出登录吗',
+            })
+            .then(() => {
+                wx.removeStorageSync('token')
+                wx.removeStorageSync('userInfo')
+                wx.navigateTo({
+                    url: '/pages/login/login',
+                })
+            })
+            .catch(() => {
+                // on cancel
+            });
     },
-    beMember(){
+    beMember() {
         wx.navigateTo({
-          url: '/pages/member/member',
+            url: '/pages/member/member',
         })
     }
 })

@@ -2,66 +2,66 @@
 import {
     searchMember
 } from '../../api/index'
-
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 import {
     educationArr,
     starSignArr,
 } from '../../utils/data'
 
 let incomeArr = [{
-    value:null,
-    text:'不限', 
-},{
-    value:3000,
-    text:'3000元', 
-},{
-    value:5000,
-    text:'5000元', 
-},{
-    value:10000,
-    text:'10000元', 
-},{
-    value:15000,
-    text:'15000元', 
-},{
-    value:20000,
-    text:'20000元', 
-},{
-    value:50000,
-    text:'50000元', 
+    value: null,
+    text: '不限',
+}, {
+    value: 3000,
+    text: '3000元',
+}, {
+    value: 5000,
+    text: '5000元',
+}, {
+    value: 10000,
+    text: '10000元',
+}, {
+    value: 15000,
+    text: '15000元',
+}, {
+    value: 20000,
+    text: '20000元',
+}, {
+    value: 50000,
+    text: '50000元',
 }];
 let heightArr = [{
-    value:null,
-    text:'不限'
+    value: null,
+    text: '不限'
 }]
 for (let i = 129; i < 212; i++) {
-  heightArr.push({
-      value:i,
-      text:i + 'cm'
-  })
+    heightArr.push({
+        value: i,
+        text: i + 'cm'
+    })
 };
 
 let newEducationArr = [{
-    value:null,
-    text:'不限', 
+    value: null,
+    text: '不限',
 }]
 
-educationArr.forEach((item,index)=>{
+educationArr.forEach((item, index) => {
     newEducationArr.push({
-        value:index,
-        text:item
+        value: index,
+        text: item
     })
 })
 
-let newStarSignArr= [{
-    value:null,
-    text:'不限', 
+let newStarSignArr = [{
+    value: null,
+    text: '不限',
 }]
 
-starSignArr.forEach((item,index)=>{
+starSignArr.forEach((item, index) => {
     newStarSignArr.push({
-        value:index,
-        text:item
+        value: index,
+        text: item
     })
 })
 
@@ -85,20 +85,18 @@ Page({
         },
         newEducationArr,
         newStarSignArr,
-        heightArr:[
-            {
-                values:heightArr
+        heightArr: [{
+                values: heightArr
             },
             {
-                values:heightArr
+                values: heightArr
             }
         ],
-        incomeArr:[
-            {
-                values:incomeArr
+        incomeArr: [{
+                values: incomeArr
             },
             {
-                values:incomeArr
+                values: incomeArr
             }
         ],
         showDialog: false,
@@ -128,48 +126,64 @@ Page({
         return list
     },
 
-    onChangeHeight(event){
-        const { picker, value, index } = event.detail;
-        let newArr = heightArr.filter(item=>{
-            return item.value>value[0].value || item.value ===null
+    onChangeHeight(event) {
+        const {
+            picker,
+            value,
+            index
+        } = event.detail;
+        let newArr = heightArr.filter(item => {
+            return item.value > value[0].value || item.value === null
         })
         picker.setColumnValues(1, newArr);
-        if(index===0){
-            picker.setColumnIndex(1,0)
+        if (index === 0) {
+            picker.setColumnIndex(1, 0)
         }
         this.setData({
-            'form.minHeight':picker.getValues()[0].value,
-            'form.maxHeight':picker.getValues()[1].value
+            'form.minHeight': picker.getValues()[0].value,
+            'form.maxHeight': picker.getValues()[1].value
         })
     },
 
-    onChangeIncome(event){
-        const { picker, value, index } = event.detail;
-        let newArr = incomeArr.filter(item=>{
-            return item.value>value[0].value || item.value ===null
+    onChangeIncome(event) {
+        const {
+            picker,
+            value,
+            index
+        } = event.detail;
+        let newArr = incomeArr.filter(item => {
+            return item.value > value[0].value || item.value === null
         })
         picker.setColumnValues(1, newArr);
-        if(index===0){
-            picker.setColumnIndex(1,0)
+        if (index === 0) {
+            picker.setColumnIndex(1, 0)
         }
         this.setData({
-            'form.incomeMin':picker.getValues()[0].value,
-            'form.incomeMax':picker.getValues()[1].value
+            'form.incomeMin': picker.getValues()[0].value,
+            'form.incomeMax': picker.getValues()[1].value
         })
     },
 
-    onChangeEducation(event){
-        const { picker, value, index } = event.detail;
+    onChangeEducation(event) {
+        const {
+            picker,
+            value,
+            index
+        } = event.detail;
         console.log(value)
         this.setData({
-            'form.education':value.value
+            'form.education': value.value
         })
     },
 
-    onChangeStarSign(event){
-        const { picker, value, index } = event.detail;
+    onChangeStarSign(event) {
+        const {
+            picker,
+            value,
+            index
+        } = event.detail;
         this.setData({
-            'form.starSign':value.value
+            'form.starSign': value.value
         })
     },
 
@@ -197,13 +211,18 @@ Page({
         })
     },
 
-    onClose(){
+    onClose() {
         this.setData({
             showDialog: false,
         })
     },
 
-    filterFn(){
+    filterFn() {
+        Toast.loading({
+            message: '加载中...',
+            forbidClick: true,
+            duration:500
+        });
         this.onClose();
         searchMember(this.data.form).then(res => {
             let list = this.initUserData(res.data)
@@ -215,27 +234,27 @@ Page({
 
     viewDetail(event) {
         console.log(event)
-        if(this.data.isLogin){
-          let id = event.currentTarget.dataset.id
-          wx.navigateTo({
-            url: `/pages/userDetail/userDetail?id=${id}`,
-          })
-        }else{
-          wx.showModal({
-            title: '提示',
-            content: '您还没登录~~',
-            confirmText: '去登陆',
-            cancelText:'再看看',
-            success(res) {
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '/pages/completeInfo/completeInfo',
-                })
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
-          })
+        if (this.data.isLogin) {
+            let id = event.currentTarget.dataset.id
+            wx.navigateTo({
+                url: `/pages/userDetail/userDetail?id=${id}`,
+            })
+        } else {
+            wx.showModal({
+                title: '提示',
+                content: '您还没登录~~',
+                confirmText: '去登陆',
+                cancelText: '再看看',
+                success(res) {
+                    if (res.confirm) {
+                        wx.navigateTo({
+                            url: '/pages/completeInfo/completeInfo',
+                        })
+                    } else if (res.cancel) {
+                        console.log('用户点击取消')
+                    }
+                }
+            })
         }
-      },
+    },
 })

@@ -5,8 +5,7 @@
       最多可上传15张图片,开通会员既可以无限制上传
     </view>
     <view class="btn">
-      <button type="primary" bindtap="beMember"> <i class="iconfont icon-huiyuan1" style="margin-right:4px;"></i>
-        开通会员</button>
+      <van-button type="primary" size="small" bind:click="beMember"><i class="iconfont icon-huiyuan1" style="margin-right:4px;"></i> 开通会员</van-button>
     </view>
   </view>
   <view class="photoCon">

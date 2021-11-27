@@ -1,5 +1,12 @@
 // pages/login/login.js
-import {byPassword} from '../../api/index'
+import {
+    byPassword
+} from '../../api/index'
+import Notify from '../../miniprogram_npm/@vant/weapp/notify/notify';
+import {
+    isEmpty,
+    isPhone
+} from '../../utils/validate'
 const app = getApp()
 Page({
 
@@ -7,55 +14,28 @@ Page({
      * 页面的初始数据
      */
     data: {
-        loginType:1,
+        loginType: 1,
         codeText: '获取验证码',
         getCodeStatus: true,
         time: 10,
+        isPassowrd: true,
         form: {
             loginTel: '',
             code: '',
-            password:'',
+            password: ''
         },
-        errorMsg: '', // 验证表单显示错误信息
-        rules1: [{
-            name: 'loginTel',
-            rules: [{
-                required: true,
-                message: '请输入手机号码'
-            }, {
-                mobile: true,
-                message: '电话格式不对'
-            }]
-        },{
-            name: 'password',
-            rules: [{
-                required: true,
-                message: '请输入登录密码'
-            }]
-        }],
-        rules2: [{
-            name: 'loginTel',
-            rules: [{
-                required: true,
-                message: '请输入手机号码'
-            }, {
-                mobile: true,
-                message: '电话格式不对'
-            }]
-        },{
-            name: 'code',
-            rules: [{
-                required: true,
-                message: '请输入验证码'
-            }]
-        }],
+    },
+    changePasswordType() {
+        this.setData({
+            isPassowrd: !this.data.isPassowrd
+        })
     },
     formInputChange(e) {
         const {
             field
         } = e.currentTarget.dataset
         this.setData({
-            [`form.${field}`]: e.detail.value
+            [`form.${field}`]: e.detail
         })
     },
     timeDown() {
@@ -78,47 +58,47 @@ Page({
         }, 1000);
     },
     getCode() {
-        this.selectComponent('#form').validateField('loginTel', (isValid, errors) => {
-            if (isValid) {
-                this.setData({
-                    getCodeStatus: false
-                })
-                this.timeDown()
-            } else {
-                this.setData({
-                    errorMsg: errors.message
-                })
-            }
-        })
+        console.log(this.data.form.loginTel)
+        if (isPhone(this.data.form.loginTel)) {
+            this.setData({
+                getCodeStatus: false
+            })
+            this.timeDown()
+        } else {
+            Notify('手机号不能为空或者格式错误');
+        }
     },
     // weui提交表单
     weSubmitForm() {
-        this.selectComponent('#form').validate((valid, errors) => {
-            if (!valid) {
-                const firstError = Object.keys(errors)
-                if (firstError.length) {
-                    this.setData({
-                        errorMsg: errors[firstError[0]].message
-                    })
-                }
-            } else {
-                if(this.data.loginType === 1){
-                    byPassword(this.data.form).then(res=>{
-                        wx.setStorageSync('token', res.data.token)
-                        wx.setStorageSync('userInfo', JSON.stringify(res.data.userInfo))
-                        wx.switchTab({
-                            url: '/pages/index/index'
-                        })
-                    })
-                }else{
-                    wx.showToast({
-                        title: '暂未开放此功能',
-                        icon: 'none',
-                        duration: 2000
-                      })
-                }
-                
+        let validPhone = isPhone(this.data.form.loginTel);
+        let validPwd = isEmpty(this.data.form.password);
+        let validCode = isEmpty(this.data.form.code);
+        console.log(validPhone, validPwd, validCode)
+        if (this.data.loginType === 1) {
+            if (!validPhone) {
+                Notify('手机号不能为空或者格式错误');
+                return
             }
+            if (!validPwd) {
+                Notify('密码不能为空');
+                return
+            }
+        } else if (this.data.loginType === 2) {
+            if (!validPhone) {
+                Notify('手机号不能为空或者格式错误');
+                return
+            }
+            if (!validCode) {
+                Notify('验证码不能为空');
+                return
+            }
+        }
+        byPassword(this.data.form).then(res => {
+            wx.setStorageSync('token', res.data.token)
+            wx.setStorageSync('userInfo', JSON.stringify(res.data.userInfo))
+            wx.switchTab({
+                url: '/pages/index/index'
+            })
         })
     },
     // 重置表单
@@ -129,15 +109,15 @@ Page({
             'form.password': '',
         })
     },
-    changeLoginType(){
+    changeLoginType() {
         this.restForm()
-        if(this.data.loginType === 1){
+        if (this.data.loginType === 1) {
             this.setData({
-                loginType:2
+                loginType: 2
             })
-        }else{
+        } else {
             this.setData({
-                loginType:1
+                loginType: 1
             })
         }
     }

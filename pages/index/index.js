@@ -1,5 +1,7 @@
 // index.js
 // 获取应用实例
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog';
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 const app = getApp()
 import {
   getPushUserNoLogin,
@@ -14,19 +16,19 @@ Page({
     isLogin: false,
     page: 1,
     pageSize: 10,
-    total:'',
+    total: '',
   },
 
   onLoad() {
 
   },
 
-  initUserData(list){
-    list.forEach(item=>{
-      let condition = item.conditionList.find(citem=>{
+  initUserData(list) {
+    list.forEach(item => {
+      let condition = item.conditionList.find(citem => {
         return citem.conditionType === 1
       })
-      item.location = condition.region&&condition.region.length?JSON.parse(condition.region)[1]:'';
+      item.location = condition.region && condition.region.length ? JSON.parse(condition.region)[1] : '';
       item.height = condition.height;
       item.profession = condition.profession
     })
@@ -39,13 +41,13 @@ Page({
         isLogin: true
       })
       getPushUserByUserId({
-        page:1,
-        pageSize:this.data.pageSize
+        page: 1,
+        pageSize: this.data.pageSize
       }).then(res => {
         let list = this.initUserData(res.data.list)
         this.setData({
           userList: list,
-          total:res.data.total
+          total: res.data.total
         })
       })
     } else {
@@ -63,36 +65,36 @@ Page({
 
   viewDetail(event) {
     console.log(event)
-    if(this.data.isLogin){
+    if (this.data.isLogin) {
       let id = event.currentTarget.dataset.id
       wx.navigateTo({
         url: `/pages/userDetail/userDetail?id=${id}`,
       })
-    }else{
-      wx.showModal({
-        title: '提示',
-        content: '您还没登录~~',
-        confirmText: '去登陆',
-        cancelText:'再看看',
-        success(res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/completeInfo/completeInfo',
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
+    } else {
+      Dialog.confirm({
+          title: '提示',
+          message: '您还没登录!',
+          confirmButtonText: "去登陆",
+          cancelButtonText: "再看看"
+        })
+        .then(() => {
+          wx.navigateTo({
+            url: '/pages/completeInfo/completeInfo',
+          })
+        })
+        .catch(() => {
+          // on cancel
+        });
+
     }
   },
 
   onReachBottom() {
     console.log(321321)
-    if(!this.data.isLogin){
+    if (!this.data.isLogin) {
       return false;
     }
-    if(this.data.total<=this.data.userList.length){
+    if (this.data.total <= this.data.userList.length) {
       this.setData({
         noMore: true
       })
@@ -107,11 +109,11 @@ Page({
       })
     }, 1000)
     this.setData({
-      page:this.data.page+1
+      page: this.data.page + 1
     })
     getPushUserByUserId({
-      page:this.data.page,
-      pageSize:this.data.pageSize
+      page: this.data.page,
+      pageSize: this.data.pageSize
     }).then(res => {
       let list = this.initUserData(res.data.list)
       this.setData({
@@ -121,17 +123,17 @@ Page({
   },
 
   onPullDownRefresh() {
-    wx.showLoading({
-      title: '刷新中...',
-    })
+    Toast.loading({
+      message: '加载中...',
+      forbidClick: true,
+    });
     this.onShow()
     setTimeout(() => {
-      wx.hideLoading();
       //停止下拉刷新
       wx.stopPullDownRefresh();
     }, 2000)
   },
-  filterLocation(val){
+  filterLocation(val) {
     console.log(val)
     return '321321'
   }

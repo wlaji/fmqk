@@ -21,18 +21,19 @@
   box-sizing: border-box;
   flex-basis: calc(50% - 10px);
   margin: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #ebedf0;
   border-radius: 4px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
 .userWrap .userItem .imgWrap {
   height: 200px;
+  margin-bottom: 10px;
 }
 
 .userWrap .userItem .name {
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .userWrap .userItem .info {
@@ -100,8 +101,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 420rpx;
-  margin-top: 10px;
+  margin-top: 5px;
   color:#6d6d6d;
+  font-size:14px;
 }
 
 .rightInfo .info{
@@ -114,7 +116,7 @@
   border: 1px solid #965b96;
   color: #965b96;
   padding: 2px 4px;
-  font-size:12px;
+  font-size:14px;
   border-radius: 4px;
   margin-right: 4px;
   margin-bottom:4px;

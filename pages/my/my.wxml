@@ -1,9 +1,9 @@
 <!--pages/my/my.wxml-->
 <view class="container">
+  <van-dialog id="van-dialog" />
   <view wx:if="{{!isLogin}}">
     <view class="imgWrap">
-      <image style="width: 80px; height: 80px;" mode="aspectFill" src="/static/images/edit.png">
-      </image>
+      <van-image width="80" height="80" fit="contain" src="/static/images/edit.png" />
       <text style="color:#999999;margin-top:20px;font-size:14px;">完善你的资料, 遇见你的真爱</text>
     </view>
     <view class="btnWrap">
@@ -18,9 +18,7 @@
   <view class="contentWrap" wx:if="{{isLogin}}">
     <view class="topInfo">
       <view class="photoWrap" bindtap="uploadPhoto">
-        <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
-          src="{{userInfo.photos.length?userInfo.photos[0].photoPath:picPath}}">
-        </image>
+        <van-image width="100%" height="100%" fit="cover" src="{{userInfo.photos.length?userInfo.photos[0].photoPath:picPath}}" />
         <view class="text1">{{userInfo.photos.length?'修改':'未上传'}}</view>
       </view>
       <view class="rightInfo">
@@ -30,26 +28,14 @@
     </view>
     <view class="content">
       <view class="item">
-        <mp-cell ext-class="cellItem" title="基本资料" link url="/pages/basicInfo/basicInfo">
-          <view slot="footer">
-            <text>{{userInfo.age +'岁' || ''}}</text>
-          </view>
-        </mp-cell>
-        <mp-cell ext-class="cellItem" title="择偶条件" link url="/pages/condition/condition">
-          <view slot="footer">
-            
-          </view>
-        </mp-cell>
-        <mp-cell ext-class="cellItem" title="我的相册" link url="/pages/photoAlbum/photoAlbum">
-          <view slot="footer">
-            <text>已上传 {{userInfo.photos.length}} 张</text>
-          </view>
-        </mp-cell>
+        <van-cell title="基本资料" value="{{userInfo.age +'岁' || ''}}" is-link url="/pages/basicInfo/basicInfo"></van-cell>
+        <van-cell title="择偶条件" is-link url="/pages/basicInfo/basicInfo"></van-cell>
+        <van-cell title="我的相册" value="已上传 {{userInfo.photos.length}} 张" is-link url="/pages/photoAlbum/photoAlbum"></van-cell>
       </view>
       <view class="item">
         <view class="hyTitle">
           <view class="t1">
-            <i class="iconfont icon-huiyuan1" style="font-size:25px;margin-right:20px;color:#fcc52ed2;"></i> 福满会员
+            <i class="iconfont icon-huiyuan1" style="font-size:25px;margin-right:10px;color:#fcc52ed2;"></i> 福满会员
           </view>
           <view class="t2">
             未开通
@@ -60,21 +46,16 @@
             解锁消息发送, 无限量免费查看, 享有优先推荐特权
           </view>
           <view class="btn">
-            <button type="primary" bindtap="beMember"> <i class="iconfont icon-huiyuan1" style="margin-right:4px;"></i>
-              开通会员</button>
+            <van-button type="primary" size="small" bind:click="beMember"><i class="iconfont icon-huiyuan1" style="margin-right:4px;"></i> 开通会员</van-button>
           </view>
         </view>
       </view>
       <view class="item">
         <button open-type="contact" class="kfBtn"></button>
-        <mp-cell ext-class="cellItem" title="联系客服" link></mp-cell>
+        <van-cell title="联系客服" is-link />
       </view>
       <view class="item">
-        <mp-cell ext-class="cellItem" style="text-align:center" bindtap="logOut">
-          <view slot="footer" style="text-align:center">
-            退出登录
-          </view>
-        </mp-cell>
+        <van-cell title="退出登录" center bind:click="logOut" is-link />
       </view>
     </view>
   </view>

@@ -1,36 +1,26 @@
 <view class="container">
-  <van-popup show="{{ showDialog }}" position="bottom" custom-style="height:60%" lock-scroll close-on-click-overlay="{{false}}">
-    <view>
-      <view style="padding:10px;">
-        <van-row gutter="20">
-          <van-col span="12">
-            <van-button type="default" size="small" bind:click="onClose">取消</van-button>
-          </van-col>
-          <van-col span="12" style="text-align:right">
-            <van-button type="primary" size="small" bind:click="filterFn">确认</van-button>
-          </van-col>
-        </van-row>
-      </view>
-      <van-cell-group border="{{false}}">
-        <van-cell center title="身高" border="{{false}}">
-          <van-picker columns="{{ heightArr }}" column-class="columnItem" bind:change="onChangeHeight" visible-item-count="1" />
+  <van-toast id="van-toast" />
+  <van-popup show="{{ showDialog }}" position="bottom" custom-style="height:250px" bind:close="filterFn" lock-scroll closeable close-on-click-overlay="{{false}}">
+    <view style="padding-top:40px;">
+      <van-cell-group>
+        <van-cell center title="身高" title-width="100px">
+          <van-picker columns="{{ heightArr }}" column-class="columnItem" bind:change="onChangeHeight" visible-item-count="1" item-height="24" />
         </van-cell>
-        <van-cell center title="收入" border="{{false}}">
-          <van-picker columns="{{ incomeArr }}" column-class="columnItem" bind:change="onChangeIncome" visible-item-count="1" />
+        <van-cell center title="收入" title-width="100px">
+          <van-picker columns="{{ incomeArr }}" column-class="columnItem" bind:change="onChangeIncome" visible-item-count="1" item-height="24" />
         </van-cell>
-        <van-cell center title="学历" border="{{false}}">
-          <van-picker columns="{{ newEducationArr }}" column-class="columnItem" bind:change="onChangeEducation" visible-item-count="1" />
+        <van-cell center title="学历" title-width="100px">
+          <van-picker columns="{{ newEducationArr }}" column-class="columnItem" bind:change="onChangeEducation" visible-item-count="1" item-height="24" />
         </van-cell>
-        <van-cell center title="星座" border="{{false}}">
-          <van-picker columns="{{ newStarSignArr }}" column-class="columnItem" bind:change="onChangeStarSign" visible-item-count="1" />
+        <van-cell center title="星座" title-width="100px">
+          <van-picker columns="{{ newStarSignArr }}" column-class="columnItem" bind:change="onChangeStarSign" visible-item-count="1" item-height="24" />
         </van-cell>
       </van-cell-group>
     </view>
   </van-popup>
   <view wx:if="{{!isLogin}}" class="noLoginWrap">
     <view class="imgWrap">
-      <image style="width: 80px; height: 80px;" mode="aspectFill" src="/static/images/edit.png">
-      </image>
+      <van-image width="80" height="80" fit="contain" src="/static/images/edit.png" />
       <text style="color:#999999;margin-top:20px;font-size:14px;">您还未登录, 请登录~</text>
     </view>
     <view class="btnWrap">
@@ -45,9 +35,7 @@
   <view class="loginUserWrap" wx:if="{{isLogin}}">
     <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
       <view class="imgWrap">
-        <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
-          src="{{item.photos[0].photoPath}}">
-        </image>
+        <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
       </view>
       <view class="rightInfo">
         <view class="topInfo">
@@ -70,9 +58,6 @@
     </view>
   </view>
   <view wx:if="{{isLogin}}" class="cusBtn">
-    <button type="primary" size="mini" bindtap="showExtend">
-      <mp-icon icon="search" color="#fff" size="{{25}}"></mp-icon> 按设定条件查找
-    </button>
-    <view class="extendWrap" wx:if="{{show}}" bindtap="showExtend"></view>
+    <van-button type="primary"  icon="search" bindtap="showExtend" size="small">按照条件查找</van-button>
   </view>
 </view>

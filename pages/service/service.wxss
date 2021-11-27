@@ -41,6 +41,7 @@
   color: #964596;
   font-size: 14px;
 }
+
 .cusBtn{
   position: fixed;
   top:10px;
@@ -48,23 +49,10 @@
   right:10px;
 }
 
-.cusBtn button{
-  font-size:14px !important;
-  background-color:rgba(253, 61, 61, 0.788) !important;
-}
-
-.cusBtn .extend{
-  background-color:#fff;
-  padding:10px;
-  border:1px solid #ccc;
-  border-radius:10px;
-}
-
 .loginUserWrap {
   position: relative;
   flex:1;
   height: 0;
-  padding-top:50px;
   padding-left:10px;
   padding-right:10px;
 }
@@ -124,8 +112,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 420rpx;
-  margin-top: 10px;
+  margin-top: 5px;
   color:#6d6d6d;
+  font-size:14px;
 }
 
 .rightInfo .info{
@@ -138,12 +127,12 @@
   border: 1px solid #965b96;
   color: #965b96;
   padding: 2px 4px;
-  font-size:12px;
+  font-size:14px;
   border-radius: 4px;
   margin-right: 4px;
   margin-bottom:4px;
 }
 
-.columnItem{
-  border:none;
+.van-hairline--top-bottom:after{
+  border:none !important;
 }

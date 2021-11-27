@@ -41,7 +41,7 @@
         </picker>
       </view>
     </mp-cell>
-    <mp-cell ext-class="cellItem" title="身高" link>
+    <mp-cell ext-class="cellItem" title="身高(cm)" link>
       <view slot="footer">
         <picker bindchange="changeForm" data-name="height" value="{{form.height}}" range="{{heightArr}}"
           header-text="性别选择">
@@ -155,7 +155,7 @@
         </picker>
       </view>
     </mp-cell>
-    <mp-cell ext-class="cellItem" title="体重" link>
+    <mp-cell ext-class="cellItem" title="体重(kg)" link>
       <view slot="footer">
         <picker bindchange="changeForm" data-name="bodyWeight" value="{{form.bodyWeight}}" range="{{bodyWeightArr}}"
           header-text="体重">

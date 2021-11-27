@@ -1,14 +1,8 @@
-// pages/userDetail/userDetail.js
 import {
   getUserInfoById
 } from '../../api/index'
 import {
-  getIndex,
-  getHeightIndex,
   getIncomeIndex,
-  genderArray,
-  bodyWeightArr,
-  heightArr,
   incomeArr,
   educationArr,
   marriageArr,
@@ -31,11 +25,7 @@ Page({
    */
   data: {
     userInfo: {
-      photos: [
-        'https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGdpcmx8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        'https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGdpcmx8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        'https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGdpcmx8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-      ]
+      photos: []
     }
   },
 
@@ -106,15 +96,11 @@ Page({
     wx.setClipboardData({
       data: `用户编号:${this.data.userInfo.id}`,
       success: function (res) {
-        wx.showToast({
-          title: '复制成功',
-        });
       }
     })
   },
   preview(event){
     let currentUrl = event.currentTarget.dataset.src
-    console.log(currentUrl)
     wx.previewImage({
       current: currentUrl, // 当前显示图片的http链接
       urls: this.data.userInfo.pictureList // 需要预览的图片http链接列表
