@@ -1,49 +1,30 @@
 <view class="container">
-  <!-- <mp-dialog title="筛选条件" show="{{showDialog}}" buttons="{{buttons}}" bindbuttontap="dialogFn">
-    <mp-form style="width:100%">
-      <mp-cells title="月收入(元)">
-        <mp-cell>
-          <input bindinput="changeForm" data-name="incomeMin" type="number" placeholder="最低要求月收入" />
-        </mp-cell>
-        <mp-cell>
-          <input bindinput="changeForm" data-name="incomeMax" type="number" placeholder="最高要求月收入" />
-        </mp-cell>
-      </mp-cells>
-      <mp-cells title="身高">
-        <mp-cell>
-          <input bindinput="changeForm" data-name="minHeight" type="number" placeholder="最低要求身高" />
-        </mp-cell>
-        <mp-cell>
-          <input bindinput="changeForm" data-name="maxHeight" type="number" placeholder="最高要求身高" />
-        </mp-cell>
-      </mp-cells>
-      <mp-cells title="星座">
-        <mp-cell>
-          <picker bindchange="changeForm" data-name="starSign" value="{{form.starSign}}" range="{{starSignArr}}"
-            header-text="星座选择">
-            <view class="picker">
-              {{starSignArr[form.starSign] || '请选择'}}
-            </view>
-          </picker>
-        </mp-cell>
-      </mp-cells>
-      <mp-cells title="学历">
-        <mp-cell>
-          <picker bindchange="changeForm" data-name="education" value="{{form.education}}" range="{{educationArr}}"
-            header-text="学历选择">
-            <view class="picker">
-              {{educationArr[form.education] || '请选择'}}
-            </view>
-          </picker>
-        </mp-cell>
-      </mp-cells>
-    </mp-form>
-  </mp-dialog> -->
-
-
-  <van-popup show="{{ showDialog }}" position="bottom" custom-style="height: 20%;" bind:close="onClose" lock-scroll>
+  <van-popup show="{{ showDialog }}" position="bottom" custom-style="height:60%" lock-scroll close-on-click-overlay="{{false}}">
     <view>
-      
+      <view style="padding:10px;">
+        <van-row gutter="20">
+          <van-col span="12">
+            <van-button type="default" size="small" bind:click="onClose">取消</van-button>
+          </van-col>
+          <van-col span="12" style="text-align:right">
+            <van-button type="primary" size="small" bind:click="filterFn">确认</van-button>
+          </van-col>
+        </van-row>
+      </view>
+      <van-cell-group border="{{false}}">
+        <van-cell center title="身高" border="{{false}}">
+          <van-picker columns="{{ heightArr }}" column-class="columnItem" bind:change="onChangeHeight" visible-item-count="1" />
+        </van-cell>
+        <van-cell center title="收入" border="{{false}}">
+          <van-picker columns="{{ incomeArr }}" column-class="columnItem" bind:change="onChangeIncome" visible-item-count="1" />
+        </van-cell>
+        <van-cell center title="学历" border="{{false}}">
+          <van-picker columns="{{ newEducationArr }}" column-class="columnItem" bind:change="onChangeEducation" visible-item-count="1" />
+        </van-cell>
+        <van-cell center title="星座" border="{{false}}">
+          <van-picker columns="{{ newStarSignArr }}" column-class="columnItem" bind:change="onChangeStarSign" visible-item-count="1" />
+        </van-cell>
+      </van-cell-group>
     </view>
   </van-popup>
   <view wx:if="{{!isLogin}}" class="noLoginWrap">

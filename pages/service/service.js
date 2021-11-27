@@ -7,6 +7,64 @@ import {
     educationArr,
     starSignArr,
 } from '../../utils/data'
+
+let incomeArr = [{
+    value:null,
+    text:'不限', 
+},{
+    value:3000,
+    text:'3000元', 
+},{
+    value:5000,
+    text:'5000元', 
+},{
+    value:10000,
+    text:'10000元', 
+},{
+    value:15000,
+    text:'15000元', 
+},{
+    value:20000,
+    text:'20000元', 
+},{
+    value:50000,
+    text:'50000元', 
+}];
+let heightArr = [{
+    value:null,
+    text:'不限'
+}]
+for (let i = 129; i < 212; i++) {
+  heightArr.push({
+      value:i,
+      text:i + 'cm'
+  })
+};
+
+let newEducationArr = [{
+    value:null,
+    text:'不限', 
+}]
+
+educationArr.forEach((item,index)=>{
+    newEducationArr.push({
+        value:index,
+        text:item
+    })
+})
+
+let newStarSignArr= [{
+    value:null,
+    text:'不限', 
+}]
+
+starSignArr.forEach((item,index)=>{
+    newStarSignArr.push({
+        value:index,
+        text:item
+    })
+})
+
 Page({
 
     /**
@@ -25,8 +83,24 @@ Page({
             profession: null,
             education: null,
         },
-        educationArr,
-        starSignArr,
+        newEducationArr,
+        newStarSignArr,
+        heightArr:[
+            {
+                values:heightArr
+            },
+            {
+                values:heightArr
+            }
+        ],
+        incomeArr:[
+            {
+                values:incomeArr
+            },
+            {
+                values:incomeArr
+            }
+        ],
         showDialog: false,
         buttons: [{
             text: '取消'
@@ -54,18 +128,49 @@ Page({
         return list
     },
 
-    dialogFn(e){
-        let ind = e.detail.index;
-        //点击取消
-        if (ind === 0) {
-          this.setData({
-            showDialog: false
-          })
-        } else {
-          this.setData({
-            showDialog: false
-          })
+    onChangeHeight(event){
+        const { picker, value, index } = event.detail;
+        let newArr = heightArr.filter(item=>{
+            return item.value>value[0].value || item.value ===null
+        })
+        picker.setColumnValues(1, newArr);
+        if(index===0){
+            picker.setColumnIndex(1,0)
         }
+        this.setData({
+            'form.minHeight':picker.getValues()[0].value,
+            'form.maxHeight':picker.getValues()[1].value
+        })
+    },
+
+    onChangeIncome(event){
+        const { picker, value, index } = event.detail;
+        let newArr = incomeArr.filter(item=>{
+            return item.value>value[0].value || item.value ===null
+        })
+        picker.setColumnValues(1, newArr);
+        if(index===0){
+            picker.setColumnIndex(1,0)
+        }
+        this.setData({
+            'form.incomeMin':picker.getValues()[0].value,
+            'form.incomeMax':picker.getValues()[1].value
+        })
+    },
+
+    onChangeEducation(event){
+        const { picker, value, index } = event.detail;
+        console.log(value)
+        this.setData({
+            'form.education':value.value
+        })
+    },
+
+    onChangeStarSign(event){
+        const { picker, value, index } = event.detail;
+        this.setData({
+            'form.starSign':value.value
+        })
     },
 
     onShow() {
@@ -73,7 +178,7 @@ Page({
             this.setData({
                 isLogin: true
             })
-            searchMember(this.data.conditions).then(res => {
+            searchMember(this.data.form).then(res => {
                 let list = this.initUserData(res.data)
                 this.setData({
                     userList: list
@@ -86,68 +191,51 @@ Page({
         }
     },
 
-    viewDetail(event) {
-        console.log(event)
-        if (this.data.isLogin) {
-            let id = event.currentTarget.dataset.id
-            wx.navigateTo({
-                url: `/pages/userDetail/userDetail?id=${id}`,
-            })
-        } else {
-            wx.showModal({
-                title: '提示',
-                content: '您还没登录~~',
-                confirmText: '去登陆',
-                cancelText: '再看看',
-                success(res) {
-                    if (res.confirm) {
-                        wx.navigateTo({
-                            url: '/pages/completeInfo/completeInfo',
-                        })
-                    } else if (res.cancel) {
-                        console.log('用户点击取消')
-                    }
-                }
-            })
-        }
-    },
-
     showExtend() {
         this.setData({
             showDialog: !this.data.showDialog
         })
     },
 
-    changeForm() {
-
-    },
-
     onClose(){
         this.setData({
-            showDialog: false
+            showDialog: false,
         })
     },
 
-    onReachBottom() {
-        this.setData({
-            loading: true
-        })
-        setTimeout(() => {
+    filterFn(){
+        this.onClose();
+        searchMember(this.data.form).then(res => {
+            let list = this.initUserData(res.data)
             this.setData({
-                loading: false
+                userList: list
             })
-        }, 3000)
+        })
     },
 
-    onPullDownRefresh() {
-        wx.showLoading({
-            title: '刷新中...',
-        })
-        this.onShow()
-        setTimeout(() => {
-            wx.hideLoading();
-            //停止下拉刷新
-            wx.stopPullDownRefresh();
-        }, 2000)
-    }
+    viewDetail(event) {
+        console.log(event)
+        if(this.data.isLogin){
+          let id = event.currentTarget.dataset.id
+          wx.navigateTo({
+            url: `/pages/userDetail/userDetail?id=${id}`,
+          })
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: '您还没登录~~',
+            confirmText: '去登陆',
+            cancelText:'再看看',
+            success(res) {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '/pages/completeInfo/completeInfo',
+                })
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        }
+      },
 })
