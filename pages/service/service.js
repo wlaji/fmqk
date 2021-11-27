@@ -2,6 +2,11 @@
 import {
     searchMember
 } from '../../api/index'
+
+import {
+    educationArr,
+    starSignArr,
+} from '../../utils/data'
 Page({
 
     /**
@@ -11,7 +16,7 @@ Page({
         show: false,
         isLogin: false,
         userList: [],
-        conditions: {
+        form: {
             incomeMin: null,
             incomeMax: null,
             minHeight: null,
@@ -19,7 +24,15 @@ Page({
             starSign: null,
             profession: null,
             education: null,
-        }
+        },
+        educationArr,
+        starSignArr,
+        showDialog: false,
+        buttons: [{
+            text: '取消'
+        }, {
+            text: '确认'
+        }],
     },
 
     /**
@@ -29,14 +42,41 @@ Page({
 
     },
 
+    initUserData(list) {
+        list.forEach(item => {
+            let condition = item.conditionList.find(citem => {
+                return citem.conditionType === 1
+            })
+            item.location = condition.region && condition.region.length ? JSON.parse(condition.region)[1] : '';
+            item.height = condition.height;
+            item.profession = condition.profession
+        })
+        return list
+    },
+
+    dialogFn(e){
+        let ind = e.detail.index;
+        //点击取消
+        if (ind === 0) {
+          this.setData({
+            showDialog: false
+          })
+        } else {
+          this.setData({
+            showDialog: false
+          })
+        }
+    },
+
     onShow() {
         if (wx.getStorageSync('token')) {
             this.setData({
                 isLogin: true
             })
             searchMember(this.data.conditions).then(res => {
+                let list = this.initUserData(res.data)
                 this.setData({
-                    userList: res.data.list
+                    userList: list
                 })
             })
         } else {
@@ -74,7 +114,17 @@ Page({
 
     showExtend() {
         this.setData({
-            show: !this.data.show
+            showDialog: !this.data.showDialog
+        })
+    },
+
+    changeForm() {
+
+    },
+
+    onClose(){
+        this.setData({
+            showDialog: false
         })
     },
 

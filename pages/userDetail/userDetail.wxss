@@ -30,7 +30,7 @@
 }
 
 .swiper {
-    height: 300px;
+    height: 400px;
 }
 
 .swiper swiper {

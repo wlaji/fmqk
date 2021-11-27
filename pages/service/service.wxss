@@ -53,39 +53,11 @@
   background-color:rgba(253, 61, 61, 0.788) !important;
 }
 
-.extendWrap{
-  position: fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  top:0;
-}
 .cusBtn .extend{
   background-color:#fff;
   padding:10px;
   border:1px solid #ccc;
   border-radius:10px;
-}
-
-.extend .condition{
-  display: flex;
-  flex-wrap: wrap;
-  padding:10px 0;
-  border-bottom: 1px solid #ccc;
-}
-
-.extend .condition:last-child{
-  border-bottom:none;
-}
-
-.extend .condition .item{
-   font-size:14px;
-   border: 1px solid #ccc;
-   color: #333;
-   padding: 2px 4px;
-   border-radius: 4px;
-   margin-right: 5px;
-   margin-bottom:5px;
 }
 
 .loginUserWrap {
@@ -158,6 +130,7 @@
 
 .rightInfo .info{
   display: flex;
+  flex-wrap:wrap;
   margin-top: 5px;
 }
 
@@ -168,4 +141,5 @@
   font-size:12px;
   border-radius: 4px;
   margin-right: 4px;
+  margin-bottom:4px;
 }

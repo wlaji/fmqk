@@ -1,4 +1,51 @@
 <view class="container">
+  <!-- <mp-dialog title="筛选条件" show="{{showDialog}}" buttons="{{buttons}}" bindbuttontap="dialogFn">
+    <mp-form style="width:100%">
+      <mp-cells title="月收入(元)">
+        <mp-cell>
+          <input bindinput="changeForm" data-name="incomeMin" type="number" placeholder="最低要求月收入" />
+        </mp-cell>
+        <mp-cell>
+          <input bindinput="changeForm" data-name="incomeMax" type="number" placeholder="最高要求月收入" />
+        </mp-cell>
+      </mp-cells>
+      <mp-cells title="身高">
+        <mp-cell>
+          <input bindinput="changeForm" data-name="minHeight" type="number" placeholder="最低要求身高" />
+        </mp-cell>
+        <mp-cell>
+          <input bindinput="changeForm" data-name="maxHeight" type="number" placeholder="最高要求身高" />
+        </mp-cell>
+      </mp-cells>
+      <mp-cells title="星座">
+        <mp-cell>
+          <picker bindchange="changeForm" data-name="starSign" value="{{form.starSign}}" range="{{starSignArr}}"
+            header-text="星座选择">
+            <view class="picker">
+              {{starSignArr[form.starSign] || '请选择'}}
+            </view>
+          </picker>
+        </mp-cell>
+      </mp-cells>
+      <mp-cells title="学历">
+        <mp-cell>
+          <picker bindchange="changeForm" data-name="education" value="{{form.education}}" range="{{educationArr}}"
+            header-text="学历选择">
+            <view class="picker">
+              {{educationArr[form.education] || '请选择'}}
+            </view>
+          </picker>
+        </mp-cell>
+      </mp-cells>
+    </mp-form>
+  </mp-dialog> -->
+
+
+  <van-popup show="{{ showDialog }}" position="bottom" custom-style="height: 20%;" bind:close="onClose" lock-scroll>
+    <view>
+      
+    </view>
+  </van-popup>
   <view wx:if="{{!isLogin}}" class="noLoginWrap">
     <view class="imgWrap">
       <image style="width: 80px; height: 80px;" mode="aspectFill" src="/static/images/edit.png">
@@ -17,12 +64,13 @@
   <view class="loginUserWrap" wx:if="{{isLogin}}">
     <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
       <view class="imgWrap">
-        <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill" src="{{item.photos[0]}}">
+        <image style="width: 100%; height: 100%; background-color: #eeeeee;" mode="aspectFill"
+          src="{{item.photos[0].photoPath}}">
         </image>
       </view>
       <view class="rightInfo">
         <view class="topInfo">
-          <view class="name">{{item.nickName}}</view>
+          <view class="name">{{item.nickName || '微信用户'}}</view>
           <view class="hy" wx:if="{{userInfo.userLevel>1}}">
             <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
           </view>
@@ -32,16 +80,12 @@
         </view>
         <view class="info">
           <view class="tagItem">{{item.age}}岁</view>
-          <view class="tagItem">{{item.location}}</view>
-          <view class="tagItem">{{item.profession}}</view>
+          <view class="tagItem" wx:if="{{item.location}}">{{item.location}}</view>
+          <view class="tagItem" wx:if="{{item.profession}}">{{item.profession}}</view>
+          <view class="tagItem" wx:if="{{item.height}}">{{item.height}}cm</view>
         </view>
-        <view class="des">{{item.des}}</view>
+        <view class="des" wx:if="{{item.selfIntroduction}}">{{item.selfIntroduction}}</view>
       </view>
-    </view>
-    <view style="text-align: center;margin: 10px;">
-      <view wx:if="{{loading}}">加载中...</view>
-      <view wx:if="{{noMore}}">没有更多了</view>
-      <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
     </view>
   </view>
   <view wx:if="{{isLogin}}" class="cusBtn">
@@ -49,30 +93,5 @@
       <mp-icon icon="search" color="#fff" size="{{25}}"></mp-icon> 按设定条件查找
     </button>
     <view class="extendWrap" wx:if="{{show}}" bindtap="showExtend"></view>
-    <view class="extend" wx:if="{{show}}">
-        <view style="margin-bottom:10px;">筛选条件:</view>
-        <view class="condition">
-          <view class="item">身高</view>
-          <view class="item">体重</view>
-          <view class="item">年龄</view>
-          <view class="item">性别</view>
-          <view class="item">地区</view>
-          <view class="item">体型</view>
-          <view class="item">学历</view>
-          <view class="item">收入</view>
-        </view>
-        <!-- <view class="condition">
-          <view class="item">身高</view>
-          <view class="item">身高</view>
-          <view class="item">身高</view>
-          <view class="item">身高</view>
-          <view class="item">身高</view>
-          <view class="item">身高</view>
-          <view class="item">身高</view>
-          <view class="item">身高</view>
-          <view class="item">身高</view>
-          <view class="item">身高</view>
-        </view> -->
-    </view>
   </view>
 </view>

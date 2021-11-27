@@ -28,6 +28,7 @@ Page({
       })
       item.location = condition.region&&condition.region.length?JSON.parse(condition.region)[1]:'';
       item.height = condition.height;
+      item.profession = condition.profession
     })
     return list
   },
@@ -38,7 +39,7 @@ Page({
         isLogin: true
       })
       getPushUserByUserId({
-        page:this.data.page,
+        page:1,
         pageSize:this.data.pageSize
       }).then(res => {
         let list = this.initUserData(res.data.list)
@@ -52,8 +53,9 @@ Page({
         isLogin: false
       })
       getPushUserNoLogin().then(res => {
+        let list = this.initUserData(res.data)
         this.setData({
-          userList: res.data
+          userList: list,
         })
       })
     }

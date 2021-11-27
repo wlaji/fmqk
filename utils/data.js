@@ -76,7 +76,7 @@ const genderArray = [{
   }
 ]
 let heightArr = []
-for (let i = 150; i < 210; i++) {
+for (let i = 140; i < 210; i++) {
   heightArr.push(i)
 }
 const incomeArr = ["3000元以下", "3001-5000元", "5001-8000元", "8001-12000元", "12001-20000元", "20001-50000元", "50000元以上"]

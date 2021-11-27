@@ -1,7 +1,6 @@
 {
   "usingComponents": {
-    "mp-icon": "weui-miniprogram/icon/icon"
+    "van-popup": "@vant/weapp/popup/index"
   },
-  "navigationBarTitleText": "寻缘",
-  "enablePullDownRefresh": true
+  "navigationBarTitleText": "寻缘"
 }

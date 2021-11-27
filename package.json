@@ -1,0 +1,22 @@
+{
+  "name": "miniprogram-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wlaji/fmqk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wlaji/fmqk/issues"
+  },
+  "homepage": "https://github.com/wlaji/fmqk#readme",
+  "dependencies": {
+    "@vant/weapp": "^1.9.2"
+  }
+}
