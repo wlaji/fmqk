@@ -24,10 +24,10 @@
                 </van-field>
             </block>
         </van-cell-group>
-        <view style="text-align:right;padding:10px;color:#999;font-size:14px;">
+        <!-- <view style="text-align:right;padding:10px;color:#999;font-size:14px;">
             <text wx:if="{{loginType===1}}" bindtap="changeLoginType">切换为验证码登录>></text>
             <text wx:if="{{loginType===2}}" bindtap="changeLoginType">切换为密码登录>></text>
-        </view>
+        </view> -->
         <view class="submit_btn_wrap" style="margin-top:20px;text-align:center;padding:0 10px;">
             <van-button type="primary" block bind:click="weSubmitForm">登录</van-button>
         </view>

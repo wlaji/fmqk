@@ -29,7 +29,7 @@
     <view class="content">
       <view class="item">
         <van-cell title="基本资料" value="{{userInfo.age +'岁' || ''}}" is-link url="/pages/basicInfo/basicInfo"></van-cell>
-        <van-cell title="择偶条件" is-link url="/pages/basicInfo/basicInfo"></van-cell>
+        <van-cell title="择偶条件" is-link url="/pages/condition/condition"></van-cell>
         <van-cell title="我的相册" value="已上传 {{userInfo.photos.length}} 张" is-link url="/pages/photoAlbum/photoAlbum"></van-cell>
       </view>
       <view class="item">

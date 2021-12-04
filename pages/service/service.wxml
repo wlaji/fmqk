@@ -1,19 +1,19 @@
 <view class="container">
   <van-toast id="van-toast" />
-  <van-popup show="{{ showDialog }}" position="bottom" custom-style="height:250px" bind:close="filterFn" lock-scroll closeable close-on-click-overlay="{{false}}">
+  <van-popup show="{{ showDialog }}" position="bottom" custom-style="height:300px" bind:close="filterFn" lock-scroll closeable close-on-click-overlay="{{false}}">
     <view style="padding-top:40px;">
       <van-cell-group>
         <van-cell center title="身高" title-width="100px">
-          <van-picker columns="{{ heightArr }}" column-class="columnItem" bind:change="onChangeHeight" visible-item-count="1" item-height="24" />
+          <van-picker columns="{{ heightArr }}" column-class="columnItem" bind:change="onChangeHeight" visible-item-count="1" item-height="30" />
         </van-cell>
         <van-cell center title="收入" title-width="100px">
-          <van-picker columns="{{ incomeArr }}" column-class="columnItem" bind:change="onChangeIncome" visible-item-count="1" item-height="24" />
+          <van-picker columns="{{ incomeArr }}" column-class="columnItem" bind:change="onChangeIncome" visible-item-count="1" item-height="30" />
         </van-cell>
         <van-cell center title="学历" title-width="100px">
-          <van-picker columns="{{ newEducationArr }}" column-class="columnItem" bind:change="onChangeEducation" visible-item-count="1" item-height="24" />
+          <van-picker columns="{{ newEducationArr }}" column-class="columnItem" bind:change="onChangeEducation" visible-item-count="1" item-height="30" />
         </van-cell>
         <van-cell center title="星座" title-width="100px">
-          <van-picker columns="{{ newStarSignArr }}" column-class="columnItem" bind:change="onChangeStarSign" visible-item-count="1" item-height="24" />
+          <van-picker columns="{{ newStarSignArr }}" column-class="columnItem" bind:change="onChangeStarSign" visible-item-count="1" item-height="30" />
         </van-cell>
       </van-cell-group>
     </view>

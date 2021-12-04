@@ -1,2 +1,60 @@
-<!--pages/member/member.wxml-->
-<text>pages/member/member.wxml</text>
+<view class="container">
+    <view class="imgWrap">
+        <image style="width: 100%; height: 100%" mode="aspectFill" src="/static/images/2.jpg"></image>
+        <view class="textInfo">
+            <view>会员勋章</view>
+            <view>尊贵标识更醒目</view>
+        </view>
+    </view>
+    <view class="content">
+        <view class="info info1">
+            <van-radio-group value="{{ form.openingTime }}">
+                <van-cell center title="12个月" label="日均1.06元" clickable data-name="{{12}}"
+                    bind:click="onClickOpeningTime">
+                    <view slot="right-icon" style="display:flex;">
+                        <text style="margin-right:10rpx;">￥388</text>
+                        <van-radio name="{{12}}" />
+                    </view>
+                </van-cell>
+                <van-cell center title="3个月" label="日均3.8元" clickable data-name="{{3}}" bind:click="onClickOpeningTime">
+                    <view slot="right-icon" style="display:flex;">
+                        <text style="margin-right:10rpx;">￥348</text>
+                        <van-radio name="{{3}}" />
+                    </view>
+                </van-cell>
+                <van-cell center title="1个月" label="日均8.2元" clickable data-name="{{1}}" bind:click="onClickOpeningTime">
+                    <view slot="right-icon" style="display:flex;">
+                        <text style="margin-right:10rpx;">￥248</text>
+                        <van-radio name="{{1}}" />
+                    </view>
+                </van-cell>
+            </van-radio-group>
+            <van-button type="primary" block style="margin-top:10rpx;" bind:click="czHy">确认购买</van-button>
+        </view>
+        <view class="info info2">
+            <view class="title">
+                <view class="br"></view>
+                <view>特权说明</view>
+            </view>
+            <view>
+                <view>1. 解锁你的收件箱</view>
+                <view>1. 解锁消息发送</view>
+                <view>1. 尊贵vip勋章更醒目</view>
+                <view>1. 提升更换头像上限，无限制上传照片</view>
+            </view>
+        </view>
+        <!-- <view class="info info2">
+            <view class="title">
+                <view class="br"></view>
+                <view>安全征婚说明</view>
+            </view>
+            <view>
+                <view>1. 解锁你的收件箱</view>
+                <view>1. 解锁消息发送</view>
+                <view>1. 尊贵vip勋章更醒目</view>
+                <view>1. 提升更换头像上限，无限制上传照片</view>
+            </view>
+        </view> -->
+    </view>
+    <van-notify id="van-notify" />
+</view>

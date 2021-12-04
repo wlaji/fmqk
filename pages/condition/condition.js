@@ -82,27 +82,6 @@ Page({
       ageMultiArray: this.getMultiArray(this.data.ageMultiIndex, ageArr),
       heightMultiArray: this.getMultiArray(this.data.heightMultiIndex, heightArr),
     })
-    console.log(this.getMultiArray(this.data.incomeMultiIndex, incomeArr))
-  },
-  getMultiArray(multiIndex, arr) {
-    let multiArray = [];
-    multiArray[0] = arr
-    let val = multiArray[0][multiIndex[0]];
-    console.log(val)
-    if (val === '不限') {
-      multiArray[1] = arr
-    } else {
-      let filterArr = arr.filter(item => {
-        if (item === '不限') {
-          return true
-        }
-        return parseInt(item) > parseInt(val)
-      })
-      multiArray[1] = filterArr
-    }
-    return multiArray
-  },
-  onShow() {
     getUserInfoById({
       id: JSON.parse(wx.getStorageSync('userInfo')).id
     }).then(res => {
@@ -146,6 +125,24 @@ Page({
       })
       console.log(this.data.form.gender)
     })
+  },
+  getMultiArray(multiIndex, arr) {
+    let multiArray = [];
+    multiArray[0] = arr
+    let val = multiArray[0][multiIndex[0]];
+    console.log(val)
+    if (val === '不限') {
+      multiArray[1] = arr
+    } else {
+      let filterArr = arr.filter(item => {
+        if (item === '不限') {
+          return true
+        }
+        return parseInt(item) > parseInt(val)
+      })
+      multiArray[1] = filterArr
+    }
+    return multiArray
   },
   changeForm(e) {
     const prop = e.target.dataset.name;

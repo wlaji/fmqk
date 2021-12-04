@@ -49,4 +49,8 @@ export const searchMember = function (data) {
 	return post('/app/user/searchMember ',data)
 }
 
+//支付
+export const payment = function (data) {
+	return post('/app/pay/payment',data)
+}
 

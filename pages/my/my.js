@@ -23,21 +23,20 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.setData({
-            isLogin: app.globalData.token ? true : false
-        })
-    },
-    onShow() {
         if (wx.getStorageSync('token')) {
-            this.setData({
-                isLogin: true
-            })
             getUserInfoById({
                 id: JSON.parse(wx.getStorageSync('userInfo')).id
             }).then(res => {
                 this.setData({
                     userInfo: res.data
                 })
+            })
+        }
+    },
+    onShow() {
+        if (wx.getStorageSync('token')) {
+            this.setData({
+                isLogin: true
             })
         } else {
             this.setData({

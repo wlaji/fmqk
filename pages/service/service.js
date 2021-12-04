@@ -111,7 +111,14 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        if (wx.getStorageSync('token')) {
+            searchMember(this.data.form).then(res => {
+                let list = this.initUserData(res.data)
+                this.setData({
+                    userList: list
+                })
+            })
+        }
     },
 
     initUserData(list) {
@@ -191,12 +198,6 @@ Page({
         if (wx.getStorageSync('token')) {
             this.setData({
                 isLogin: true
-            })
-            searchMember(this.data.form).then(res => {
-                let list = this.initUserData(res.data)
-                this.setData({
-                    userList: list
-                })
             })
         } else {
             this.setData({

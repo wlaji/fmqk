@@ -20,7 +20,25 @@ Page({
   },
 
   onLoad() {
-
+    if (wx.getStorageSync('token')) {
+      getPushUserByUserId({
+        page: 1,
+        pageSize: this.data.pageSize
+      }).then(res => {
+        let list = this.initUserData(res.data.list)
+        this.setData({
+          userList: list,
+          total: res.data.total
+        })
+      })
+    } else {
+      getPushUserNoLogin().then(res => {
+        let list = this.initUserData(res.data)
+        this.setData({
+          userList: list,
+        })
+      })
+    }
   },
 
   initUserData(list) {
@@ -40,25 +58,9 @@ Page({
       this.setData({
         isLogin: true
       })
-      getPushUserByUserId({
-        page: 1,
-        pageSize: this.data.pageSize
-      }).then(res => {
-        let list = this.initUserData(res.data.list)
-        this.setData({
-          userList: list,
-          total: res.data.total
-        })
-      })
     } else {
       this.setData({
         isLogin: false
-      })
-      getPushUserNoLogin().then(res => {
-        let list = this.initUserData(res.data)
-        this.setData({
-          userList: list,
-        })
       })
     }
   },
@@ -90,7 +92,6 @@ Page({
   },
 
   onReachBottom() {
-    console.log(321321)
     if (!this.data.isLogin) {
       return false;
     }
@@ -127,11 +128,14 @@ Page({
       message: '加载中...',
       forbidClick: true,
     });
-    this.onShow()
+    this.setData({
+      page:1
+    })
+    this.onLoad();
     setTimeout(() => {
       //停止下拉刷新
       wx.stopPullDownRefresh();
-    }, 2000)
+    }, 1000)
   },
   filterLocation(val) {
     console.log(val)

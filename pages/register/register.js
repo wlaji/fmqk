@@ -22,7 +22,6 @@ Page({
         isPassowrd: true,
         form: {
             loginTel: '',
-            code: '',
             password: ''
         },
     },
@@ -63,7 +62,7 @@ Page({
             timerId = setTimeout(run, 1000);
         }, 1000);
     },
-    
+
     getCode() {
         if (isPhone(this.data.form.loginTel)) {
             this.setData({
@@ -88,7 +87,6 @@ Page({
     weSubmitForm() {
         let validPhone = isPhone(this.data.form.loginTel);
         let validPwd = isEmpty(this.data.form.password);
-        let validCode = isEmpty(this.data.form.code);
         if (!validPhone) {
             Notify('手机号不能为空或者格式错误');
             return
@@ -97,12 +95,11 @@ Page({
             Notify('密码不能为空');
             return
         }
-        if (!validCode) {
-            Notify('验证码不能为空');
-            return
-        }
         register(this.data.form).then(res => {
-            Notify({ type: 'success', message: '注册成功' });
+            Notify({
+                type: 'success',
+                message: '注册成功'
+            });
             return byPassword(this.data.form)
         }).then(res => {
             wx.setStorageSync('token', res.data.token)
@@ -114,4 +111,29 @@ Page({
             })
         })
     },
+    getPhoneNumber(e) {
+        // 获取到微信服务器返回的加密数据
+        const iv = e.detail.iv;
+        const encryptedData = e.detail.encryptedData;
+        wx.login({
+            //获取code
+            success: function (res) {
+                //调用开发服务器，服务器先通过code获取openid和session_key，然后再解密好加密数据
+                wx.request({
+                    url: 'xxxxxx',
+                    data: {
+                        code: res.code,
+                        encryptedData: encryptedData,
+                        iv: iv
+                    },
+                    header: {
+                        'content-type': 'json'
+                    },
+                    success: function (res) {
+
+                    }
+                })
+            }
+        })
+    }
 })
