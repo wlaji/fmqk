@@ -1,0 +1,13 @@
+<view class="container">
+    <view class="imgWrap">
+        <image style="width: 165px; height: 128px;" mode="aspectFill" src="/static/images/register.png">
+        </image>
+        <text style="color:#999999;margin-top:20px;font-size:14px;">使用手机号作为登录账号</text>
+    </view>
+    <view class="content">
+        <view class="submit_btn_wrap" style="margin-top:20px;text-align:center;padding:0 10px;">
+            <van-button slot="button" block type="primary" bind:click="loginWx">微信一键登录</van-button>
+        </view>
+    </view>
+    <van-notify id="van-notify" />
+</view>

@@ -1,0 +1,79 @@
+<view class="container">
+    <mp-navigation-bar title="完善资料" background="#AA824D" color="#fff" bindback="back"></mp-navigation-bar>
+    <view class="imgWrap">
+        <image style="width: 100%; height: 100%" mode="aspectFill" src="/static/images/2.jpg"></image>
+        <view class="textInfo">
+            <view wx:if="{{infoStatus===1}}">你的工作地点在哪里?</view>
+            <view wx:if="{{infoStatus===2}}">你的生日是哪天?</view>
+            <view wx:if="{{infoStatus===3}}">你的身高是?</view>
+            <view wx:if="{{infoStatus===4}}">你的学历是?</view>
+            <view wx:if="{{infoStatus===5}}">你的婚姻状况?</view>
+            <view wx:if="{{infoStatus===6}}">你的月收入?</view>
+            <view style="font-size:14px;">完善填写将为你推荐更合适的异性</view>
+        </view>
+    </view>
+
+    <!-- 选择地址 -->
+    <view class="content" wx:if="{{infoStatus===1}}">
+        <view style="display:flex;justify-content:space-between;margin-bottom:10px;">
+            <text style="flex:1;text-align:center;">{{areaInfo.currentProvinceName}}</text>
+            <text style="flex:1;text-align:center;">{{areaInfo.currentCityName}}</text>
+            <text style="flex:1;text-align:center;">{{areaInfo.currentAreaName}}</text>
+        </view>
+        <picker-view indicator-style="height: 50px;" style="width: 100%; height: 250px;" value="{{value}}"
+            bindchange="cityChange">
+            <picker-view-column>
+                <view wx:for="{{provinces}}" wx:key="id" style="line-height: 50px; text-align: center;">
+                    {{item.name}}
+                </view>
+            </picker-view-column>
+            <picker-view-column>
+                <view wx:for="{{citys}}" wx:key="id" style="line-height: 50px; text-align: center;">
+                    {{item.name}}
+                </view>
+            </picker-view-column>
+            <picker-view-column>
+                <view wx:for="{{areas}}" wx:key="id" style="line-height: 50px; text-align: center;">
+                    {{item.name}}
+                </view>
+            </picker-view-column>
+        </picker-view>
+        <view style="text-align:center;margin-top:20px;">
+            <my-button innerText="下一步" bindtap="changeStatus" data-status="1"></my-button>
+        </view>
+        <view class="skip" bindtap="skipSelectLocation">跳过</view>
+    </view>
+
+    <!-- 选择生日 -->
+    <view class="content" wx:if="{{infoStatus===2}}">
+        <view style="text-align:center;margin-top:20px;">
+            <my-button innerText="下一步" bindtap="changeStatus" data-status="2"></my-button>
+        </view>
+    </view>
+
+    <!-- 选择身高 -->
+    <view class="content" wx:if="{{infoStatus===3}}">
+        <view style="text-align:center;margin-top:20px;">
+            <my-button innerText="下一步" bindtap="changeStatus" data-status="3"></my-button>
+        </view>
+    </view>
+
+    <!-- 选择学历 -->
+    <view class="content" wx:if="{{infoStatus===4}}">
+        <view style="text-align:center;margin-top:20px;">
+            <my-button innerText="下一步" bindtap="changeStatus" data-status="4"></my-button>
+        </view>
+    </view>
+    <!-- 选择婚姻状态 -->
+    <view class="content" wx:if="{{infoStatus===5}}">
+        <view style="text-align:center;margin-top:20px;">
+            <my-button innerText="下一步" bindtap="changeStatus" data-status="5"></my-button>
+        </view>
+    </view>
+    <!-- 选择月收入 -->
+    <view class="content" wx:if="{{infoStatus===6}}">
+        <view style="text-align:center;margin-top:20px;">
+            <my-button innerText="下一步" bindtap="changeStatus" data-status="6"></my-button>
+        </view>
+    </view>
+</view>

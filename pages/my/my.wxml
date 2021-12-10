@@ -1,0 +1,94 @@
+<!--pages/my/my.wxml-->
+<view class="container">
+  <van-dialog id="van-dialog" />
+  <block wx:if="{{isCheck==0}}">
+    <view wx:if="{{!isLogin}}">
+      <view class="imgWrap">
+        <van-image width="80px" height="80px" fit="contain" src="/static/images/edit.png" />
+        <text style="color:#999999;margin-top:20px;font-size:14px;">完善你的资料, 遇见你的真爱</text>
+      </view>
+      <view class="btnWrap">
+        <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
+          <my-button innerText="开始邂逅"></my-button>
+        </navigator>
+        <navigator url="/pages/login/login" hover-class="none">
+          <view class="btn2">已有账号, 立即登录></view>
+        </navigator>
+      </view>
+    </view>
+    <view class="contentWrap" wx:if="{{isLogin}}">
+      <view class="topInfo">
+        <view class="photoWrap" bindtap="uploadPhoto">
+          <van-image width="100%" height="100%" fit="contain"
+            src="{{userInfo.photos.length?userInfo.photos[0].photoPath:picPath}}" />
+          <view class="text1">{{userInfo.photos.length?'修改':'未上传'}}</view>
+        </view>
+        <view class="rightInfo">
+          <view>昵称: {{userInfo.nickName || '微信用户'}}</view>
+          <view style="margin-top:10px;font-size:14px;">ID: {{userInfo.id}}</view>
+        </view>
+      </view>
+      <view class="content">
+        <view class="item" wx:if="{{!isCheck}}">
+          <van-cell title="基本资料" value="{{userInfo.age +'岁' || ''}}" is-link url="/pages/basicInfo/basicInfo">
+          </van-cell>
+          <van-cell title="择偶条件" is-link url="/pages/condition/condition"></van-cell>
+          <van-cell title="我的相册" value="已上传 {{userInfo.photos.length}} 张" is-link url="/pages/photoAlbum/photoAlbum">
+          </van-cell>
+        </view>
+        <view class="item">
+          <view class="hyTitle">
+            <view class="t1">
+              <i class="iconfont icon-huiyuan1" style="font-size:25px;margin-right:10px;color:#fcc52ed2;"></i> 福满会员
+            </view>
+            <view class="t2" style="text-align:right;font-size:14px;color: rgb(110, 110, 110);">
+              <view> {{userInfo.userLevel>1?'已开通':'未开通'}}</view>
+              <view wx:if="{{userInfo.userLevel>1}}">到期时间: {{userInfo.expirationTime}}</view>
+            </view>
+          </view>
+          <view class="hyCon">
+            <view class="t3">
+              享有优先推荐特权
+            </view>
+            <view class="btn">
+              <van-button type="primary" size="small" bind:click="beMember"><i class="iconfont icon-huiyuan1"
+                  style="margin-right:4px;"></i> {{userInfo.userLevel>1?'续费会员':'开通会员'}}</van-button>
+            </view>
+          </view>
+        </view>
+        <view class="item">
+          <button open-type="contact" class="kfBtn"></button>
+          <van-cell title="联系客服" is-link />
+        </view>
+        <view class="item">
+          <van-cell title="退出登录" center bind:click="logOut" is-link />
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{isCheck==1}}">
+    <view class="bgImgWrap" style="text-align:center;">
+      <view class="mainC" style="margin-top:50rpx;">
+        <view bindtap="makePhoneCall">
+          <text style="color:#3797D9;text-decoration:underline">联系电话：0731-88330379</text>
+        </view>
+        <view>
+          <text>联系QQ：287235872@qq.com</text>
+        </view>
+        <view>
+          <text>关注新浪微博@和正企业服务有限公司</text>
+        </view>
+      </view>
+      <view class="gzh">
+        <text>
+          关注和正财税公众号
+        </text>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{isCheck==2}}">
+    <view class="loadWrap">
+      <van-loading type="spinner" vertical>加载中...</van-loading>
+    </view>
+  </block>
+</view>

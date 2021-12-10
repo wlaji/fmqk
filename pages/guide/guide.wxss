@@ -1,0 +1,24 @@
+.container .bgImg{
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+
+}
+
+.btnWrap {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+}
+
+.btnWrap .btn2 {
+    margin-top: 20px;
+    display: inline-block;
+    width: 600rpx;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+}

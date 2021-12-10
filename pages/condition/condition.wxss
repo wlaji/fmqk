@@ -1,0 +1,30 @@
+.container{
+  min-height: 100vh;
+  background-color: #eee;
+  padding: 10px 10px 80px;
+}
+.content{
+  background-color: #fff;
+  height: 100%;
+  padding: 0 8px;
+}
+
+.cellItem {
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+.cellItem:last-child{
+  border-bottom: none;
+}
+
+.cellItem .weui-cell__hd {
+  color: rgb(110, 110, 110);
+}
+.cellItem .weui-cell__bd{
+  flex:0;
+}
+.cellItem .weui-cell__ft {
+  flex:1;
+  width: 0;
+  color: #333;
+}

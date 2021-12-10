@@ -1,0 +1,100 @@
+<view class="container">
+    <view class="contact">
+        <button type="default" size="mini" open-type="contact">
+            <image src="/static/images/contact.png" mode="aspectFit"></image>
+        </button>
+    </view>
+    <view class="swiper">
+        <swiper indicator-dots="true">
+            <block wx:for="{{userInfo.pictureList}}" wx:key="index">
+                <swiper-item bindtap="preview" data-src="{{userInfo.pictureList[index]}}">
+                    <van-image custom-class="swipe-item" fit="cover" src="{{item}}" />
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view class="info info0">
+        <view class="title">注意事项:</view>
+        <view>
+            <view>
+                <view class="question">1.如何获取联系方式?</view>
+                <view class="answer">点击复制编号，复制该用户的编号,然后点击下方联系客服将粘贴板的内容发送给客服</view>
+            </view>
+        </view>
+    </view>
+    <view class="info info1">
+        <view class="top">
+            <view class="nickName">
+                {{userInfo.nickName || '微信用户'}}
+            </view>
+            <view class="hy" wx:if="{{userInfo.userLevel>1}}">
+                <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
+            </view>
+            <van-button type="primary" size="small" bindtap="cloneId">复制编号</van-button>
+        </view>
+        <view class="bottom">
+            <block wx:if="{{userInfo.baseInfo.location}}">
+                <text class="location">{{userInfo.baseInfo.location}}</text>
+                <text class="dot"></text>
+            </block>
+            <block wx:if="{{userInfo.age}}">
+                <text class="age">{{userInfo.age}}岁</text>
+                <text class="dot"></text>
+            </block>
+            <block wx:if="{{userInfo.baseInfo.education}}">
+                <text class="education">{{userInfo.baseInfo.education}}</text>
+                <text class="dot"></text>
+            </block>
+            <block wx:if="{{userInfo.baseInfo.profession}}">
+                <text class="zy">{{userInfo.baseInfo.profession}}</text>
+                <text class="dot"></text>
+            </block>
+            <text class="height" wx:if="{{userInfo.baseInfo.height}}">{{userInfo.baseInfo.height}}cm</text>
+        </view>
+    </view>
+    <view class="info info2">
+        <view class="title">详细资料</view>
+        <view class="con">
+            <view class="tag" wx:if="{{userInfo.baseInfo.marriage}}">{{userInfo.baseInfo.marriage}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.age}}">{{userInfo.age}}岁</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.starSign}}">{{userInfo.baseInfo.starSign}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.height}}">{{userInfo.baseInfo.height}}cm</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.bodyWeight}}">{{userInfo.baseInfo.bodyWeight}}kg</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.location}}">工作地:{{userInfo.baseInfo.location}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.income}}">月收入{{userInfo.baseInfo.income}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.profession}}">{{userInfo.baseInfo.profession}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.education}}">{{userInfo.baseInfo.education}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.nation}}">{{userInfo.baseInfo.nation}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.nativeRegion}}">籍贯{{userInfo.baseInfo.nativeRegion}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.bodyShape}}">体型:{{userInfo.baseInfo.bodyShape}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.smoke}}">{{userInfo.baseInfo.smoke}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.drink}}">{{userInfo.baseInfo.drink}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.hadChild}}">{{userInfo.baseInfo.hadChild}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.wantChild}}">是否想要孩子:{{userInfo.baseInfo.wantChild}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.whenMarriage}}">何时结婚:{{userInfo.baseInfo.whenMarriage}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.houseStatus}}">{{userInfo.baseInfo.houseStatus}}</view>
+            <view class="tag" wx:if="{{userInfo.baseInfo.carStatus}}">{{userInfo.baseInfo.carStatus}}</view>
+        </view>
+        <view class="title">择偶条件</view>
+        <view class="con">
+            <view class="tag" wx:if="{{userInfo.metaInfo.minAge&&userInfo.metaInfo.maxAge}}">
+                {{userInfo.metaInfo.minAge+'-'+userInfo.metaInfo.maxAge}}岁</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.minHeight&&userInfo.metaInfo.maxHeight}}">
+                {{userInfo.metaInfo.minHeight+'-'+userInfo.metaInfo.maxHeight}}cm</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.incomeMin&&userInfo.metaInfo.incomeMax}}">
+                月薪:{{userInfo.metaInfo.incomeMin+'-'+ userInfo.metaInfo.incomeMax}}元</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.education}}">{{userInfo.metaInfo.education}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.marriage}}">{{userInfo.metaInfo.marriage}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.bodyShape}}">体型:{{userInfo.metaInfo.bodyShape}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.location}}">{{userInfo.metaInfo.location}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.hadChild}}">{{userInfo.metaInfo.hadChild}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.wantChild}}">是否想要孩子:{{userInfo.metaInfo.wantChild}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.smoke}}">{{userInfo.metaInfo.smoke}}</view>
+            <view class="tag" wx:if="{{userInfo.metaInfo.drink}}">{{userInfo.metaInfo.drink}}</view>
+        </view>
+    </view>
+    <view class="info info3" wx:if="{{userInfo.selfIntroduction&&userInfo.matcherIntroduction}}">
+        <view>兴趣爱好: {{userInfo.selfIntroduction}}</view>
+        <view>红娘推荐: {{userInfo.matcherIntroduction}}</view>
+    </view>
+</view>

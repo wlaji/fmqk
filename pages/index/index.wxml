@@ -1,0 +1,64 @@
+<!--index.wxml-->
+<view class="container">
+    <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
+    <block wx:if="{{isCheck == 0}}">
+        <view class="userWrap" wx:if="{{!isLogin}}">
+            <view class="userItem" wx:for="{{userNologinList}}" wx:key="index" bindtap="viewDetail" data-id="{{index}}">
+                <view class="imgWrap">
+                    <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
+                </view>
+                <view class="name">{{item.nickName || '微信用户'}}</view>
+                <view class="info">{{item.age}} {{item.location}}</view>
+            </view>
+        </view>
+        <view class="loginUserWrap" wx:if="{{isLogin}}">
+            <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
+                <view class="imgWrap">
+                    <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
+                </view>
+                <view class="rightInfo">
+                    <view class="topInfo">
+                        <view class="name">{{item.nickName || '微信用户'}}</view>
+                        <view class="hy" wx:if="{{userInfo.userLevel>1}}">
+                            <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
+                        </view>
+                        <!-- <view class="sm">
+                        <i class="iconfont icon-shimingrenzheng1" style="font-size:14px"></i>
+                    </view> -->
+                    </view>
+                    <view class="info">
+                        <view class="tagItem">{{item.age}}岁</view>
+                        <view class="tagItem" wx:if="{{item.location}}">{{item.location}}</view>
+                        <view class="tagItem" wx:if="{{item.profession}}">{{item.profession}}</view>
+                        <view class="tagItem" wx:if="{{item.height}}">{{item.height}}cm</view>
+                    </view>
+                    <view class="des" wx:if="{{item.selfIntroduction}}">{{item.selfIntroduction}}</view>
+                </view>
+            </view>
+            <view style="text-align: center;margin: 10px;">
+                <view wx:if="{{loading}}">加载中...</view>
+                <view wx:if="{{noMore}}">没有更多了</view>
+                <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
+            </view>
+        </view>
+    </block>
+    <block wx:if="{{isCheck==1}}">
+        <view class="bgImgWrap">
+            <text class="des">
+                和正企业服务有限公司成立于2019年，是一家专注于企业管理服务，致力于做中小微企业可信赖的财税服务品牌公司。
+
+                公司经营业务范围包括企业管理服务；会计代理、企业申请、企业财务咨询服务（不含金融、证券、期货咨询）；文化活动的组织与策划；财税筹划；法律援助；贸易咨询服务；应用软件开发；知识产权代理；商标代理；货物或技术进出口。
+
+                公司自成立以来，始终坚持以人才为本、诚信立业的经营原则，荟萃业界精英，为合作企业提供全方位的财税方案，帮助企业提高管理水平和生产能力，使企业在激烈的市场竞争中始终保持竞争力，实现企业快速、稳定地发展。
+
+                最好的产品、最好的服务、最好的信誉，和正企业服务有限公司先后获得了代理记账许可证、进出口经营权、商标代理许可权等，可以为合作企业提供更多配套服务，也愿意成为您最可信赖的长期合作伙伴。
+            </text>
+        </view>
+    </block>
+    <block wx:if="{{isCheck==2}}">
+        <view class="loadWrap">
+            <van-loading type="spinner" vertical>加载中...</van-loading>
+        </view>
+    </block>
+</view>

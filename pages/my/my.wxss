@@ -1,0 +1,130 @@
+/* pages/my/my.wxss */
+.imgWrap {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.btnWrap {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnWrap .btn2 {
+    margin-top: 10px;
+    display: inline-block;
+    width: 600rpx;
+    text-align: center;
+    color: #AA824D;
+    font-size: 14px;
+}
+
+.topInfo {
+    background-color: #AA824D;
+    height: 120px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.topInfo .photoWrap {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #AA824D;
+    background-color: #eee;
+}
+
+.text1 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background-color: rgba(0, 0, 0, .45);
+    text-align: center;
+    font-size: 12px;
+    color:#ffffff
+}
+
+.topInfo .rightInfo {
+    margin-left: 10px;
+    color: #fff;
+}
+
+.contentWrap {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    overflow: auto;
+    flex: 1;
+    height: 0;
+    padding: 10px;
+    background-color: #eee;
+}
+
+.content .item {
+    position: relative;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+.kfBtn{
+    position: absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    top:0;
+    opacity: 0;
+    z-index:10;
+}
+.cellItem .weui-cell__hd {
+    color: rgb(110, 110, 110);
+  }
+  .cellItem .weui-cell__bd{
+    flex:0;
+  }
+  .cellItem .weui-cell__ft {
+    flex:1;
+    width: 0;
+    color: #333;
+  }
+
+.hyTitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.hyTitle .t1{
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    color: rgb(110, 110, 110);
+}
+
+.hyCon{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+}
+.hyCon .t3{
+    flex-basis: 60%;
+    flex-shrink: 0;
+    margin-right: 10px;
+    font-size:12px;
+    color: rgb(110, 110, 110);
+}
+

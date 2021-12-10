@@ -1,0 +1,39 @@
+/**app.wxss**/
+@import './icon.wxss';
+@import './miniprogram_npm/@vant/weapp/common/index.wxss';
+.container,
+view,
+text,
+image{
+  box-sizing: border-box;
+}
+page {
+  font-family: 'Microsoft Yahei', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+  font-size:14px;
+}
+.bgImgWrap{
+  position: fixed;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+}
+
+.bgImgWrap .des{
+  position: absolute;
+  left:10px;
+  right:10px;
+  top:5px;
+  font-size:16px;
+  color:#333;
+}
+.loadWrap{
+  position: absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

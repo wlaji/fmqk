@@ -1,0 +1,82 @@
+<view class="container">
+  <van-toast id="van-toast" />
+  <van-popup show="{{ showDialog }}" position="bottom" custom-style="height:300px" bind:close="filterFn" lock-scroll
+    closeable close-on-click-overlay="{{false}}">
+    <view style="padding-top:40px;">
+      <van-cell-group>
+        <van-cell center title="身高" title-width="100px">
+          <van-picker columns="{{ heightArr }}" column-class="columnItem" bind:change="onChangeHeight"
+            visible-item-count="1" item-height="30" />
+        </van-cell>
+        <van-cell center title="收入" title-width="100px">
+          <van-picker columns="{{ incomeArr }}" column-class="columnItem" bind:change="onChangeIncome"
+            visible-item-count="1" item-height="30" />
+        </van-cell>
+        <van-cell center title="学历" title-width="100px">
+          <van-picker columns="{{ newEducationArr }}" column-class="columnItem" bind:change="onChangeEducation"
+            visible-item-count="1" item-height="30" />
+        </van-cell>
+        <van-cell center title="星座" title-width="100px">
+          <van-picker columns="{{ newStarSignArr }}" column-class="columnItem" bind:change="onChangeStarSign"
+            visible-item-count="1" item-height="30" />
+        </van-cell>
+      </van-cell-group>
+    </view>
+  </van-popup>
+  <block wx:if="{{isCheck==0}}">
+    <view wx:if="{{!isLogin}}" class="noLoginWrap">
+      <view class="imgWrap">
+        <van-image width="80" height="80" fit="contain" src="/static/images/edit.png" />
+        <text style="color:#999999;margin-top:20px;font-size:14px;">您还未登录, 请登录~</text>
+      </view>
+      <view class="btnWrap">
+        <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
+          <my-button innerText="开始邂逅"></my-button>
+        </navigator>
+        <navigator url="/pages/login/login" hover-class="none">
+          <view class="btn2">已有账号, 立即登录></view>
+        </navigator>
+      </view>
+    </view>
+    <view class="loginUserWrap" wx:if="{{isLogin}}">
+      <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
+        <view class="imgWrap">
+          <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
+        </view>
+        <view class="rightInfo">
+          <view class="topInfo">
+            <view class="name">{{item.nickName || '微信用户'}}</view>
+            <view class="hy" wx:if="{{userInfo.userLevel>1}}">
+              <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
+            </view>
+            <!-- <view class="sm">
+                        <i class="iconfont icon-shimingrenzheng1" style="font-size:14px"></i>
+                    </view> -->
+          </view>
+          <view class="info">
+            <view class="tagItem">{{item.age}}岁</view>
+            <view class="tagItem" wx:if="{{item.location}}">{{item.location}}</view>
+            <view class="tagItem" wx:if="{{item.profession}}">{{item.profession}}</view>
+            <view class="tagItem" wx:if="{{item.height}}">{{item.height}}cm</view>
+          </view>
+          <view class="des" wx:if="{{item.selfIntroduction}}">{{item.selfIntroduction}}</view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{isLogin}}" class="cusBtn">
+      <van-button type="primary" icon="search" bindtap="showExtend" size="small">按照条件查找</van-button>
+    </view>
+  </block>
+  <block wx:if="{{isCheck ==1}}">
+    <view class="bgImgWrap">
+      <view class="item">
+        <van-cell title="联系客服" is-link />
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{isCheck==2}}">
+    <view class="loadWrap">
+      <van-loading type="spinner" vertical>加载中...</van-loading>
+    </view>
+  </block>
+</view>
