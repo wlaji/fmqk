@@ -2,43 +2,69 @@
 <view class="container">
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
-    <view class="userWrap" wx:if="{{!isLogin}}">
-        <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{index}}">
-            <view class="imgWrap">
-                <van-image width="100%" height="100%"  fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
+    <block wx:if="{{isCheck == 0}}">
+        <view class="userWrap" wx:if="{{!isLogin}}">
+            <view class="userItem" wx:for="{{userNologinList}}" wx:key="index" bindtap="viewDetail" data-id="{{index}}">
+                <view class="imgWrap">
+                    <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
+                </view>
+                <view class="name">{{item.nickName || '微信用户'}}</view>
+                <view class="info">{{item.age}} {{item.location}}</view>
             </view>
-            <view class="name">{{item.nickName || '微信用户'}}</view>
-            <view class="info">{{item.age}} {{item.location}}</view>
         </view>
-    </view>
-    <view class="loginUserWrap" wx:if="{{isLogin}}">
-        <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
-            <view class="imgWrap">
-                <van-image width="100%" height="100%"  fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
-            </view>
-            <view class="rightInfo">
-                <view class="topInfo">
-                    <view class="name">{{item.nickName || '微信用户'}}</view>
-                    <view class="hy" wx:if="{{userInfo.userLevel>1}}">
-                        <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
-                    </view>
-                    <!-- <view class="sm">
+        <view class="loginUserWrap" wx:if="{{isLogin}}">
+            <swiper style="margin-bottom:10px;" indicator-dots="{{true}}">
+                <block wx:for="{{background}}" wx:key="*this">
+                    <swiper-item>
+                        <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.url}}" />
+                    </swiper-item>
+                </block>
+            </swiper>
+            <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
+                <view class="imgWrap">
+                    <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
+                </view>
+                <view class="rightInfo">
+                    <view class="topInfo">
+                        <view class="name">{{item.nickName || '微信用户'}}</view>
+                        <view class="hy" wx:if="{{item.userLevel==2}}">
+                            <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
+                        </view>
+                        <!-- <view class="sm">
                         <i class="iconfont icon-shimingrenzheng1" style="font-size:14px"></i>
                     </view> -->
+                    </view>
+                    <view class="info">
+                        <view class="tagItem">{{item.age}}岁</view>
+                        <view class="tagItem" wx:if="{{item.location}}">{{item.location}}</view>
+                        <view class="tagItem" wx:if="{{item.profession}}">{{item.profession}}</view>
+                        <view class="tagItem" wx:if="{{item.height}}">{{item.height}}cm</view>
+                    </view>
+                    <view class="des" wx:if="{{item.selfIntroduction}}">{{item.selfIntroduction}}</view>
                 </view>
-                <view class="info">
-                    <view class="tagItem">{{item.age}}岁</view>
-                    <view class="tagItem" wx:if="{{item.location}}">{{item.location}}</view>
-                    <view class="tagItem" wx:if="{{item.profession}}">{{item.profession}}</view>
-                    <view class="tagItem" wx:if="{{item.height}}">{{item.height}}cm</view>
-                </view>
-                <view class="des" wx:if="{{item.selfIntroduction}}">{{item.selfIntroduction}}</view>
+            </view>
+            <view style="text-align: center;margin: 10px;">
+                <view wx:if="{{loading}}">加载中...</view>
+                <view wx:if="{{noMore}}">没有更多了</view>
+                <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
             </view>
         </view>
-        <view style="text-align: center;margin: 10px;">
-            <view wx:if="{{loading}}">加载中...</view>
-            <view wx:if="{{noMore}}">没有更多了</view>
-            <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
+    </block>
+    <block wx:if="{{isCheck==1}}">
+        <view class="bgImgWrap">
+            <view style="font-size:30px;">芷金善爱企业文化</view>
+            <text class="des">
+                1. 重诺真实守信，精准主仆服务
+                2. 以客户利益为导向，为社会承担责任
+                3. 可信并尊重每一个人
+                4. 目标一致的团队精神
+                5. 攻坚克难、精诚服务
+            </text>
         </view>
-    </view>
+    </block>
+    <block wx:if="{{isCheck==2}}">
+        <view class="loadWrap">
+            <van-loading type="spinner" vertical>加载中...</van-loading>
+        </view>
+    </block>
 </view>

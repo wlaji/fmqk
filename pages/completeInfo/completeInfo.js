@@ -7,11 +7,13 @@ import {
     marriageArr,
     incomeArr
 } from '../../utils/data';
+import {getAppCheckInfo} from '../../api/index'
 Page({
     /**
      * 页面的初始数据
      */
     data: {
+        isCheck:1,
         radioItems: genderArray,
         form: {
             gender: 0,
@@ -25,12 +27,7 @@ Page({
         heightArray: heightArr,
         educationArr: educationArr,
         marriageArr: marriageArr,
-        incomeArr: incomeArr,
-        incomeMultiArray: [
-            ['不限', '3000元', '5000元', '8000元', '12000元', '20000元', '50000元'],
-            ['不限', '3000元', '5000元', '8000元', '12000元', '20000元', '50000元']
-        ],
-        incomeMultiIndex: [0, 0]
+        incomeArr: incomeArr
     },
 
     /**
@@ -68,6 +65,14 @@ Page({
                 })
             }
         })
+    },
+
+    onShow(){
+        getAppCheckInfo().then(res => {
+            this.setData({
+              isCheck: Number(res.data.configValue)
+            })
+          })
     },
 
     changeForm(e) {
@@ -122,5 +127,11 @@ Page({
         wx.navigateTo({
             url: '/pages/register/register',
         })
-    }
+    },
+
+    goHome(){
+        wx.switchTab({
+          url: '/pages/index/index',
+        })
+    },
 })

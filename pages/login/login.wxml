@@ -5,31 +5,8 @@
         <text style="color:#999999;margin-top:20px;font-size:14px;">使用手机号作为登录账号</text>
     </view>
     <view class="content">
-        <van-cell-group>
-            <van-field type="number" label="手机号" bind:input="formInputChange" data-field="loginTel" value="{{ form.loginTel }}" placeholder="请输入手机号码"
-                border="{{ false }}" />
-            <block wx:if="{{loginType===1}}">
-                <van-field type="number" password="{{isPassowrd}}" label="密码" bind:input="formInputChange" data-field="password" value="{{ form.passwrod }}"
-                    placeholder="密码" border="{{ false }}">
-                    <van-icon name="eye" slot="right-icon" bindtap="changePasswordType" />
-                </van-field>
-            </block>
-            <block wx:if="{{loginType===2}}">
-                <van-field center clearable label="短信验证码" bind:input="formInputChange" data-field="code" value="{{ form.code }}" placeholder="请输入短信验证码"
-                    border="{{ false }}" use-button-slot>
-                    <van-button slot="button" size="small" type="primary" bind:click="getCode"
-                        disabled="{{!getCodeStatus}}">
-                        {{codeText}}
-                    </van-button>
-                </van-field>
-            </block>
-        </van-cell-group>
-        <!-- <view style="text-align:right;padding:10px;color:#999;font-size:14px;">
-            <text wx:if="{{loginType===1}}" bindtap="changeLoginType">切换为验证码登录>></text>
-            <text wx:if="{{loginType===2}}" bindtap="changeLoginType">切换为密码登录>></text>
-        </view> -->
         <view class="submit_btn_wrap" style="margin-top:20px;text-align:center;padding:0 10px;">
-            <van-button type="primary" block bind:click="weSubmitForm">登录</van-button>
+            <van-button slot="button" block type="primary" bind:click="loginWx">微信一键登录</van-button>
         </view>
     </view>
     <van-notify id="van-notify" />

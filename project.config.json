@@ -4,9 +4,9 @@
         "ignore": []
     },
     "setting": {
-        "urlCheck": false,
+        "urlCheck": true,
         "es6": true,
-        "enhance": false,
+        "enhance": true,
         "postcss": true,
         "preloadBackgroundData": false,
         "minified": true,
@@ -41,12 +41,14 @@
             }
         ],
         "minifyWXSS": true,
+        "disableUseStrict": false,
         "showES6CompileOption": false,
+        "useCompilerPlugins": false,
         "minifyWXML": true
     },
     "compileType": "miniprogram",
     "libVersion": "2.21.1",
-    "appid": "wxd5a7fab82e137c33",
+    "appid": "wxea7bd3baf65e49e5",
     "projectname": "xq",
     "debugOptions": {
         "hidedInDevtools": []

@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imgList:[]
+    imgList:[],
+    userInfo:''
   },
 
   /**
@@ -24,13 +25,13 @@ Page({
     getUserInfoById({
       id: JSON.parse(wx.getStorageSync('userInfo')).id
     }).then(res => {
-      console.log(res)
       let imgList = [];
       res.data.photos.forEach(item=>{
         imgList.push(item.photoPath)
       })
       this.setData({
-        imgList
+        imgList,
+        userInfo:res.data
       })
     })
   },
@@ -56,14 +57,13 @@ Page({
           wx.hideLoading()
         }, 2000)
         wx.uploadFile({
-          url: 'http://121.40.112.169:8089/photo/upload ', //仅为示例，非真实的接口地址
+          url: 'https://4031w093e1.goho.co/photo/upload ', //仅为示例，非真实的接口地址
           filePath: tempFilePaths[0],
           name: 'file',
           formData: {
             'userId': userId
           },
           success (res){
-            console.log(res)
             let data = JSON.parse(res.data)
             if(data.code == 200){
               wx.showToast({

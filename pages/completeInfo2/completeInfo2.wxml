@@ -1,5 +1,5 @@
 <view class="container">
-    <mp-navigation-bar title="完善资料" background="#996699" color="#fff" bindback="back"></mp-navigation-bar>
+    <mp-navigation-bar title="完善资料" background="#AA824D" color="#fff" bindback="back"></mp-navigation-bar>
     <view class="imgWrap">
         <image style="width: 100%; height: 100%" mode="aspectFill" src="/static/images/2.jpg"></image>
         <view class="textInfo">

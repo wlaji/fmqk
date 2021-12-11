@@ -3,7 +3,9 @@ import {
     register,
     sendRegisterCode,
     editMemberCondition,
-    byPassword
+    byPassword,
+    registerByWx,
+    getUserInfoById
 } from '../../api/index';
 import Notify from '../../miniprogram_npm/@vant/weapp/notify/notify';
 import {
@@ -35,6 +37,10 @@ Page({
         this.setData({
             registerInfo
         })
+    },
+
+    onShow(){
+        wx.login()
     },
 
     changePasswordType() {
@@ -115,23 +121,33 @@ Page({
         // 获取到微信服务器返回的加密数据
         const iv = e.detail.iv;
         const encryptedData = e.detail.encryptedData;
+        let that = this;
+        if (!encryptedData) {
+            return false;
+        }
         wx.login({
             //获取code
-            success: function (res) {
+            success: async function (res) {
+                console.log(res.code)
                 //调用开发服务器，服务器先通过code获取openid和session_key，然后再解密好加密数据
-                wx.request({
-                    url: 'xxxxxx',
-                    data: {
-                        code: res.code,
-                        encryptedData: encryptedData,
-                        iv: iv
-                    },
-                    header: {
-                        'content-type': 'json'
-                    },
-                    success: function (res) {
-
-                    }
+                let loginRes = await registerByWx({
+                    code: res.code,
+                    encrypData: encryptedData,
+                    ivData: iv
+                })
+                wx.setStorageSync('token', loginRes.data.token)
+                wx.setStorageSync('userInfo', JSON.stringify(loginRes.data.userInfo))
+                let userInfoDetail = await getUserInfoById({
+                    id: loginRes.data.userInfo.id
+                })
+                let condition = userInfoDetail.data.conditionList.find(item => {
+                    return item.conditionType == 1
+                })
+                if (!condition) {
+                    await editMemberCondition(that.data.registerInfo)
+                }
+                wx.switchTab({
+                    url: '/pages/index/index',
                 })
             }
         })

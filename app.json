@@ -1,5 +1,5 @@
 {
-  "entryPagePath": "pages/member/member",
+  "entryPagePath": "pages/guide/guide",
   "pages": [
     "pages/guide/guide",
     "pages/login/login",
@@ -16,8 +16,8 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#996699",
-    "navigationBarTitleText": "福满乾坤",
+    "navigationBarBackgroundColor": "#AA824D",
+    "navigationBarTitleText": "芷金善爱",
     "navigationBarTextStyle": "white"
   },
   "useExtendedLib": {
@@ -40,7 +40,8 @@
     "van-image": "@vant/weapp/image/index",
     "van-radio": "@vant/weapp/radio/index",
     "van-radio-group": "@vant/weapp/radio-group/index",
-    "van-sticky": "@vant/weapp/sticky/index"
+    "van-sticky": "@vant/weapp/sticky/index",
+    "van-loading": "@vant/weapp/loading/index"
   },
   "permission": {
     "scope.userLocation": {

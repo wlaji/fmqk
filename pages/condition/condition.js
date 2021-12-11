@@ -23,13 +23,15 @@ import {
 
 import {
   getUserInfoById,
-  editMemberCondition
+  editMemberCondition,
+  getAppCheckInfo
 } from '../../api/index'
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    isCheck: 1,
     showDialog: false,
     buttons: [{
       text: '取消'
@@ -89,6 +91,9 @@ Page({
       let condition = res.data.conditionList.find(item => {
         return item.conditionType == 2
       })
+      if (!condition) {
+        return
+      }
       let {
         incomeMin,
         incomeMax,
@@ -106,24 +111,30 @@ Page({
         drink,
       } = condition
       this.setData({
-        'form.id': condition.id||'',
+        'form.id': condition.id || '',
         'form.gender': userInfo.gender,
-        'form.incomeMin': incomeMin?incomeMin+'元':'不限',
-        'form.incomeMax': incomeMax?incomeMax+'元':'不限',
-        'form.minAge': minAge?minAge+'岁':'不限',
-        'form.maxAge': maxAge?maxAge+'岁':'不限',
-        'form.minHeight': minHeight?minHeight+'cm':'不限',
-        'form.maxHeight': maxHeight?maxHeight+'cm':'不限',
-        'form.education':education,
-        'form.marriage':marriage,
-        'form.bodyShape':bodyShape,
-        'form.region':region?JSON.parse(region):'',
-        'form.hadChild':hadChild,
-        'form.wantChild':wantChild,
-        'form.smoke':smoke,
-        'form.drink':drink,
+        'form.incomeMin': incomeMin ? incomeMin + '元' : '不限',
+        'form.incomeMax': incomeMax ? incomeMax + '元' : '不限',
+        'form.minAge': minAge ? minAge + '岁' : '不限',
+        'form.maxAge': maxAge ? maxAge + '岁' : '不限',
+        'form.minHeight': minHeight ? minHeight + 'cm' : '不限',
+        'form.maxHeight': maxHeight ? maxHeight + 'cm' : '不限',
+        'form.education': education,
+        'form.marriage': marriage,
+        'form.bodyShape': bodyShape,
+        'form.region': region ? JSON.parse(region) : '',
+        'form.hadChild': hadChild,
+        'form.wantChild': wantChild,
+        'form.smoke': smoke,
+        'form.drink': drink,
       })
       console.log(this.data.form.gender)
+    })
+
+    getAppCheckInfo().then(res => {
+      this.setData({
+        isCheck: Number(res.data.configValue)
+      })
     })
   },
   getMultiArray(multiIndex, arr) {

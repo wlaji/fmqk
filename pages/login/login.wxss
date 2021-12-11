@@ -1,16 +1,26 @@
 /* pages/login/login.wxss */
 
-.container{
-  padding:10px 0;
+.container {
+  padding: 10px 0;
 }
-.content{
-    margin-top: 50px;
+
+.content {
+  margin-top: 50px;
 }
+
 .imgWrap {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit_btn_wrap .btn2 {
+  margin-top: 10px;
+  display: inline-block;
+  width: 600rpx;
+  text-align: center;
+  color: #AA824D;
+  font-size: 14px;
+}

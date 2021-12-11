@@ -18,46 +18,63 @@
       </van-cell-group>
     </view>
   </van-popup>
-  <view wx:if="{{!isLogin}}" class="noLoginWrap">
-    <view class="imgWrap">
-      <van-image width="80" height="80" fit="contain" src="/static/images/edit.png" />
-      <text style="color:#999999;margin-top:20px;font-size:14px;">您还未登录, 请登录~</text>
-    </view>
-    <view class="btnWrap">
-      <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
-        <my-button innerText="开始邂逅"></my-button>
-      </navigator>
-      <navigator url="/pages/login/login" hover-class="none">
-        <view class="btn2">已有账号, 立即登录></view>
-      </navigator>
-    </view>
-  </view>
-  <view class="loginUserWrap" wx:if="{{isLogin}}">
-    <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
+  <block wx:if="{{isCheck==0}}">
+    <view wx:if="{{!isLogin}}" class="noLoginWrap">
       <view class="imgWrap">
-        <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
+        <van-image width="80" height="80" fit="contain" src="/static/images/edit.png" />
+        <text style="color:#999999;margin-top:20px;font-size:14px;">您还未登录, 请登录~</text>
       </view>
-      <view class="rightInfo">
-        <view class="topInfo">
-          <view class="name">{{item.nickName || '微信用户'}}</view>
-          <view class="hy" wx:if="{{userInfo.userLevel>1}}">
-            <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
-          </view>
-          <!-- <view class="sm">
+      <view class="btnWrap">
+        <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
+          <my-button innerText="开始邂逅"></my-button>
+        </navigator>
+        <navigator url="/pages/login/login" hover-class="none">
+          <view class="btn2">已有账号, 立即登录></view>
+        </navigator>
+      </view>
+    </view>
+    <view class="loginUserWrap" wx:if="{{isLogin}}">
+      <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
+        <view class="imgWrap">
+          <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
+        </view>
+        <view class="rightInfo">
+          <view class="topInfo">
+            <view class="name">{{item.nickName || '微信用户'}}</view>
+            <view class="hy" wx:if="{{userInfo.userLevel>1}}">
+              <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
+            </view>
+            <!-- <view class="sm">
                         <i class="iconfont icon-shimingrenzheng1" style="font-size:14px"></i>
                     </view> -->
+          </view>
+          <view class="info">
+            <view class="tagItem">{{item.age}}岁</view>
+            <view class="tagItem" wx:if="{{item.location}}">{{item.location}}</view>
+            <view class="tagItem" wx:if="{{item.profession}}">{{item.profession}}</view>
+            <view class="tagItem" wx:if="{{item.height}}">{{item.height}}cm</view>
+          </view>
+          <view class="des" wx:if="{{item.selfIntroduction}}">{{item.selfIntroduction}}</view>
         </view>
-        <view class="info">
-          <view class="tagItem">{{item.age}}岁</view>
-          <view class="tagItem" wx:if="{{item.location}}">{{item.location}}</view>
-          <view class="tagItem" wx:if="{{item.profession}}">{{item.profession}}</view>
-          <view class="tagItem" wx:if="{{item.height}}">{{item.height}}cm</view>
-        </view>
-        <view class="des" wx:if="{{item.selfIntroduction}}">{{item.selfIntroduction}}</view>
       </view>
     </view>
-  </view>
-  <view wx:if="{{isLogin}}" class="cusBtn">
-    <van-button type="primary"  icon="search" bindtap="showExtend" size="small">按照条件查找</van-button>
-  </view>
+    <view wx:if="{{isLogin}}" class="cusBtn">
+      <van-button type="primary" icon="search" bindtap="showExtend" size="small">按照条件查找</van-button>
+    </view>
+  </block>
+  <block wx:if="{{isCheck ==1}}">
+    <view class="bgImgWrap">
+      <view style="font-size:30px;">芷金善爱产品与服务</view>
+      <text class="des">
+        为保证服务的质量和资料的
+        有效性芷金善爱将采取会员制为每一位尊贵的客户提供服务，并按照其本人意愿
+        将其基本资料汇总到会员数据库，该数据库资源供所有会员共享。
+      </text>
+    </view>
+  </block>
+  <block wx:if="{{isCheck==2}}">
+    <view class="loadWrap">
+      <van-loading type="spinner" vertical>加载中...</van-loading>
+    </view>
+  </block>
 </view>

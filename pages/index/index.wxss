@@ -4,8 +4,6 @@
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  padding: 10px;
-  background-color: #eee;
 }
 
 .userWrap {
@@ -14,6 +12,7 @@
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+  padding:10px;
   background-color: #fff;
 }
 
@@ -44,10 +43,13 @@
 .loginUserWrap {
   flex:1;
   height: 0;
+  padding: 10px;
+  background-color: #eee;
 }
 
 .loginUserWrap .userItem {
   display: flex;
+  align-items: center;
   padding: 10px;
   margin-bottom: 10px;
   background-color: #fff;
@@ -113,10 +115,10 @@
 }
 
 .tagItem{
-  border: 1px solid #965b96;
-  color: #965b96;
-  padding: 2px 4px;
-  font-size:14px;
+  border: 1px solid #AA824D;
+  color: #AA824D;
+  padding: 2px;
+  font-size:12px;
   border-radius: 4px;
   margin-right: 4px;
   margin-bottom:4px;

@@ -5,40 +5,33 @@ import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 const app = getApp()
 import {
   getPushUserNoLogin,
-  getPushUserByUserId
+  getPushUserByUserId,
+  getAppCheckInfo
 } from '../../api/index'
 Page({
   data: {
+    background: [{
+      url:'/static/images/2.jpg'
+    },{
+      url:'/static/images/2.jpg'
+    },{
+      url:'/static/images/2.jpg'
+    }],
+    isCheck:2,
     userList: [],
+    userNologinList:[],
     loading: false,
     noMore: false,
     loadingFailed: false,
     isLogin: false,
     page: 1,
-    pageSize: 10,
+    pageSize: 20,
     total: '',
+    bgSrc2: '/static/images/20.jpg'
   },
 
   onLoad() {
-    if (wx.getStorageSync('token')) {
-      getPushUserByUserId({
-        page: 1,
-        pageSize: this.data.pageSize
-      }).then(res => {
-        let list = this.initUserData(res.data.list)
-        this.setData({
-          userList: list,
-          total: res.data.total
-        })
-      })
-    } else {
-      getPushUserNoLogin().then(res => {
-        let list = this.initUserData(res.data)
-        this.setData({
-          userList: list,
-        })
-      })
-    }
+
   },
 
   initUserData(list) {
@@ -54,13 +47,40 @@ Page({
   },
 
   onShow() {
+    getAppCheckInfo().then(res => {
+      this.setData({
+        isCheck: Number(res.data.configValue)
+      })
+    })
     if (wx.getStorageSync('token')) {
       this.setData({
-        isLogin: true
+        isLogin: true,
       })
+      if(!this.data.userList.length){
+        this.setData({
+          page: 1,
+          noMore: false
+        })
+        getPushUserByUserId({
+          page: this.data.page,
+          pageSize: this.data.pageSize
+        }).then(res => {
+          let list = this.initUserData(res.data.list)
+          this.setData({
+            userList: list,
+            total: res.data.total
+          })
+        })
+      }
     } else {
       this.setData({
         isLogin: false
+      })
+      getPushUserNoLogin().then(res => {
+        let list = this.initUserData(res.data)
+        this.setData({
+          userNologinList: list,
+        })
       })
     }
   },
@@ -104,11 +124,6 @@ Page({
     this.setData({
       loading: true
     })
-    setTimeout(() => {
-      this.setData({
-        loading: false
-      })
-    }, 1000)
     this.setData({
       page: this.data.page + 1
     })
@@ -118,7 +133,8 @@ Page({
     }).then(res => {
       let list = this.initUserData(res.data.list)
       this.setData({
-        userList: this.data.userList.concat(list)
+        userList: this.data.userList.concat(list),
+        loading: false
       })
     })
   },
@@ -129,9 +145,9 @@ Page({
       forbidClick: true,
     });
     this.setData({
-      page:1
+      userList: []
     })
-    this.onLoad();
+    this.onShow();
     setTimeout(() => {
       //停止下拉刷新
       wx.stopPullDownRefresh();

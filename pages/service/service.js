@@ -1,6 +1,7 @@
 // pages/service/service.js
 import {
-    searchMember
+    searchMember,
+    getAppCheckInfo
 } from '../../api/index'
 import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 import {
@@ -71,6 +72,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        isCheck:2,
         show: false,
         isLogin: false,
         userList: [],
@@ -105,20 +107,14 @@ Page({
         }, {
             text: '确认'
         }],
+        bgSrc2: '/static/images/21.jpg',
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        if (wx.getStorageSync('token')) {
-            searchMember(this.data.form).then(res => {
-                let list = this.initUserData(res.data)
-                this.setData({
-                    userList: list
-                })
-            })
-        }
+
     },
 
     initUserData(list) {
@@ -195,10 +191,23 @@ Page({
     },
 
     onShow() {
+        getAppCheckInfo().then(res => {
+            this.setData({
+                isCheck: Number(res.data.configValue)
+            })
+        })
         if (wx.getStorageSync('token')) {
             this.setData({
                 isLogin: true
             })
+            if(!this.data.userList.length){  
+                searchMember(this.data.form).then(res => {
+                    let list = this.initUserData(res.data)
+                    this.setData({
+                        userList: list
+                    })
+                })
+            }
         } else {
             this.setData({
                 isLogin: false
@@ -222,7 +231,7 @@ Page({
         Toast.loading({
             message: '加载中...',
             forbidClick: true,
-            duration:500
+            duration: 500
         });
         this.onClose();
         searchMember(this.data.form).then(res => {

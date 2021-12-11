@@ -2,7 +2,8 @@
 import {
   getUserInfoById,
   editMemberCondition,
-  changeMemberNickName
+  changeMemberNickName,
+  getAppCheckInfo
 } from '../../api/index'
 import {
   getHeightIndex,
@@ -32,9 +33,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isCheck: 1,
     showDialog: false,
-    showDialog2:false,
-    newProfession:'',
+    showDialog2: false,
+    newProfession: '',
     buttons: [{
       text: '取消'
     }, {
@@ -146,13 +148,19 @@ Page({
         'form.houseStatus': houseStatus,
         'form.carStatus': carStatus,
         'form.nativeRegion': nativeRegion ? JSON.parse(nativeRegion) : '',
-        'form.bodyWeight': getWeightIndex(bodyWeightArr,bodyWeight),
+        'form.bodyWeight': getWeightIndex(bodyWeightArr, bodyWeight),
         'form.bodyShape': bodyShape,
         'form.smoke': smoke,
         'form.drink': drink,
         'form.starSign': starSign,
         'form.nation': nation,
         'form.whenMarriage': whenMarriage,
+      })
+    })
+
+    getAppCheckInfo().then(res => {
+      this.setData({
+        isCheck: Number(res.data.configValue)
       })
     })
   },
@@ -163,7 +171,7 @@ Page({
     })
   },
 
-  professionChange(e){
+  professionChange(e) {
     this.setData({
       newProfession: e.detail.value
     })
@@ -179,11 +187,11 @@ Page({
     } else {
       this.setData({
         showDialog: false,
-       'form.nickName': this.data.newNickName
+        'form.nickName': this.data.newNickName
       })
       changeMemberNickName({
-        nickName:this.data.newNickName
-      }).then(res=>{
+        nickName: this.data.newNickName
+      }).then(res => {
         wx.navigateBack({
           delta: 0,
         })
@@ -191,7 +199,7 @@ Page({
     }
   },
 
-  dialogFn2(e){
+  dialogFn2(e) {
     let ind = e.detail.index;
     //点击取消
     if (ind === 0) {
@@ -201,7 +209,7 @@ Page({
     } else {
       this.setData({
         showDialog2: false,
-       'form.profession': this.data.newProfession
+        'form.profession': this.data.newProfession
       })
     }
   },
@@ -213,7 +221,7 @@ Page({
     })
   },
 
-  changeProfession(){
+  changeProfession() {
     this.setData({
       newProfession: this.data.form['profession'],
       showDialog2: true

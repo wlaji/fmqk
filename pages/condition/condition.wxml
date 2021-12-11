@@ -1,6 +1,6 @@
 <!--pages/completeInfo/completeInfo.wxml-->
 <view class="container">
-  <view class="content">
+  <view class="content" wx:if="{{!isCheck}}">
     <mp-cell ext-class="cellItem" title="年龄" link>
       <view slot="footer">
         <picker mode="multiSelector" bindchange="bindAgeMultiPickerChange" data-name="age"

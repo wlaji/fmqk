@@ -1,3 +1,13 @@
+/* pages/login/login.wxss */
+
+.container {
+  padding: 10px 0;
+}
+
+.content {
+  margin-top: 50px;
+}
+
 .imgWrap {
   margin-top: 50px;
   display: flex;
@@ -5,15 +15,12 @@
   justify-content: center;
   align-items: center;
 }
-.content{
-  margin-top: 50px;
-}
 
 .submit_btn_wrap .btn2 {
   margin-top: 10px;
   display: inline-block;
   width: 600rpx;
   text-align: center;
-  color: #646566;
+  color: #AA824D;
   font-size: 14px;
 }

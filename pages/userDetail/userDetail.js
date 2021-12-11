@@ -69,22 +69,25 @@ Page({
       whenMarriage: whenMarriageArr[condition.whenMarriage],
       bodyWeight:condition.bodyWeight
     }
-    item.metaInfo = {
-      minAge:condition2.minAge,
-      maxAge:condition2.maxAge,
-      minHeight:condition2.minHeight,
-      maxHeight:condition2.maxHeight,
-      incomeMin:condition2.incomeMin,
-      incomeMax:condition2.incomeMax,
-      education:educationArr[condition2.education],
-      marriage:marriageArr[condition2.marriage],
-      bodyShape:condition.gender==0?girlbodyShapeArr[condition2.bodyShape]:manbodyShapeArr[condition2.bodyShape],
-      location: condition2.region ? JSON.parse(condition2.region)[1] : '',
-      hadChild: hadChildArr[condition2.hadChild],
-      wantChild:wantChildArr[condition2.wantChild],
-      smoke:smokeArr[condition2.smoke],
-      drink:drinkArr[condition2.drink],
+    if(condition2){
+      item.metaInfo = {
+        minAge:condition2.minAge,
+        maxAge:condition2.maxAge,
+        minHeight:condition2.minHeight,
+        maxHeight:condition2.maxHeight,
+        incomeMin:condition2.incomeMin,
+        incomeMax:condition2.incomeMax,
+        education:educationArr[condition2.education],
+        marriage:marriageArr[condition2.marriage],
+        bodyShape:condition.gender==0?girlbodyShapeArr[condition2.bodyShape]:manbodyShapeArr[condition2.bodyShape],
+        location: condition2.region ? JSON.parse(condition2.region)[1] : '',
+        hadChild: hadChildArr[condition2.hadChild],
+        wantChild:wantChildArr[condition2.wantChild],
+        smoke:smokeArr[condition2.smoke],
+        drink:drinkArr[condition2.drink],
+      }
     }
+    
     item.pictureList = [];
     item.photos.forEach(citem=>{
       item.pictureList.push(citem.photoPath)

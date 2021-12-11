@@ -55,6 +55,6 @@
   display: inline-block;
   width: 600rpx;
   text-align: center;
-  color: #964596;
+  color: #AA824D;
   font-size: 14px;
 }

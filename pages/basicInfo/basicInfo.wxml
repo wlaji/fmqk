@@ -16,7 +16,7 @@
       </mp-cell>
     </mp-cells>
   </mp-dialog>
-  <view class="content">
+  <view class="content" wx:if="{{!isCheck}}">
     <mp-cell ext-class="cellItem" title="昵称" link>
       <view slot="footer" bindtap="changeNickName" data-name="nickName">
         {{form.nickName || '微信用户'}}

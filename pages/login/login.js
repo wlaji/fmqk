@@ -1,6 +1,7 @@
 // pages/login/login.js
 import {
-    byPassword
+    byPassword,
+    loginByWx
 } from '../../api/index'
 import Notify from '../../miniprogram_npm/@vant/weapp/notify/notify';
 import {
@@ -24,6 +25,9 @@ Page({
             code: '',
             password: ''
         },
+    },
+    onShow(){
+        wx.login()
     },
     changePasswordType() {
         this.setData({
@@ -120,5 +124,21 @@ Page({
                 loginType: 1
             })
         }
+    },
+    loginWx() {
+        wx.login({
+            //获取code
+            success: function (res) {
+                loginByWx({
+                    code: res.code,
+                }).then(res => {
+                    wx.setStorageSync('token', res.data.token)
+                    wx.setStorageSync('userInfo', JSON.stringify(res.data.userInfo))
+                    wx.switchTab({
+                        url: '/pages/index/index'
+                    })
+                })
+            }
+        })
     }
 })

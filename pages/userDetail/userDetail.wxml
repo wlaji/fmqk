@@ -13,7 +13,7 @@
             </block>
         </swiper>
     </view>
-    <view class="info info0">
+    <!-- <view class="info info0">
         <view class="title">注意事项:</view>
         <view>
             <view>
@@ -21,7 +21,7 @@
                 <view class="answer">点击复制编号，复制该用户的编号,然后点击下方联系客服将粘贴板的内容发送给客服</view>
             </view>
         </view>
-    </view>
+    </view> -->
     <view class="info info1">
         <view class="top">
             <view class="nickName">
@@ -30,7 +30,7 @@
             <view class="hy" wx:if="{{userInfo.userLevel>1}}">
                 <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
             </view>
-            <van-button type="primary" size="small" bindtap="cloneId">复制编号</van-button>
+            <!-- <van-button type="primary" size="small" bindtap="cloneId">复制编号</van-button> -->
         </view>
         <view class="bottom">
             <block wx:if="{{userInfo.baseInfo.location}}">
@@ -75,8 +75,8 @@
             <view class="tag" wx:if="{{userInfo.baseInfo.houseStatus}}">{{userInfo.baseInfo.houseStatus}}</view>
             <view class="tag" wx:if="{{userInfo.baseInfo.carStatus}}">{{userInfo.baseInfo.carStatus}}</view>
         </view>
-        <view class="title">择偶条件</view>
-        <view class="con">
+        <view class="title" wx:if="{{userInfo.metaInfo}}">择偶条件</view>
+        <view class="con" wx:if="{{userInfo.metaInfo}}">
             <view class="tag" wx:if="{{userInfo.metaInfo.minAge&&userInfo.metaInfo.maxAge}}">
                 {{userInfo.metaInfo.minAge+'-'+userInfo.metaInfo.maxAge}}岁</view>
             <view class="tag" wx:if="{{userInfo.metaInfo.minHeight&&userInfo.metaInfo.maxHeight}}">
@@ -94,7 +94,7 @@
         </view>
     </view>
     <view class="info info3" wx:if="{{userInfo.selfIntroduction&&userInfo.matcherIntroduction}}">
-        <view>兴趣爱好: {{userInfo.selfIntroduction}}</view>
+        <view style="margin-bottom: 10px;">兴趣爱好: {{userInfo.selfIntroduction}}</view>
         <view>红娘推荐: {{userInfo.matcherIntroduction}}</view>
     </view>
 </view>

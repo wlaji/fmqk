@@ -58,6 +58,6 @@
 .info.info2 .title .br{
   width:3px;
   height:20px;
-  background-color: #996699;
+  background-color: #AA824D;
   margin-right: 4px;
 }

@@ -9,22 +9,22 @@
     <view class="content">
         <view class="info info1">
             <van-radio-group value="{{ form.openingTime }}">
-                <van-cell center title="12个月" label="日均1.06元" clickable data-name="{{12}}"
+                <van-cell center title="12个月" clickable data-name="{{12}}"
                     bind:click="onClickOpeningTime">
                     <view slot="right-icon" style="display:flex;">
-                        <text style="margin-right:10rpx;">￥388</text>
+                        <text style="margin-right:10rpx;">￥{{czData.priceForYear}}</text>
                         <van-radio name="{{12}}" />
                     </view>
                 </van-cell>
-                <van-cell center title="3个月" label="日均3.8元" clickable data-name="{{3}}" bind:click="onClickOpeningTime">
+                <van-cell center title="3个月" clickable data-name="{{3}}" bind:click="onClickOpeningTime">
                     <view slot="right-icon" style="display:flex;">
-                        <text style="margin-right:10rpx;">￥348</text>
+                        <text style="margin-right:10rpx;">￥{{czData.priceForThreeMouth}}</text>
                         <van-radio name="{{3}}" />
                     </view>
                 </van-cell>
-                <van-cell center title="1个月" label="日均8.2元" clickable data-name="{{1}}" bind:click="onClickOpeningTime">
+                <van-cell center title="1个月" clickable data-name="{{1}}" bind:click="onClickOpeningTime">
                     <view slot="right-icon" style="display:flex;">
-                        <text style="margin-right:10rpx;">￥248</text>
+                        <text style="margin-right:10rpx;">￥{{czData.priceForMouth}}</text>
                         <van-radio name="{{1}}" />
                     </view>
                 </van-cell>
@@ -37,10 +37,10 @@
                 <view>特权说明</view>
             </view>
             <view>
-                <view>1. 解锁你的收件箱</view>
-                <view>1. 解锁消息发送</view>
-                <view>1. 尊贵vip勋章更醒目</view>
-                <view>1. 提升更换头像上限，无限制上传照片</view>
+                <view>1. 拥有专属红娘顾问服务</view>
+                <view>2. 免费参加大型线下相亲活动</view>
+                <view>3. 尊贵vip勋章更醒目</view>
+                <view>4. 面对面优化，定制征婚方案</view>
             </view>
         </view>
         <!-- <view class="info info2">
