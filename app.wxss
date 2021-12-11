@@ -12,20 +12,26 @@ page {
   font-size:14px;
 }
 .bgImgWrap{
+  overflow: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: fixed;
   left:0;
   right:0;
   top:0;
   bottom:0;
-  text-align: center;
+  text-align: left;
 }
-
+.bgImgWrap .dItem{
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+.bgImgWrap .title{
+  font-weight: 700;
+  margin-bottom:10px;
+}
 .bgImgWrap .des{
-  width: 600rpx;
+  text-indent: 2rem;
 }
 .loadWrap{
   position: absolute;

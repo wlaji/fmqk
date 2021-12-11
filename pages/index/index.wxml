@@ -52,14 +52,31 @@
     </block>
     <block wx:if="{{isCheck==1}}">
         <view class="bgImgWrap">
-            <view style="font-size:30px;">芷金善爱企业文化</view>
-            <text class="des">
-                1. 重诺真实守信，精准主仆服务
-                2. 以客户利益为导向，为社会承担责任
-                3. 可信并尊重每一个人
-                4. 目标一致的团队精神
-                5. 攻坚克难、精诚服务
-            </text>
+            <view style="font-size:24px;text-align:center;padding:10px 0 30px;">芷金善爱介绍</view>
+            <view class="dItem">
+                <view class="title">1. 公司简介</view>
+                <view class="des">
+                    长沙芷金商贸有限公司，经营范围为婚姻介绍、信息咨询以及相关业务。店面名称：中文为“芷金婚恋服务中心”；芷金商贸有限公司是 2021 年 11 月 01
+                    日经工商注册合法的从事专业婚介推荐机构，芷金婚恋公司秉承“善爱沉香，真实专业，靠谱无忧”的经营理念，致力于通过线上知情，线下深入真实了解，即“微绿牵手，天长地久”为口号，为广大单身人士提供全方位真实交流的机构服务，公司愿景：<text style="font-weight:700;">线下为主，真是为本，努力成为该行业的标杆。</text>
+                </view>
+            </view>
+            <view class="dItem">
+                <view class="title">2. 公司企业文化</view>
+                <view>
+                    <view> 1. 重诺真实守信，精准主仆服务</view>
+                    <view>2. 以客户利益为导向，为社会承担责任</view>
+                    <view>3. 可信并尊重每一个人</view>
+                    <view>4. 目标一致的团队精神</view>
+                    <view>5. 攻坚克难、精诚服务</view>
+                </view>
+            </view>
+            <view class="dItem">
+                <view class="title">3. 公司管理与组织结构</view>
+                <view class="des">
+                    公司初期我们将采用扁平化、直线职能式的组织结构，充分发挥个人和职能部门的专业特长，主要核心管理人员的构成如下：
+                    总经理，全面负责公司的经营管理；企划主管，主要负责公司品牌行销计划、广告活动策划、公共关系维护；市场主管，主要负责公司的市场细化、客户开发、市场拓展计划；财务主管，主要负责公司资金营运管理和财务核算；客服主管，主要负责与客户沟通、开发新客户、维护老客户关系、收集管理客户信息资料等；人事主管，主要负责规划、指导、协调公司的人力资源管理与组织建设。
+                </view>
+            </view>
         </view>
     </block>
     <block wx:if="{{isCheck==2}}">
