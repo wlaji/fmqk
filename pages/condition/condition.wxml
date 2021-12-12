@@ -7,7 +7,8 @@
       </mp-cell>
     </mp-cells>
   </mp-dialog>
-  <view class="content">
+  <block wx:if="{{isCheck==0}}">
+    <view class="content">
     <mp-cell ext-class="cellItem" title="性别" link>
       <view slot="footer">
         <picker bindchange="changeForm" data-name="gender" value="{{form.gender}}" range-key="name" range="{{genderArray}}" header-text="性别选择">
@@ -147,6 +148,15 @@
       </view>
     </mp-cell>
   </view>
+  </block>
+  <block wx:if="{{isCheck==1}}">
+    <text>暂无数据</text>
+  </block>
+  <block wx:if="{{isCheck==2}}">
+    <view class="loadWrap">
+      <van-loading type="spinner" vertical>加载中...</van-loading>
+    </view>
+  </block>
   <view style="text-align:center;position:fixed;bottom:20px;left:50%;transform:translate(-50%)">
     <my-button innerText="保存" bindtap="save"></my-button>
   </view>

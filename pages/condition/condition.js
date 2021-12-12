@@ -34,6 +34,7 @@ Page({
    */
   data: {
     form: {
+      isCheck:2,
       id: '',
       gender: '',
       minAge: '',
@@ -80,6 +81,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    getAppCheckInfo().then(res => {
+      setTimeout(() => {
+        this.setData({
+          isCheck: Number(res.data.configValue)
+        })
+      }, 1000)
+    })
     this.setData({
       incomeMultiArray: this.getMultiArray(this.data.incomeMultiIndex, incomeArr),
       ageMultiArray: this.getMultiArray(this.data.ageMultiIndex, ageArr),

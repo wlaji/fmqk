@@ -1,5 +1,6 @@
 import {
-  getUserInfoById
+  getUserInfoById,
+  getAppCheckInfo
 } from '../../api/index'
 import {
   educationArr,
@@ -8,8 +9,6 @@ import {
   wantChildArr,
   houseStatusArr,
   carStatusArr,
-  girlbodyShapeArr,
-  manbodyShapeArr,
   smokeArr,
   drinkArr,
   starSignArr,
@@ -26,6 +25,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isCheck:2,
     userInfo: {
       photos: []
     }
@@ -35,6 +35,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    getAppCheckInfo().then(res => {
+      setTimeout(() => {
+        this.setData({
+          isCheck: Number(res.data.configValue)
+        })
+      }, 1000)
+    })
     let id = options.id;
     getUserInfoById({
       id

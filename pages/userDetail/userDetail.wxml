@@ -1,138 +1,148 @@
 <view class="container">
-    <view class="toKf">
-        <van-button type="default" open-type="contact" color="#FF5D7C" custom-style="border-radius:50%;color:#fff;font-weight:700;font-size:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;width:50px;height:50px;padding:10px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
-            <view>
-                <van-icon name="service" />
-            </view>
-            <text>红娘</text>
-        </van-button>
-    </view>
-    <view class="toMember">
-        <van-button type="default" color="#6A6DA9" bind:click="goMember" custom-style="border-radius:50%;color:#fff;font-weight:700;font-size:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;width:50px;height:50px;padding:10px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
-            <view>
-                <van-icon name="vip-card" />
-            </view>
-            <text>会员</text>
-        </van-button>
-    </view>
-    <view class="swiper">
-        <swiper indicator-dots="true">
-            <block wx:for="{{userInfo.pictureList}}" wx:key="index">
-                <swiper-item bindtap="preview" data-src="{{userInfo.pictureList[index]}}">
-                    <van-image custom-class="swipe-item" fit="cover" src="{{item}}" radius="20" />
-                </swiper-item>
-            </block>
-        </swiper>
-        <view class="bottomInfo">
-            <van-tag color="rgba(0,0,0,.25)" round type="primary" custom-class="idInfo">ID: {{userInfo.id}}</van-tag>
-            <van-tag color="rgba(0,0,0,.25)" round type="primary" custom-class="locationInfo" wx:if="{{userInfo.baseInfo.location}}">
-                <van-icon name="location" />{{userInfo.baseInfo.location}}
-            </van-tag>
+    <block wx:if="{{isCheck==0}}">
+        <view class="toKf">
+            <van-button type="default" open-type="contact" color="#FF5D7C" custom-style="border-radius:50%;color:#fff;font-weight:700;font-size:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;width:50px;height:50px;padding:10px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
+                <view>
+                    <van-icon name="service" />
+                </view>
+                <text>红娘</text>
+            </van-button>
         </view>
-    </view>
-    <view class="info info1">
-        <view class="top">
-            <view class="nickName">
-                {{userInfo.nickName || '微信用户'}}
-                <van-tag color="#5DBCFF" round type="primary" wx:if="{{userInfo.gender==0}}" size="medium">
-                    <i class="iconfont icon-nan1" style="font-size:14px;margin-right: 8rpx;color:#Fff"></i>
-                    {{userInfo.age}}
-                </van-tag>
-                <van-tag color="#FF5E93" round type="primary" wx:if="{{userInfo.gender==1}}" size="medium">
-                    <i class="iconfont icon-nv1" style="font-size:14px;margin-right: 8rpx;color:#fff" wx:if="{{userInfo.gender==1}}"></i>
-                    {{userInfo.age}}
-                </van-tag>
-                <van-tag color="#fcc52ed2" round type="primary" wx:if="{{userInfo.userLevel>1}}" style="margin-left:4px;" size="medium">
-                    <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
+        <view class="toMember">
+            <van-button type="default" color="#6A6DA9" bind:click="goMember" custom-style="border-radius:50%;color:#fff;font-weight:700;font-size:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;width:50px;height:50px;padding:10px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
+                <view>
+                    <van-icon name="vip-card" />
+                </view>
+                <text>会员</text>
+            </van-button>
+        </view>
+        <view class="swiper">
+            <swiper indicator-dots="true">
+                <block wx:for="{{userInfo.pictureList}}" wx:key="index">
+                    <swiper-item bindtap="preview" data-src="{{userInfo.pictureList[index]}}">
+                        <van-image custom-class="swipe-item" fit="cover" src="{{item}}" radius="20" />
+                    </swiper-item>
+                </block>
+            </swiper>
+            <view class="bottomInfo">
+                <van-tag color="rgba(0,0,0,.25)" round type="primary" custom-class="idInfo">ID: {{userInfo.id}}</van-tag>
+                <van-tag color="rgba(0,0,0,.25)" round type="primary" custom-class="locationInfo" wx:if="{{userInfo.baseInfo.location}}">
+                    <van-icon name="location" />{{userInfo.baseInfo.location}}
                 </van-tag>
             </view>
-            <van-button type="primary" size="small" bindtap="cloneId">复制编号</van-button>
         </view>
-        <view class="bottom">
-            <block wx:if="{{userInfo.baseInfo.height}}">
-                <text class="weight">{{userInfo.baseInfo.height}}cm</text>
-                <text class="dot"></text>
-            </block>
-            <block wx:if="{{userInfo.baseInfo.bodyWeight}}">
-                <text class="weight">{{userInfo.baseInfo.bodyWeight}}kg</text>
-                <text class="dot"></text>
-            </block>
-            <block wx:if="{{userInfo.baseInfo.profession}}">
-                <text class="zy">{{userInfo.baseInfo.profession}}</text>
-                <text class="dot"></text>
-            </block>
-            <block wx:if="{{userInfo.baseInfo.education}}">
-                <text class="education">{{userInfo.baseInfo.education}}</text>
-                <text class="dot"></text>
-            </block>
-            <block wx:if="{{userInfo.baseInfo.marriage}}">
-                <text class="marriage">{{userInfo.baseInfo.marriage}}</text>
-            </block>
+        <view class="info info1">
+            <view class="top">
+                <view class="nickName">
+                    {{userInfo.nickName || '微信用户'}}
+                    <van-tag color="#5DBCFF" round type="primary" wx:if="{{userInfo.gender==0}}" size="medium">
+                        <i class="iconfont icon-nan1" style="font-size:14px;margin-right: 8rpx;color:#Fff"></i>
+                        {{userInfo.age}}
+                    </van-tag>
+                    <van-tag color="#FF5E93" round type="primary" wx:if="{{userInfo.gender==1}}" size="medium">
+                        <i class="iconfont icon-nv1" style="font-size:14px;margin-right: 8rpx;color:#fff" wx:if="{{userInfo.gender==1}}"></i>
+                        {{userInfo.age}}
+                    </van-tag>
+                    <van-tag color="#fcc52ed2" round type="primary" wx:if="{{userInfo.userLevel>1}}" style="margin-left:4px;" size="medium">
+                        <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
+                    </van-tag>
+                </view>
+                <van-button type="primary" size="small" bindtap="cloneId">复制编号</van-button>
+            </view>
+            <view class="bottom">
+                <block wx:if="{{userInfo.baseInfo.height}}">
+                    <text class="weight">{{userInfo.baseInfo.height}}cm</text>
+                    <text class="dot"></text>
+                </block>
+                <block wx:if="{{userInfo.baseInfo.bodyWeight}}">
+                    <text class="weight">{{userInfo.baseInfo.bodyWeight}}kg</text>
+                    <text class="dot"></text>
+                </block>
+                <block wx:if="{{userInfo.baseInfo.profession}}">
+                    <text class="zy">{{userInfo.baseInfo.profession}}</text>
+                    <text class="dot"></text>
+                </block>
+                <block wx:if="{{userInfo.baseInfo.education}}">
+                    <text class="education">{{userInfo.baseInfo.education}}</text>
+                    <text class="dot"></text>
+                </block>
+                <block wx:if="{{userInfo.baseInfo.marriage}}">
+                    <text class="marriage">{{userInfo.baseInfo.marriage}}</text>
+                </block>
+            </view>
         </view>
-    </view>
-    <view class="info info2">
-        <view class="title">基本资料</view>
-        <view class="con">
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">性别: {{userInfo.baseInfo.gender==0?'男':'女'}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">年龄: {{userInfo.baseInfo.age}}岁</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.height}}">身高: {{userInfo.baseInfo.height}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.bodyWeight}}">体重: {{userInfo.baseInfo.bodyWeight}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.incomeMin||userInfo.baseInfo.incomeMax}}">月收入: {{userInfo.baseInfo.income}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.location}}">工作地区: {{userInfo.baseInfo.location}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.education}}">学历: {{userInfo.baseInfo.education}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.marriage}}">婚史: {{userInfo.baseInfo.marriage}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.hadChild}}">有无小孩: {{userInfo.baseInfo.hadChild}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.wantChild}}">是否想要小孩: {{userInfo.baseInfo.wantChild}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.profession}}">职业: {{userInfo.baseInfo.profession}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.houseStatus}}">住房情况: {{userInfo.baseInfo.houseStatus}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.carStatus}}">购车情况: {{userInfo.baseInfo.carStatus}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.nativeRegion}}">籍贯: {{userInfo.baseInfo.nativeRegion}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.smoke}}">是否吸烟: {{userInfo.baseInfo.smoke}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.drink}}">是否喝酒: {{userInfo.baseInfo.drink}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.starSign}}">星座: {{userInfo.baseInfo.starSign}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.nation}}">民族: {{userInfo.baseInfo.nation}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.whenMarriage}}">何时结婚: {{userInfo.baseInfo.whenMarriage}}</van-tag>
+        <view class="info info2">
+            <view class="title">基本资料</view>
+            <view class="con">
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">性别: {{userInfo.baseInfo.gender==0?'男':'女'}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">年龄: {{userInfo.baseInfo.age}}岁</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.height}}">身高: {{userInfo.baseInfo.height}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.bodyWeight}}">体重: {{userInfo.baseInfo.bodyWeight}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.incomeMin||userInfo.baseInfo.incomeMax}}">月收入: {{userInfo.baseInfo.income}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.location}}">工作地区: {{userInfo.baseInfo.location}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.education}}">学历: {{userInfo.baseInfo.education}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.marriage}}">婚史: {{userInfo.baseInfo.marriage}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.hadChild}}">有无小孩: {{userInfo.baseInfo.hadChild}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.wantChild}}">是否想要小孩: {{userInfo.baseInfo.wantChild}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.profession}}">职业: {{userInfo.baseInfo.profession}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.houseStatus}}">住房情况: {{userInfo.baseInfo.houseStatus}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.carStatus}}">购车情况: {{userInfo.baseInfo.carStatus}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.nativeRegion}}">籍贯: {{userInfo.baseInfo.nativeRegion}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.smoke}}">是否吸烟: {{userInfo.baseInfo.smoke}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.drink}}">是否喝酒: {{userInfo.baseInfo.drink}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.starSign}}">星座: {{userInfo.baseInfo.starSign}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.nation}}">民族: {{userInfo.baseInfo.nation}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.baseInfo.whenMarriage}}">何时结婚: {{userInfo.baseInfo.whenMarriage}}</van-tag>
+            </view>
+            <view class="title" wx:if="{{userInfo.metaInfo}}">择偶条件</view>
+            <view class="con" wx:if="{{userInfo.metaInfo}}">
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.gender}}">性别: {{userInfo.metaInfo.gender==0?'男':'女'}}</van-tag>
+                <block wx:if="{{!userInfo.metaInfo.minAge&&!userInfo.metaInfo.maxAge}}">
+                    <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">年龄范围: 不限</van-tag>
+                </block>
+                <block wx:if="{{userInfo.metaInfo.minAge||userInfo.metaInfo.maxAge}}">
+                    <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">年龄范围: {{userInfo.metaInfo.minAge||'不限'}}-{{userInfo.metaInfo.maxAge||'不限'}}</van-tag>
+                </block>
+                <block wx:if="{{!userInfo.metaInfo.minHeight&&!userInfo.metaInfo.maxHeight}}">
+                    <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">身高范围: 不限</van-tag>
+                </block>
+                <block wx:if="{{userInfo.metaInfo.minHeight||userInfo.metaInfo.maxHeight}}">
+                    <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">身高范围: {{userInfo.metaInfo.minHeight||'不限'}}-{{userInfo.metaInfo.maxHeight||'不限'}}</van-tag>
+                </block>
+                <block wx:if="{{!userInfo.metaInfo.minWeight&&!userInfo.metaInfo.maxWeight}}">
+                    <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">体重要求: 不限</van-tag>
+                </block>
+                <block wx:if="{{userInfo.metaInfo.minWeight||userInfo.metaInfo.maxWeight}}">
+                    <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">体重要求: {{userInfo.metaInfo.minWeight||'不限'}}-{{userInfo.metaInfo.maxHeight||'不限'}}</van-tag>
+                </block>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.education}}">学历: {{userInfo.metaInfo.education}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.profession}}">职业: {{userInfo.metaInfo.profession}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.marriage}}">婚史: {{userInfo.metaInfo.marriage}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.hadChild}}">子女情况: {{userInfo.metaInfo.hadChild}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.bodyStatus}}">身体情况: {{userInfo.metaInfo.bodyStatus}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.acceptFamilyCohabitation}}">是否接受家人同居: {{userInfo.metaInfo.acceptFamilyCohabitation}}</van-tag>
+                <block wx:if="{{!userInfo.metaInfo.incomeMin&&!userInfo.metaInfo.incomeMax}}">
+                    <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">月收入: 不限</van-tag>
+                </block>
+                <block wx:if="{{userInfo.metaInfo.incomeMin||userInfo.metaInfo.incomeMax}}">
+                    <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">月收入: {{userInfo.metaInfo.incomeMin||'不限'}}-{{userInfo.metaInfo.incomeMax||'不限'}}</van-tag>
+                </block>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.carStatus}}">购车情况: {{userInfo.metaInfo.carStatus}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.houseStatus}}">住房情况: {{userInfo.metaInfo.houseStatus}}</van-tag>
+                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.location}}">工作地区要求: {{userInfo.metaInfo.location}}</van-tag>
+            </view>
         </view>
-        <view class="title" wx:if="{{userInfo.metaInfo}}">择偶条件</view>
-        <view class="con" wx:if="{{userInfo.metaInfo}}">
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.gender}}">性别: {{userInfo.metaInfo.gender==0?'男':'女'}}</van-tag>
-            <block wx:if="{{!userInfo.metaInfo.minAge&&!userInfo.metaInfo.maxAge}}">
-                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">年龄范围: 不限</van-tag>
-            </block>
-            <block wx:if="{{userInfo.metaInfo.minAge||userInfo.metaInfo.maxAge}}">
-                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">年龄范围: {{userInfo.metaInfo.minAge||'不限'}}-{{userInfo.metaInfo.maxAge||'不限'}}</van-tag>
-            </block>
-            <block wx:if="{{!userInfo.metaInfo.minHeight&&!userInfo.metaInfo.maxHeight}}">
-                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">身高范围: 不限</van-tag>
-            </block>
-            <block wx:if="{{userInfo.metaInfo.minHeight||userInfo.metaInfo.maxHeight}}">
-                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">身高范围: {{userInfo.metaInfo.minHeight||'不限'}}-{{userInfo.metaInfo.maxHeight||'不限'}}</van-tag>
-            </block>
-            <block wx:if="{{!userInfo.metaInfo.minWeight&&!userInfo.metaInfo.maxWeight}}">
-                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">体重要求: 不限</van-tag>
-            </block>
-            <block wx:if="{{userInfo.metaInfo.minWeight||userInfo.metaInfo.maxWeight}}">
-                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">体重要求: {{userInfo.metaInfo.minWeight||'不限'}}-{{userInfo.metaInfo.maxHeight||'不限'}}</van-tag>
-            </block>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.education}}">学历: {{userInfo.metaInfo.education}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.profession}}">职业: {{userInfo.metaInfo.profession}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.marriage}}">婚史: {{userInfo.metaInfo.marriage}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.hadChild}}">子女情况: {{userInfo.metaInfo.hadChild}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.bodyStatus}}">身体情况: {{userInfo.metaInfo.bodyStatus}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.acceptFamilyCohabitation}}">是否接受家人同居: {{userInfo.metaInfo.acceptFamilyCohabitation}}</van-tag>
-            <block wx:if="{{!userInfo.metaInfo.incomeMin&&!userInfo.metaInfo.incomeMax}}">
-                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">月收入: 不限</van-tag>
-            </block>
-            <block wx:if="{{userInfo.metaInfo.incomeMin||userInfo.metaInfo.incomeMax}}">
-                <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag">月收入: {{userInfo.metaInfo.incomeMin||'不限'}}-{{userInfo.metaInfo.incomeMax||'不限'}}</van-tag>
-            </block>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.carStatus}}">购车情况: {{userInfo.metaInfo.carStatus}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.houseStatus}}">住房情况: {{userInfo.metaInfo.houseStatus}}</van-tag>
-            <van-tag type="primary" round color="#EEEEEE" text-color="#6d6d6d" size="large" custom-class="tag" wx:if="{{userInfo.metaInfo.location}}">工作地区要求: {{userInfo.metaInfo.location}}</van-tag>
+        <view class="info info3" wx:if="{{userInfo.selfIntroduction||userInfo.matcherIntroduction}}">
+            <view style="margin-bottom: 10px;">兴趣爱好: {{userInfo.selfIntroduction}}</view>
+            <view>红娘推荐: {{userInfo.matcherIntroduction}}</view>
         </view>
-    </view>
-    <view class="info info3" wx:if="{{userInfo.selfIntroduction||userInfo.matcherIntroduction}}">
-        <view style="margin-bottom: 10px;">兴趣爱好: {{userInfo.selfIntroduction}}</view>
-        <view>红娘推荐: {{userInfo.matcherIntroduction}}</view>
-    </view>
+    </block>
+    <block wx:if="{{isCheck==1}}">
+        <text>暂无数据</text>
+    </block>
+    <block wx:if="{{isCheck==2}}">
+        <view class="loadWrap">
+            <van-loading type="spinner" vertical>加载中...</van-loading>
+        </view>
+    </block>
 </view>
