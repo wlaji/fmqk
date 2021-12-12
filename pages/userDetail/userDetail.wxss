@@ -30,7 +30,8 @@
 }
 
 .swiper {
-    height: 350px;
+    position: relative;
+    height: 700rpx;
 }
 
 .swiper swiper {
@@ -43,23 +44,15 @@
     border-radius: 10px;
 }
 
-.hy {
+.bottomInfo{
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-left: 5px;
-    width: 18px;
-    height: 18px;
-    background-color: #eee;
-    border-radius: 4px;
+    position: absolute;
+    left:10px;
+    bottom:4px;
 }
-
-.hy {
-    background-color: #fcc52ed2;
-}
-
-.hy i {
-    color: #ffffff;
+.bottomInfo .idInfo{
+    margin-right: 10px;
 }
 
 .info {
@@ -75,9 +68,6 @@
     font-weight: 700;
 }
 
-.info0 {
-    color: #6d6d6d;
-}
 
 .info1 .top {
     position: relative;
@@ -95,7 +85,7 @@
 }
 
 .info1 .top .nickName {
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .info1 .bottom {
@@ -129,11 +119,6 @@
 }
 
 .info2 .tag {
-    color: #6d6d6d;
-    background-color: #eee;
-    padding: 2px 4px;
-    font-size: 12px;
-    border-radius: 4px;
-    margin-right: 4px;
-    margin-bottom: 4px;
+   margin-right: 5px;
+   margin-bottom: 5px;
 }

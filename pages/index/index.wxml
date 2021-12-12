@@ -9,44 +9,76 @@
                     <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
                 </view>
                 <view class="name">{{item.nickName || '微信用户'}}</view>
-                <view class="info">{{item.age}} {{item.location}}</view>
+                <view class="info">{{item.age +'岁'}} {{item.location}}</view>
             </view>
         </view>
         <view class="loginUserWrap" wx:if="{{isLogin}}">
             <swiper style="margin-bottom:10px;" indicator-dots="{{true}}">
                 <block wx:for="{{background}}" wx:key="*this">
                     <swiper-item>
-                        <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.url}}" />
+                        <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item}}" radius="10" />
                     </swiper-item>
                 </block>
             </swiper>
-            <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
-                <view class="imgWrap">
-                    <van-image width="100%" height="100%" fit="cover" lazy-load src="{{item.photos[0].photoPath}}" />
-                </view>
-                <view class="rightInfo">
-                    <view class="topInfo">
-                        <view class="name">{{item.nickName || '微信用户'}}</view>
-                        <view class="hy" wx:if="{{item.userLevel==2}}">
-                            <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
+            <block wx:if="{{userList.length}}">
+                <view class="userItem" wx:for="{{userList}}" wx:key="index" bindtap="viewDetail" data-id="{{item.id}}">
+                    <view class="imgWrap">
+                        <van-image width="100%" height="100%" fit="cover" radius="10" lazy-load src="{{item.photos[0].photoPath}}" />
+                    </view>
+                    <view class="rightInfo">
+                        <view class="topInfo">
+                            <view class="name">
+                                <i class="iconfont icon-nan1" style="font-size:14px;margin-right: 8rpx;color:#79B0FA" wx:if="{{item.gender==0}}"></i>
+                                <i class="iconfont icon-nv1" style="font-size:14px;margin-right: 8rpx;color:#FF5D7C" wx:if="{{item.gender==1}}"></i>
+                                <text>{{item.nickName || '微信用户'}}</text>
+                            </view>
+                            <van-tag color="#fcc52ed2" round type="primary" wx:if="{{item.userLevel>1}}" style="margin-left:4px;">
+                                <i class="iconfont icon-huiyuan1" style="font-size:14px;"></i>
+                            </van-tag>
                         </view>
-                        <!-- <view class="sm">
-                        <i class="iconfont icon-shimingrenzheng1" style="font-size:14px"></i>
-                    </view> -->
+                        <view class="info">
+                            <van-tag color="#f2826a" plain custom-class="tagItem">{{item.age}}岁</van-tag>
+                            <van-tag color="#f2826a" plain custom-class="tagItem" wx:if="{{item.location}}">{{item.location}}</van-tag>
+                            <van-tag color="#f2826a" plain custom-class="tagItem" wx:if="{{item.profession}}">{{item.profession}}</van-tag>
+                            <van-tag color="#f2826a" plain custom-class="tagItem" wx:if="{{item.height}}">{{item.height}}cm</van-tag>
+                        </view>
+                        <view class="van-ellipsis des" wx:if="{{item.selfIntroduction}}">
+                            <!-- wx:if="{{item.selfIntroduction}}" -->
+                            <text>{{item.selfIntroduction}}</text>
+                        </view>
+                        <view class="photos">
+                            <block wx:if="{{item.photos.length>1}}">
+                                <van-image width="40px" height="40px" fit="cover" style="margin-right: 4px;" lazy-load src="{{item.photoPath}}" radius="4" wx:for="{{item.photos}}" wx:key="*this" wx:if="{{index<=3}}" />
+                            </block>
+                            <block wx:if="{{item.photos.length<=1}}">
+                                <view style="color:#ccc;font-size:12px;">
+                                    <van-icon name="photo-fail" /> {{item.gender==0?'他':'她'}}还没上传过照片呢~
+                                </view>
+                            </block>
+                        </view>
                     </view>
-                    <view class="info">
-                        <view class="tagItem">{{item.age}}岁</view>
-                        <view class="tagItem" wx:if="{{item.location}}">{{item.location}}</view>
-                        <view class="tagItem" wx:if="{{item.profession}}">{{item.profession}}</view>
-                        <view class="tagItem" wx:if="{{item.height}}">{{item.height}}cm</view>
-                    </view>
-                    <view class="des" wx:if="{{item.selfIntroduction}}">{{item.selfIntroduction}}</view>
                 </view>
-            </view>
+            </block>
             <view style="text-align: center;margin: 10px;">
                 <view wx:if="{{loading}}">加载中...</view>
                 <view wx:if="{{noMore}}">没有更多了</view>
                 <view wx:if="{{loadingFailed}}">数据加载失败,请重试</view>
+            </view>
+            <view class="toTop">
+                <van-button type="default" color="#ffffff" bind:click="goTop" custom-style="border-radius:50%;color:#333;font-weight:700;font-size:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;width:50px;height:50px;padding:10px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
+                    <view>
+                        <van-icon name="arrow-up" />
+                    </view>
+                    <text>TOP</text>
+                </van-button>
+            </view>
+            <view class="toKf">
+                <van-button type="default" open-type="contact" color="#FF5D7C" custom-style="border-radius:50%;color:#fff;font-weight:700;font-size:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;width:50px;height:50px;padding:10px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
+                    <view>
+                        <van-icon name="service" />
+                    </view>
+                    <text>红娘</text>
+                </van-button>
             </view>
         </view>
     </block>
@@ -57,7 +89,7 @@
                 <view class="title">1. 公司简介</view>
                 <view class="des">
                     长沙芷金商贸有限公司，经营范围为婚姻介绍、信息咨询以及相关业务。店面名称：中文为“芷金婚恋服务中心”；芷金商贸有限公司是 2021 年 11 月 01
-                    日经工商注册合法的从事专业婚介推荐机构，芷金婚恋公司秉承“善爱沉香，真实专业，靠谱无忧”的经营理念，致力于通过线上知情，线下深入真实了解，即“微绿牵手，天长地久”为口号，为广大单身人士提供全方位真实交流的机构服务，公司愿景：<text style="font-weight:700;">线下为主，真是为本，努力成为该行业的标杆。</text>
+                    日经工商注册合法的从事专业婚介推荐机构，公司秉承“善爱沉香，真实专业，靠谱无忧”的经营理念，致力于通过线上知情，线下深入真实了解，即“微绿牵手，天长地久”为口号，为广大人士提供全方位真实交流的机构服务，公司愿景：<text style="font-weight:700;">线下为主，真是为本，努力成为该行业的标杆。</text>
                 </view>
             </view>
             <view class="dItem">

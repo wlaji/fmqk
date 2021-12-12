@@ -5,7 +5,6 @@
   width: 100%;
   min-height: 100vh;
 }
-
 .userWrap {
   flex:1;
   height: 0;
@@ -33,11 +32,13 @@
 .userWrap .userItem .name {
   text-align: center;
   font-size: 16px;
+  font-weight: 500;
 }
 
 .userWrap .userItem .info {
   color: #999999;
   text-align: center;
+  font-size:14px;
 }
 
 .loginUserWrap {
@@ -49,7 +50,6 @@
 
 .loginUserWrap .userItem {
   display: flex;
-  align-items: center;
   padding: 10px;
   margin-bottom: 10px;
   background-color: #fff;
@@ -59,8 +59,8 @@
 
 .loginUserWrap .userItem .imgWrap {
   flex-shrink: 0;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 135px;
 }
 
 .rightInfo {
@@ -70,42 +70,15 @@
 .rightInfo .topInfo {
   display: flex;
   align-items: center;
+  font-size:16px;
+  font-weight: 500;
 }
-
-.hy,
-.sm {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 5px;
-  width: 18px;
-  height: 18px;
-  background-color: #eee;
-  border-radius: 4px;
-}
-
-.hy {
-  background-color: #fcc52ed2;
-}
-
-.hy i,
-.sm i{
-  color: #ffffff;
-}
-
-.sm {
-  background-color: #30e499d2;
-}
-
 
 .rightInfo .des {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   width: 420rpx;
   margin-top: 5px;
   color:#6d6d6d;
-  font-size:14px;
+  font-size:12px;
 }
 
 .rightInfo .info{
@@ -115,11 +88,9 @@
 }
 
 .tagItem{
-  border: 1px solid #AA824D;
-  color: #AA824D;
-  padding: 2px;
-  font-size:12px;
-  border-radius: 4px;
-  margin-right: 4px;
-  margin-bottom:4px;
+  margin-right: 10rpx;
+}
+
+.photos{
+  margin-top: 10px;
 }

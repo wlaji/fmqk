@@ -30,9 +30,11 @@ Page({
     },
     onShow() {
         getAppCheckInfo().then(res => {
-            this.setData({
-                isCheck: Number(res.data.configValue)
-            })
+            setTimeout(() => {
+                this.setData({
+                    isCheck: Number(res.data.configValue)
+                })
+            }, 1000)
         })
         if (wx.getStorageSync('token')) {
             this.setData({

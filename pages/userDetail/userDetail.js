@@ -2,8 +2,6 @@ import {
   getUserInfoById
 } from '../../api/index'
 import {
-  getIncomeIndex,
-  incomeArr,
   educationArr,
   marriageArr,
   hadChildArr,
@@ -16,7 +14,11 @@ import {
   drinkArr,
   starSignArr,
   nationArr,
-  whenMarriageArr
+  whenMarriageArr,
+  professionArr,
+  zoHadChildArr,
+  zoBodyStatusArr,
+  zoAcceptFamilyCohabitationArr
 } from '../../utils/data'
 Page({
 
@@ -40,6 +42,7 @@ Page({
       this.setData({
         userInfo: this.initUserData(res.data)
       })
+      console.log(this.initUserData(res.data))
     })
   },
   initUserData(item) {
@@ -49,47 +52,53 @@ Page({
     let condition2 = item.conditionList.find(citem => {
       return citem.conditionType === 2
     })
-    item.baseInfo={
+    item.baseInfo = {
+      gender: item.gender,
+      age: item.age,
+      height: condition.height,
+      bodyWeight:condition.bodyWeight,
+      incomeMin:condition.incomeMin,
+      incomeMax:condition.incomeMax,
+      income:`${condition.incomeMin||'不定'}-${condition.incomeMax||'不定'}`,
+      location: condition.region ? JSON.parse(condition.region)[0] + '-' + JSON.parse(condition.region)[1] : '',
       education: educationArr[condition.education],
-      location: condition.region ? JSON.parse(condition.region)[1] : '',
-      profession:condition.profession,
-      height:condition.height,
       marriage: marriageArr[condition.marriage],
-      starSign: starSignArr[condition.starSign],
-      income: incomeArr[getIncomeIndex(incomeArr,condition.incomeMin,condition.incomeMax)],
-      nation: nationArr[condition.nation],
-      nativeRegion: condition.nativeRegion ?JSON.parse(condition.nativeRegion)[0]+JSON.parse(condition.nativeRegion)[1] : '',
-      bodyShape: condition.gender==0?manbodyShapeArr[condition.bodyShape]:girlbodyShapeArr[condition.bodyShape],
-      smoke: smokeArr[condition.smoke],
-      drink: drinkArr[condition.drink],
       hadChild: hadChildArr[condition.hadChild],
       wantChild: wantChildArr[condition.wantChild],
-      carStatus: carStatusArr[condition.carStatus],
+      profession: professionArr[condition.profession],
       houseStatus: houseStatusArr[condition.houseStatus],
-      whenMarriage: whenMarriageArr[condition.whenMarriage],
-      bodyWeight:condition.bodyWeight
+      carStatus: carStatusArr[condition.carStatus],
+      nativeRegion: condition.nativeRegion ? JSON.parse(condition.nativeRegion)[0] + JSON.parse(condition.nativeRegion)[1] : '',
+      smoke: smokeArr[condition.smoke],
+      drink: drinkArr[condition.drink],
+      starSign: starSignArr[condition.starSign],
+      nation: nationArr[condition.nation],
+      whenMarriage: whenMarriageArr[condition.whenMarriage]
     }
-    if(condition2){
+    if (condition2) {
       item.metaInfo = {
-        minAge:condition2.minAge,
-        maxAge:condition2.maxAge,
-        minHeight:condition2.minHeight,
-        maxHeight:condition2.maxHeight,
-        incomeMin:condition2.incomeMin,
-        incomeMax:condition2.incomeMax,
-        education:educationArr[condition2.education],
-        marriage:marriageArr[condition2.marriage],
-        bodyShape:condition.gender==0?girlbodyShapeArr[condition2.bodyShape]:manbodyShapeArr[condition2.bodyShape],
-        location: condition2.region ? JSON.parse(condition2.region)[1] : '',
-        hadChild: hadChildArr[condition2.hadChild],
-        wantChild:wantChildArr[condition2.wantChild],
-        smoke:smokeArr[condition2.smoke],
-        drink:drinkArr[condition2.drink],
+        gender:condition2.gender,
+        minAge: condition2.minAge,
+        maxAge: condition2.maxAge,
+        minHeight: condition2.minHeight,
+        maxHeight: condition2.maxHeight,
+        minWeight:condition2.minWeight,
+        maxWeight:condition2.maxWeight,
+        education: educationArr[condition2.education],
+        profession: professionArr[condition2.profession],
+        marriage: marriageArr[condition2.marriage],
+        hadChild: zoHadChildArr[condition2.hadChild],
+        bodyStatus:zoBodyStatusArr[condition2.bodyStatus],
+        acceptFamilyCohabitation:zoAcceptFamilyCohabitationArr[condition2.acceptFamilyCohabitation],
+        incomeMin: condition2.incomeMin,
+        incomeMax: condition2.incomeMax,
+        carStatus:carStatusArr[condition2.carStatus],
+        houseStatus:houseStatusArr[condition2.houseStatus],
+        location: condition2.region
       }
     }
-    
     item.pictureList = [];
-    item.photos.forEach(citem=>{
+    item.photos.forEach(citem => {
       item.pictureList.push(citem.photoPath)
     })
     console.log(item)
@@ -98,15 +107,19 @@ Page({
   cloneId() {
     wx.setClipboardData({
       data: `用户编号:${this.data.userInfo.id}`,
-      success: function (res) {
-      }
+      success: function (res) {}
     })
   },
-  preview(event){
+  preview(event) {
     let currentUrl = event.currentTarget.dataset.src
     wx.previewImage({
       current: currentUrl, // 当前显示图片的http链接
       urls: this.data.userInfo.pictureList // 需要预览的图片http链接列表
     })
   },
+  goMember(){
+    wx.navigateTo({
+      url: '/pages/member/member',
+    })
+  }
 })

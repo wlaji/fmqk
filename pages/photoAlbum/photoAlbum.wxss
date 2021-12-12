@@ -30,6 +30,7 @@
 }
 
 .photoCon .item{
+  position: relative;
   flex-basis: calc(33.3% - 10px);
   height:220rpx;
   border:1px solid #ccc;

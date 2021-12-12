@@ -77,3 +77,13 @@ export const registerByWx = function (data) {
 export const getChargeLevelPrice = function (data) {
 	return post('/app/user/getChargeLevelPrice', data)
 }
+
+//删除图片
+export const deletePhoto = function (data) {
+	return get('/photo/deletePhoto', data)
+}
+
+export const getAppCarousel = function (data) {
+	return post('/config/getAppCarousel', data)
+}
+

@@ -1,5 +1,5 @@
 // const ApiRootUrl = 'http://192.168.1.5:8089';
-const ApiRootUrl = 'https://4031w093e1.goho.co/';
+export const ApiRootUrl = 'https://4031w093e1.goho.co';
 export const formatTime = (date) => {
   var year = date.getFullYear()
   var month = date.getMonth() + 1

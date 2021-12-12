@@ -1,9 +1,7 @@
-// pages/basicInfo/basicInfo.js
 import {
   getUserInfoById,
   editMemberCondition,
-  changeMemberNickName,
-  getAppCheckInfo
+  changeMemberNickName
 } from '../../api/index'
 import {
   getHeightIndex,
@@ -19,13 +17,12 @@ import {
   wantChildArr,
   houseStatusArr,
   carStatusArr,
-  girlbodyShapeArr,
-  manbodyShapeArr,
   smokeArr,
   drinkArr,
   starSignArr,
   nationArr,
-  whenMarriageArr
+  whenMarriageArr,
+  professionArr
 } from '../../utils/data'
 
 Page({
@@ -33,10 +30,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isCheck: 1,
     showDialog: false,
-    showDialog2: false,
-    newProfession: '',
     buttons: [{
       text: '取消'
     }, {
@@ -79,13 +73,12 @@ Page({
     wantChildArr,
     houseStatusArr,
     carStatusArr,
-    girlbodyShapeArr,
-    manbodyShapeArr,
     smokeArr,
     drinkArr,
     starSignArr,
     nationArr,
     whenMarriageArr,
+    professionArr,
     userInfo: '',
     multiIndex: [0, 0],
     multiArray: [],
@@ -124,7 +117,6 @@ Page({
         carStatus,
         nativeRegion,
         bodyWeight,
-        bodyShape,
         smoke,
         drink,
         starSign,
@@ -138,7 +130,8 @@ Page({
         'form.gender': gender,
         'form.birthday': birthday.replace(/\//g, "-"),
         'form.height': getHeightIndex(heightArr, height),
-        'form.income': getIncomeIndex(incomeArr, incomeMin, incomeMax),
+        'form.incomeMin': incomeMin,
+        'form.incomeMax': incomeMax,
         'form.region': region ? JSON.parse(region) : '',
         'form.education': education,
         'form.marriage': marriage,
@@ -149,31 +142,19 @@ Page({
         'form.carStatus': carStatus,
         'form.nativeRegion': nativeRegion ? JSON.parse(nativeRegion) : '',
         'form.bodyWeight': getWeightIndex(bodyWeightArr, bodyWeight),
-        'form.bodyShape': bodyShape,
         'form.smoke': smoke,
         'form.drink': drink,
         'form.starSign': starSign,
         'form.nation': nation,
         'form.whenMarriage': whenMarriage,
       })
-    })
-
-    getAppCheckInfo().then(res => {
-      this.setData({
-        isCheck: Number(res.data.configValue)
-      })
+      console.log(this.data.form)
     })
   },
 
   nickNameChange(e) {
     this.setData({
       newNickName: e.detail.value
-    })
-  },
-
-  professionChange(e) {
-    this.setData({
-      newProfession: e.detail.value
     })
   },
 
@@ -199,21 +180,6 @@ Page({
     }
   },
 
-  dialogFn2(e) {
-    let ind = e.detail.index;
-    //点击取消
-    if (ind === 0) {
-      this.setData({
-        showDialog2: false
-      })
-    } else {
-      this.setData({
-        showDialog2: false,
-        'form.profession': this.data.newProfession
-      })
-    }
-  },
-
   changeNickName(e) {
     this.setData({
       newNickName: this.data.form['nickName'],
@@ -221,41 +187,42 @@ Page({
     })
   },
 
-  changeProfession() {
-    this.setData({
-      newProfession: this.data.form['profession'],
-      showDialog2: true
-    })
-  },
-
   changeForm(e) {
     const prop = e.target.dataset.name;
-    this.setData({
-      [`form.${prop}`]: e.detail.value
-    })
+    if (prop === 'income') {
+      let income = incomeArr[e.detail.value],
+        incomeMin,
+        incomeMax;
+      if (income === '3000元以下') {
+        incomeMin = '';
+        incomeMax = 3000
+      } else if (income === '50000元以上') {
+        incomeMin = 50000;
+        incomeMax = ''
+      } else {
+        incomeMin = parseInt(income.split('-')[0]);
+        incomeMax = parseInt(income.split('-')[1]);
+      }
+      console.log(incomeMin,incomeMax)
+      this.setData({
+        'form.incomeMin':incomeMin,
+        'form.incomeMax':incomeMax
+      })
+    } else {
+      this.setData({
+        [`form.${prop}`]: e.detail.value
+      })
+    }
   },
   save() {
     let form = this.data.form;
-    let income = incomeArr[form.income],
-      incomeMin,
-      incomeMax;
-    if (income === '3000元以下') {
-      incomeMin = '';
-      incomeMax = 3000
-    } else if (income === '50000元以上') {
-      incomeMin = 50000;
-      incomeMax = ''
-    } else {
-      incomeMin = parseInt(income.split('-')[0]);
-      incomeMax = parseInt(income.split('-')[1]);
-    }
     editMemberCondition({
       id: form.id,
       gender: form.gender,
       birthday: form.birthday.replace(/-/g, "/"),
       height: heightArr[form.height],
-      incomeMin: incomeMin,
-      incomeMax: incomeMax,
+      incomeMin: form.incomeMin,
+      incomeMax: form.incomeMax,
       region: form.region ? JSON.stringify(form.region) : '',
       education: form.education,
       marriage: form.marriage,
@@ -266,7 +233,6 @@ Page({
       carStatus: form.carStatus,
       nativeRegion: form.nativeRegion ? JSON.stringify(form.nativeRegion) : '',
       bodyWeight: bodyWeightArr[form.bodyWeight],
-      bodyShape: form.bodyShape,
       smoke: form.smoke,
       drink: form.drink,
       starSign: form.starSign,

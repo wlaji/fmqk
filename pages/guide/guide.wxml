@@ -9,7 +9,7 @@
             <view class="btn2">先逛逛吧>>></view>
         </navigator>
     </view>
-    <!-- <block wx:if="{{isCheck}}">
+    <block wx:if="{{isCheck}}">
         <van-image width="100%" height="100%" custom-class="bgImg" fit="cover" src="{{bgSrc2}}" />
         <view class="btnWrap">
             <navigator url="/pages/completeInfo/completeInfo" hover-class="none">
@@ -19,5 +19,5 @@
                 <view class="btn2">先逛逛吧>>></view>
             </navigator>
         </view>
-    </block> -->
+    </block>
 </view>

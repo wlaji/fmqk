@@ -6,57 +6,89 @@ const app = getApp()
 import {
   getPushUserNoLogin,
   getPushUserByUserId,
-  getAppCheckInfo
+  getAppCheckInfo,
+  getAppCarousel
 } from '../../api/index'
+import {
+  professionArr
+} from '../../utils/data'
 Page({
   data: {
     background: [{
-      url:'/static/images/2.jpg'
-    },{
-      url:'/static/images/2.jpg'
-    },{
-      url:'/static/images/2.jpg'
+      url: '/static/images/2.jpg'
+    }, {
+      url: '/static/images/2.jpg'
+    }, {
+      url: '/static/images/2.jpg'
     }],
-    isCheck:2,
+    isCheck: 2,
     userList: [],
-    userNologinList:[],
+    userNologinList: [],
     loading: false,
     noMore: false,
     loadingFailed: false,
     isLogin: false,
     page: 1,
-    pageSize: 20,
+    pageSize: 50,
     total: '',
     bgSrc2: '/static/images/20.jpg'
   },
 
   onLoad() {
-
-  },
-
-  initUserData(list) {
-    list.forEach(item => {
-      let condition = item.conditionList.find(citem => {
-        return citem.conditionType === 1
+    getAppCarousel().then(res => {
+      let photos = JSON.parse(res.data.configData.configValue),
+        imagePrefix = res.data.imagePrefix;
+      let newPhotos = [];
+      photos.forEach(item => {
+        let newItem = imagePrefix + item;
+        newPhotos.push(newItem);
+      });
+      console.log(newPhotos);
+      this.setData({
+        background: newPhotos
       })
-      item.location = condition.region && condition.region.length ? JSON.parse(condition.region)[1] : '';
-      item.height = condition.height;
-      item.profession = condition.profession
+    })
+  },
+  goTop() {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 100,
+    })
+  },
+  initUserData(list) {
+    list.forEach((item, index) => {
+      let condition = item.conditionList.find(citem => {
+        return citem.conditionType == 1
+      })
+      if (!condition) {
+        list.splice(index, 1)
+      } else {
+        if (condition.region && JSON.parse(condition.region)[1] === '市辖区') {
+          item.location = JSON.parse(condition.region)[0]
+        } else {
+          item.location = condition.region ? JSON.parse(condition.region)[1] : '';
+        }
+        item.height = condition.height;
+        item.profession = professionArr[condition.profession],
+          item.gender = condition.gender
+      }
     })
     return list
   },
 
   onShow() {
     getAppCheckInfo().then(res => {
-      this.setData({
-        isCheck: Number(res.data.configValue)
-      })
+      setTimeout(() => {
+        this.setData({
+          isCheck: Number(res.data.configValue)
+        })
+      }, 1000)
     })
     if (wx.getStorageSync('token')) {
       this.setData({
         isLogin: true,
       })
-      if(!this.data.userList.length){
+      if (!this.data.userList.length) {
         this.setData({
           page: 1,
           noMore: false
@@ -115,6 +147,7 @@ Page({
     if (!this.data.isLogin) {
       return false;
     }
+    console.log(this.data.total, this.data.userList.length)
     if (this.data.total <= this.data.userList.length) {
       this.setData({
         noMore: true
@@ -152,9 +185,5 @@ Page({
       //停止下拉刷新
       wx.stopPullDownRefresh();
     }, 1000)
-  },
-  filterLocation(val) {
-    console.log(val)
-    return '321321'
   }
 })

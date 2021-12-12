@@ -1,5 +1,7 @@
 <!--pages/photoAlbum/photoAlbum.wxml-->
 <view class="container">
+  <!-- 在页面内添加对应的节点 -->
+  <van-notify id="van-notify" />
   <view class="hyCon">
     <view class="t3">
       最多可上传15张图片,开通会员既可以无限制上传
@@ -9,12 +11,6 @@
     </view>
   </view>
   <view class="photoCon">
-    <view class="item uploadItem" bindtap="uploadPhoto">
-      <mp-icon icon="add" color="#999" size="{{30}}"></mp-icon>
-      <text>上传照片</text>
-    </view>
-    <view class="item" wx:for="{{imgList}}" wx:key="index" bindtap="preview" data-src="{{imgList[index]}}">
-      <image src="{{item}}" mode="aspectFit"></image>
-    </view>
+    <van-uploader file-list="{{ fileList }}" bind:after-read="afterRead" bind:delete="deletePhoto" />
   </view>
 </view>

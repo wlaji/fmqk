@@ -1,37 +1,33 @@
-// pages/photoAlbum/photoAlbum.js
+import Notify from '../../miniprogram_npm/@vant/weapp/notify/notify';
 import {
-  getUserInfoById
+  getUserInfoById,
+  deletePhoto
 } from '../../api/index'
+import {
+  ApiRootUrl
+} from '../../utils/util'
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    imgList:[],
-    userInfo:''
+    userInfo: '',
+    fileList: [],
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     this.getUserInfo()
   },
-  onShow: function () {
-
-  },
-  getUserInfo(){
+  getUserInfo() {
     getUserInfoById({
       id: JSON.parse(wx.getStorageSync('userInfo')).id
     }).then(res => {
-      let imgList = [];
-      res.data.photos.forEach(item=>{
-        imgList.push(item.photoPath)
+      let fileList = [];
+      res.data.photos.forEach(item => {
+        fileList.push({
+          url: item.photoPath,
+          id: item.id
+        })
       })
       this.setData({
-        imgList,
-        userInfo:res.data
+        fileList,
+        userInfo: res.data
       })
     })
   },
@@ -40,56 +36,55 @@ Page({
       url: '/pages/member/member',
     })
   },
-  uploadPhoto() {
+  afterRead(event) {
     let userId = JSON.parse(wx.getStorageSync('userInfo')).id;
     let that = this;
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
+    const {
+      file
+    } = event.detail;
+    // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
+    wx.uploadFile({
+      url: `${ApiRootUrl}/photo/upload`, //仅为示例，非真实的接口地址
+      filePath: file.url,
+      name: 'file',
+      formData: {
+        'userId': userId
+      },
+      header: {
+        'content-type': 'multipart/form-data'
+      },
       success(res) {
-        // tempFilePath可以作为img标签的src属性显示图片
-        const tempFilePaths = res.tempFilePaths;
-        wx.showLoading({
-          title: '上传中',
-        })
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 2000)
-        wx.uploadFile({
-          url: 'https://4031w093e1.goho.co/photo/upload ', //仅为示例，非真实的接口地址
-          filePath: tempFilePaths[0],
-          name: 'file',
-          formData: {
-            'userId': userId
-          },
-          success (res){
-            let data = JSON.parse(res.data)
-            if(data.code == 200){
-              wx.showToast({
-                title: '上传成功',
-                icon: 'success',
-                duration: 1000
-              })
-              that.getUserInfo();
-            }else{
-              wx.showToast({
-                title: data.message,
-                icon:'none',
-                duration: 1000
-              })
-            }
-          },
-        })
-      }
+        console.log(res);
+        let data = JSON.parse(res.data)
+        if (data.code == 200) {
+          wx.showToast({
+            title: '上传成功',
+            icon: 'success',
+            duration: 1000
+          })
+          that.getUserInfo();
+        } else {
+          wx.showToast({
+            title: data.message,
+            icon: 'none',
+            duration: 1000
+          })
+        }
+      },
     })
   },
-  preview(event) {
-    console.log(event.currentTarget.dataset.src)
-    let currentUrl = event.currentTarget.dataset.src
-    wx.previewImage({
-      current: currentUrl, // 当前显示图片的http链接
-      urls: this.data.imgList // 需要预览的图片http链接列表
+  deletePhoto(event) {
+    let id = event.detail.file.id
+    //删除接口
+    deletePhoto({
+      id
+    }).then(res => {
+      Notify({
+        type: 'success',
+        message: '删除成功',
+        duration: 1000
+      });
+      this.getUserInfo()
     })
   }
 })

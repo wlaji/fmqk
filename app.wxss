@@ -8,8 +8,9 @@ image{
   box-sizing: border-box;
 }
 page {
-  font-family: 'Microsoft Yahei', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
-  font-size:14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei',
+    sans-serif;
 }
 .bgImgWrap{
   overflow: auto;
@@ -42,4 +43,23 @@ page {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.toTop{
+  position: fixed;
+  right:20px;
+  bottom:20px;
+  z-index:100000;
+}
+.toKf{
+  position: fixed;
+  right:20px;
+  bottom:80px;
+  z-index:100000;
+}
+.toMember{
+  position: fixed;
+  right:20px;
+  bottom:20px;
+  z-index:100000;
 }

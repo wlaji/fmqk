@@ -1,4 +1,7 @@
-/**index.wxss**/
+.van-hairline--top-bottom:after {
+  border: none !important;
+}
+
 .container {
   position: relative;
   display: flex;
@@ -6,15 +9,17 @@
   width: 100%;
   min-height: 100vh;
 }
-.noLoginWrap{
+
+.noLoginWrap {
   position: absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   height: 100%;
-  background-color:#fff;
+  background-color: #fff;
 }
+
 .noLoginWrap .imgWrap {
   margin-top: 50px;
   display: flex;
@@ -41,24 +46,91 @@
   font-size: 14px;
 }
 
-.cusBtn{
-  position: fixed;
-  top:10px;
-  left:10px;
-  right:10px;
+.filterArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  background-color: #fff;
+  padding: 5px;
+}
+
+.filterBtn {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.filterPopup {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.filterPopup .filterContent {
+  overflow: auto;
+  flex: 1;
+  height: 0;
+  padding: 10px;
+}
+
+.filterPopup .saveBtn {
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  background-color: #eee;
+}
+
+.filter-item {
+  margin-bottom: 20px;
+}
+
+.filter-item .filter-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.filter-item .filter-selectArea {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter-item .select-item {
+  flex-basis: calc(33.3% - 10px);
+  padding:4px 8px;
+  background-color: #F5F5F5;
+  border-radius: 4px;
+  color:#666;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size:12px;
+}
+
+.filter-item .select-item.active {
+  background-color: #FFE8F0;
+  color:#FF82AB;
+}
+
+.customInput{
+  display: inline-block;
+  width: 200rpx !important;
+  text-align: center !important;
+  background-color: #F5F5F5 !important;
+  border-radius: 10px !important;
 }
 
 .loginUserWrap {
-  position: relative;
-  flex:1;
+  flex: 1;
   height: 0;
-  padding-left:10px;
-  padding-right:10px;
+  padding: 10px;
+  background-color: #eee;
 }
 
 .loginUserWrap .userItem {
   display: flex;
-  align-items: center;
   padding: 10px;
   margin-bottom: 10px;
   background-color: #fff;
@@ -68,8 +140,8 @@
 
 .loginUserWrap .userItem .imgWrap {
   flex-shrink: 0;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 135px;
 }
 
 .rightInfo {
@@ -79,60 +151,27 @@
 .rightInfo .topInfo {
   display: flex;
   align-items: center;
+  font-size: 16px;
+  font-weight: 500;
 }
-
-.hy,
-.sm {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 5px;
-  width: 18px;
-  height: 18px;
-  background-color: #eee;
-  border-radius: 4px;
-}
-
-.hy {
-  background-color: #fcc52ed2;
-}
-
-.hy i,
-.sm i{
-  color: #ffffff;
-}
-
-.sm {
-  background-color: #30e499d2;
-}
-
 
 .rightInfo .des {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   width: 420rpx;
   margin-top: 5px;
-  color:#6d6d6d;
-  font-size:14px;
+  color: #6d6d6d;
+  font-size: 12px;
 }
 
-.rightInfo .info{
+.rightInfo .info {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   margin-top: 5px;
 }
 
-.tagItem{
-  border: 1px solid #AA824D;
-  color: #AA824D;
-  padding: 2px;
-  font-size:12px;
-  border-radius: 4px;
-  margin-right: 4px;
-  margin-bottom:4px;
+.tagItem {
+  margin-right: 10rpx;
 }
 
-.van-hairline--top-bottom:after{
-  border:none !important;
+.photos {
+  margin-top: 10px;
 }

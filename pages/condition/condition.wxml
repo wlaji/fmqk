@@ -1,11 +1,25 @@
 <!--pages/completeInfo/completeInfo.wxml-->
 <view class="container">
-  <view class="content" wx:if="{{!isCheck}}">
-    <mp-cell ext-class="cellItem" title="年龄" link>
+  <mp-dialog title="修改职业" show="{{showDialog2}}" buttons="{{buttons}}" bindbuttontap="dialogFn2">
+    <mp-cells ext-class="my-cells">
+      <mp-cell>
+        <input class="weui-input" auto-focus placeholder="请输入" value="{{newProfession}}" bindinput="professionChange" />
+      </mp-cell>
+    </mp-cells>
+  </mp-dialog>
+  <view class="content">
+    <mp-cell ext-class="cellItem" title="性别" link>
       <view slot="footer">
-        <picker mode="multiSelector" bindchange="bindAgeMultiPickerChange" data-name="age"
-          bindcolumnchange="bindAgeMultiPickerColumnChange" value="{{ageMultiIndex}}" range="{{ageMultiArray}}"
-          header-text="年龄范围">
+        <picker bindchange="changeForm" data-name="gender" value="{{form.gender}}" range-key="name" range="{{genderArray}}" header-text="性别选择">
+          <view class="picker">
+            {{genderArray[form.gender].name || '请选择'}}
+          </view>
+        </picker>
+      </view>
+    </mp-cell>
+    <mp-cell ext-class="cellItem" title="年龄范围" link>
+      <view slot="footer">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" data-name="age" bindcolumnchange="bindMultiPickerColumnChange" value="{{ageMultiIndex}}" range="{{ageMultiArray}}" header-text="年龄范围">
           <view wx:if="{{form.minAge && form.maxAge}}">
             {{form.minAge+'-'+form.maxAge}}
           </view>
@@ -15,11 +29,9 @@
         </picker>
       </view>
     </mp-cell>
-    <mp-cell ext-class="cellItem" title="身高" link>
+    <mp-cell ext-class="cellItem" title="身高范围(cm)" link>
       <view slot="footer">
-        <picker mode="multiSelector" bindchange="bindHeightMultiPickerChange" data-name="height"
-          bindcolumnchange="bindHeightMultiPickerColumnChange" value="{{heightMultiIndex}}" range="{{heightMultiArray}}"
-          header-text="身高范围">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" data-name="height" bindcolumnchange="bindMultiPickerColumnChange" value="{{heightMultiIndex}}" range="{{heightMultiArray}}" header-text="身高范围">
           <view wx:if="{{form.minHeight && form.maxHeight}}">
             {{form.minHeight+'-'+form.maxHeight}}
           </view>
@@ -29,11 +41,75 @@
         </picker>
       </view>
     </mp-cell>
-    <mp-cell ext-class="cellItem" title="月收入" link>
+    <mp-cell ext-class="cellItem" title="体重要求(kg)" link>
       <view slot="footer">
-        <picker mode="multiSelector" bindchange="bindIncomeMultiPickerChange" data-name="income"
-          bindcolumnchange="bindIncomeMultiPickerColumnChange" value="{{incomeMultiIndex}}" range="{{incomeMultiArray}}"
-          header-text="月收入">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" data-name="weight" bindcolumnchange="bindMultiPickerColumnChange" value="{{weightMultiIndex}}" range="{{weightMultiArray}}" header-text="体重要求">
+          <view wx:if="{{form.minWeight && form.maxWeight}}">
+            {{form.minWeight+'-'+form.maxWeight}}
+          </view>
+          <view wx:if="{{!form.minWeight || !form.maxWeight}}">
+            请选择
+          </view>
+        </picker>
+      </view>
+    </mp-cell>
+    <mp-cell ext-class="cellItem" title="学历要求" link>
+      <view slot="footer">
+        <picker bindchange="changeForm" data-name="education" value="{{form.education}}" range="{{educationArr}}" header-text="学历选择">
+          <view class="picker">
+            {{educationArr[form.education] || '请选择'}}
+          </view>
+        </picker>
+      </view>
+    </mp-cell>
+    <mp-cell ext-class="cellItem" title="职业要求" link>
+      <view slot="footer">
+        <picker bindchange="changeForm" data-name="profession" value="{{form.profession}}" range="{{professionArr}}" header-text="职业要求">
+          <view class="picker">
+            {{professionArr[form.profession] || '请选择'}}
+          </view>
+        </picker>
+      </view>
+    </mp-cell>
+    <mp-cell ext-class="cellItem" title="婚史状况" link>
+      <view slot="footer">
+        <picker bindchange="changeForm" data-name="marriage" value="{{form.marriage}}" range="{{marriageArr}}" header-text="婚姻状况选择">
+          <view class="picker">
+            {{marriageArr[form.marriage] || '请选择'}}
+          </view>
+        </picker>
+      </view>
+    </mp-cell>
+    <mp-cell ext-class="cellItem" title="子女情况" link>
+      <view slot="footer">
+        <picker bindchange="changeForm" data-name="hadChild" value="{{form.hadChild}}" range="{{zoHadChildArr}}" header-text="子女情况">
+          <view class="picker">
+            {{zoHadChildArr[form.hadChild] || '请选择'}}
+          </view>
+        </picker>
+      </view>
+    </mp-cell>
+    <mp-cell ext-class="cellItem" title="身体情况" link>
+      <view slot="footer">
+        <picker bindchange="changeForm" data-name="bodyStatus" value="{{form.bodyStatus}}" range="{{zoBodyStatusArr}}" header-text="身体情况">
+          <view class="picker">
+            {{zoBodyStatusArr[form.bodyStatus] || '请选择'}}
+          </view>
+        </picker>
+      </view>
+    </mp-cell>
+    <mp-cell ext-class="cellItem" title="是否接受家人同居" link>
+      <view slot="footer">
+        <picker bindchange="changeForm" data-name="acceptFamilyCohabitation" value="{{form.acceptFamilyCohabitation}}" range="{{zoAcceptFamilyCohabitationArr}}" header-text="是否接受家人同居">
+          <view class="picker">
+            {{zoAcceptFamilyCohabitationArr[form.acceptFamilyCohabitation] || '请选择'}}
+          </view>
+        </picker>
+      </view>
+    </mp-cell>
+    <mp-cell ext-class="cellItem" title="月收入情况" link>
+      <view slot="footer">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" data-name="income" bindcolumnchange="bindMultiPickerColumnChange" value="{{incomeMultiIndex}}" range="{{incomeMultiArray}}" header-text="月收入情况">
           <view wx:if="{{form.incomeMin && form.incomeMax}}">
             {{form.incomeMin+'-'+form.incomeMax}}
           </view>
@@ -43,94 +119,29 @@
         </picker>
       </view>
     </mp-cell>
-    <mp-cell ext-class="cellItem" title="学历" link>
+    <mp-cell ext-class="cellItem" title="购车情况" link>
       <view slot="footer">
-        <picker bindchange="changeForm" data-name="education" value="{{form.education}}" range="{{educationArr}}"
-          header-text="学历选择">
+        <picker bindchange="changeForm" data-name="carStatus" value="{{form.carStatus}}" range="{{carStatusArr}}" header-text="购车情况">
           <view class="picker">
-            {{educationArr[form.education] || '请选择'}}
+            {{carStatusArr[form.carStatus]|| '请选择'}}
           </view>
         </picker>
       </view>
     </mp-cell>
-    <mp-cell ext-class="cellItem" title="婚姻状况" link>
+    <mp-cell ext-class="cellItem" title="住房要求" link>
       <view slot="footer">
-        <picker bindchange="changeForm" data-name="marriage" value="{{form.marriage}}" range="{{marriageArr}}"
-          header-text="婚姻状况选择">
+        <picker bindchange="changeForm" data-name="houseStatus" value="{{form.houseStatus}}" range="{{houseStatusArr}}" header-text="住房要求">
           <view class="picker">
-            {{marriageArr[form.marriage] || '请选择'}}
+            {{houseStatusArr[form.houseStatus]|| '请选择'}}
           </view>
         </picker>
       </view>
     </mp-cell>
-    <mp-cell ext-class="cellItem" title="体型" link>
+    <mp-cell ext-class="cellItem" title="工作地区要求" link>
       <view slot="footer">
-        <view wx:if="{{form.gender==1}}">
-          <picker bindchange="changeForm" data-name="bodyShape" value="{{form.bodyShape}}" range="{{manbodyShapeArr}}"
-            header-text="体型">
-            <view class="picker">
-              {{manbodyShapeArr[form.bodyShape]|| '请选择'}}
-            </view>
-          </picker>
-        </view>
-        <view wx:if="{{form.gender==0}}">
-          <picker bindchange="changeForm" data-name="bodyShape" value="{{form.bodyShape}}" range="{{girlbodyShapeArr}}"
-            header-text="体型">
-            <view class="picker">
-              {{girlbodyShapeArr[form.bodyShape]|| '请选择'}}
-            </view>
-          </picker>
-        </view>
-      </view>
-    </mp-cell>
-    <mp-cell ext-class="cellItem" title="工作地区" link>
-      <view slot="footer">
-        <picker mode="region" bindchange="changeForm" data-name="region" value="{{form.region}}" header-text="地区选择">
-          <view wx:if="{{form.region}}">
-            {{form.region[0]}}，{{form.region[1]}}，{{form.region[2]}}
-          </view>
-          <view wx:if="{{!form.region.length}}">
-            请选择
-          </view>
-        </picker>
-      </view>
-    </mp-cell>
-    <mp-cell ext-class="cellItem" title="有没有小孩" link>
-      <view slot="footer">
-        <picker bindchange="changeForm" data-name="hadChild" value="{{form.hadChild}}" range="{{hadChildArr}}"
-          header-text="有无小孩">
+        <picker bindchange="changeForm" data-name="region" range-key="name" value="{{form.region}}" range="{{provinces}}" header-text="工作地区要求">
           <view class="picker">
-            {{hadChildArr[form.hadChild] || '请选择'}}
-          </view>
-        </picker>
-      </view>
-    </mp-cell>
-    <mp-cell ext-class="cellItem" title="是否想要孩子" link>
-      <view slot="footer">
-        <picker bindchange="changeForm" data-name="wantChild" value="{{form.wantChild}}" range="{{wantChildArr}}"
-          header-text="有无小孩">
-          <view class="picker">
-            {{wantChildArr[form.wantChild] || '请选择'}}
-          </view>
-        </picker>
-      </view>
-    </mp-cell>
-    <mp-cell ext-class="cellItem" title="是否吸烟" link>
-      <view slot="footer">
-        <picker bindchange="changeForm" data-name="smoke" value="{{form.smoke}}" range="{{smokeArr}}"
-          header-text="是否吸烟">
-          <view class="picker">
-            {{smokeArr[form.smoke]|| '请选择'}}
-          </view>
-        </picker>
-      </view>
-    </mp-cell>
-    <mp-cell ext-class="cellItem" title="是否喝酒" link>
-      <view slot="footer">
-        <picker bindchange="changeForm" data-name="drink" value="{{form.drink}}" range="{{drinkArr}}"
-          header-text="是否吸烟">
-          <view class="picker">
-            {{drinkArr[form.drink]|| '请选择'}}
+            {{form.region|| '请选择'}}
           </view>
         </picker>
       </view>
