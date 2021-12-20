@@ -254,4 +254,8 @@ Page({
       })
     })
   },
+
+  onShareAppMessage () {
+
+  }
 })

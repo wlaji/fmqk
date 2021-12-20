@@ -310,4 +310,7 @@ Page({
       })
     })
   },
+  onShareAppMessage () {
+
+  }
 })

@@ -140,5 +140,8 @@ Page({
                 })
             }
         })
+    },
+    onShareAppMessage () {
+
     }
 })

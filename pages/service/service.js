@@ -172,4 +172,7 @@ Page({
             duration: 100,
         })
     },
+    onShareAppMessage () {
+
+    }
 })

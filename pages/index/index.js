@@ -185,5 +185,9 @@ Page({
       //停止下拉刷新
       wx.stopPullDownRefresh();
     }, 1000)
+  },
+
+  onShareAppMessage () {
+
   }
 })

@@ -134,4 +134,8 @@ Page({
           url: '/pages/index/index',
         })
     },
+
+    onShareAppMessage () {
+
+    }
 })

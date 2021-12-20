@@ -78,5 +78,8 @@ Page({
         wx.navigateTo({
             url: '/pages/member/member',
         })
+    },
+    onShareAppMessage () {
+
     }
 })

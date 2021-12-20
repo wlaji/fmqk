@@ -86,5 +86,8 @@ Page({
       });
       this.getUserInfo()
     })
+  },
+  onShareAppMessage () {
+
   }
 })
